@@ -19,37 +19,46 @@ int findNextJob(const vector<Job>& jobs, int currentIndex) {
     return -1; // Return -1 if no compatible job is found
 }
 
-// Recursive function to find the maximum profit
-int findMaxProfit(const vector<Job>& jobs, int currentIndex) {
+// Recursive function with memoization to find the maximum profit
+int findMaxProfit(const vector<Job>& jobs, int currentIndex, vector<int>& memo) {
     // Base case: No jobs left
     if (currentIndex >= jobs.size()) {
         return 0;
     }
 
+    // Check if we have already computed the maximum profit for this job index
+    if (memo[currentIndex] != -1) {
+        return memo[currentIndex]; // Return the cached result
+    }
+
     // Exclude current job and move to the next
-    int excludeProfit = findMaxProfit(jobs, currentIndex + 1);
+    int excludeProfit = findMaxProfit(jobs, currentIndex + 1, memo);
 
     // Include current job and find next compatible job
     int includeProfit = jobs[currentIndex].profit; // Start with current job's profit
     int nextJobIndex = findNextJob(jobs, currentIndex); // Find the next job
 
     if (nextJobIndex != -1) {
-        includeProfit += findMaxProfit(jobs, nextJobIndex); // Add profit of next job
+        includeProfit += findMaxProfit(jobs, nextJobIndex, memo); // Add profit of next job
     }
 
-    // Return the maximum of including or excluding the current job
-    return max(includeProfit, excludeProfit);
+    // Store the maximum profit for the current job index in memoization array
+    return memo[currentIndex] = max(includeProfit, excludeProfit);
+   
 }
 
-// Wrapper function to sort jobs and initiate the recursive call
+// Wrapper function to sort jobs and initiate the recursive call with memoization
 int jobScheduling(vector<Job>& jobs) {
     // Sort jobs based on finish time
     sort(jobs.begin(), jobs.end(), [](const Job &a, const Job &b) {
         return a.finish < b.finish;
     });
 
+    // Create a memoization array initialized to -1
+    vector<int> memo(jobs.size(), -1);
+
     // Start recursive profit calculation from the first job
-    return findMaxProfit(jobs, 0);
+    return findMaxProfit(jobs, 0, memo);
 }
 
 // Main function
