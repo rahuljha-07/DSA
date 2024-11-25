@@ -45,3 +45,34 @@ Node* addOne(Node *head) {
     head = reverse(head);  // Step 2: Reverse the list back to original order
     return head;  // Return the modified list
 }
+
+//using recursion
+
+// Recursive function to add +1 to the linked list
+int addOneUtil(Node* head) {
+    // Base case: If the list is empty, return carry as 1
+    if (head == nullptr)
+        return 1;
+
+    // Recur for the next node
+    int carry = addOneUtil(head->next);
+
+    // Add carry to the current node's data
+    int sum = head->data + carry;
+    head->data = sum % 10; // Update the current node's data
+    return sum / 10;       // Return carry for the previous node
+}
+
+// Function to add +1 to the linked list
+Node* addOne(Node* head) {
+    // Add one to the list and get the final carry
+    int carry = addOneUtil(head);
+
+    // If there's a carry remaining, add a new node at the beginning
+    if (carry) {
+        Node* newHead = new Node(carry);
+        newHead->next = head;
+        head = newHead;
+    }
+    return head;
+}
