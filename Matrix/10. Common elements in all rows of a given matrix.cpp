@@ -2,6 +2,43 @@
 #include <vector>
 #include <unordered_map>
 using namespace std;
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+vector<int> commonElements(vector<vector<int>>& matrix) {
+    vector<int> result;
+    if (matrix.empty()) return result; // Return if the matrix is empty
+
+    unordered_map<int, int> elementCount; // Map to store the count of each element
+    int n = matrix.size(); // Number of rows
+
+    // Initialize the map with elements from the first row
+    for (int num : matrix[0]) {
+        elementCount[num] = 1; // Set count to 1 for elements in the first row
+    }
+
+    // Iterate through the remaining rows
+    for (int i = 1; i < n; i++) {
+        for (int num : matrix[i]) {
+            // Check if the element exists in the map and its count matches the current row index
+            if (elementCount[num] == i) {
+                elementCount[num]++; // Increment count for this row
+            }
+        }
+    }
+
+    // Collect elements that appear in all rows
+    for (const auto& entry : elementCount) {
+        if (entry.second == n) { // If the count equals the number of rows
+            result.push_back(entry.first); // Add to the result
+        }
+    }
+
+    return result; // Return the list of common elements
+}
+
+
 
 vector<int> commonElements(vector<vector<int>>& matrix) { // using map
     vector<int> result;

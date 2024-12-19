@@ -11,9 +11,8 @@ void printSortedMatrix(vector<vector<int>>& matrix) { // using tuple
 
     // Push the first element of each row into the min-heap
     for (int i = 0; i < n; i++) {
-        if (m > 0) { // Check if the row is not empty
-            minHeap.push(make_tuple(matrix[i][0], i, 0)); // Push value, row index, column index
-        }
+         minHeap.push(make_tuple(matrix[i][0], i, 0)); // Push value, row index, column index
+
     }
 
     // Process the min-heap
