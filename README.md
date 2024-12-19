@@ -1,5 +1,3 @@
-Here’s an even more concise version of the `README.md`:
-
 ---
 
 # **DSA Practice Repository**
@@ -22,24 +20,3 @@ This repository contains solutions to a wide range of Data Structures and Algori
 - **String**
 
 ---
-
-### **Usage**
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   ```
-2. Navigate to a topic folder and open the desired file.
-3. Compile and run:
-   ```bash
-   g++ filename.cpp -o output
-   ./output
-   ```
-
----
-
-### **Contributing**
-Contributions are welcome! Submit your changes via pull requests.
-
----
-
-Let me know if further refinements are needed.
