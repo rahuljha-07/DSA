@@ -1,5 +1,3 @@
----
-
 # **DSA Practice Repository**
 
 ### **Overview**

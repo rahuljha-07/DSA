@@ -7,7 +7,7 @@ using namespace std;
 void solve(string input, string output, vector<string>& ans) {
     // Base case: If the input string is empty, store the output substring
     if (input.length() == 0) {
-        ans.push_back(output); // Store the current substring in the vector
+        if (output.length() > 0) ans.push_back(output); // Store the current substring in the vector
         return;
     } 
 

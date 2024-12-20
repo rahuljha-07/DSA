@@ -35,36 +35,30 @@ vector<string> find_permutation(string s) {
 }
 
 //using ip op method
-void permute(string ip, string op, vector<string>& v) {
-    // Base case: If input string is empty, add the current permutation to the result
-    if (ip.size() == 0) {
-        v.push_back(op); // Store the generated permutation
+// Function to generate permutations
+void solve(string input, string output, vector<string>& ans) {
+    // Base case: If the input string is empty, store the permutation
+    if (input.length() == 0) {
+        ans.push_back(output); // Store the current permutation in the vector
         return;
     }
 
-    // Using an unordered set to keep track of characters already included at this level
-    unordered_set<char> mp; // Set to store characters that have been used in this recursive call
-    for (int i = 0; i < ip.size(); i++) {
-        // Check if the character is already used in this position
-        if (mp.find(ip[i]) == mp.end()) {
-            mp.insert(ip[i]); // Mark the character as used
-            // Create a new input string by removing the current character
-            string newip = ip.substr(0, i) + ip.substr(i + 1);
-            // Create a new output string by adding the current character
-            string newop = op + ip[i];
-            // Recur with the new input and output strings
-            permute(newip, newop, v);
-        }
+    // Generate permutations by choosing each character as the next one
+    for (int i = 0; i < input.length(); i++) {
+        // Form a new input string excluding the current character
+        string remaining = input.substr(0, i) + input.substr(i + 1);
+        // Include the current character in the output
+        solve(remaining, output + input[i], ans);
     }
 }
 
 // Function to find all unique permutations of a given string
 vector<string> find_permutation(string S) {
     // Initialize a vector to store the permutations
-    vector<string> v; 
+    vector<string> ans; 
     // Call the permute function to generate permutations
-    permute(S, "", v);
-    return v; // Return the vector containing all unique permutations
+     solve(s, "", ans);
+    return ans; // Return the vector containing all unique permutations
 }
 
 // Example usage

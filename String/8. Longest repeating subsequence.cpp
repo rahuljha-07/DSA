@@ -1,13 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
-
-
-#include <iostream>
-#include <string>
-#include <vector>
-#include <cstring> // For memset
+#include <cstring>
 using namespace std;
 
 //recursion + memorization[bottom up approach]
@@ -22,9 +16,7 @@ int LRSUtil(const string& str, int i, int j) {
     }
 
     // If the result has already been computed, return it
-    if (t[i][j] != -1) {
-        return t[i][j];
-    }
+    if (t[i][j] != -1)  return t[i][j];
 
     // If characters match and are not at the same index
     if (str[i - 1] == str[j - 1] && i != j) {

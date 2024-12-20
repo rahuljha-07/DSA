@@ -1,6 +1,54 @@
 #include <bits/stdc++.h>
 using namespace std;
+//recursion
+// Directions for 8 possible moves: left, right, up, down, and 4 diagonals
+int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1}; // row deltas
+int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1}; // column deltas
 
+// Helper function to check if the word exists starting at (x, y) in direction (dx, dy)
+bool searchInDirection(const vector<vector<char>>& grid, const string& word, int x, int y, int dir) {
+    int n = grid.size();
+    int m = grid[0].size();
+    int k = word.size();
+
+    for (int i = 0; i < k; i++) {
+        int newX = x + i * dx[dir];
+        int newY = y + i * dy[dir];
+
+        // Out of bounds or character mismatch
+        if (newX < 0 || newY < 0 || newX >= n || newY >= m || grid[newX][newY] != word[i]) {
+            return false;
+        }
+    }
+    return true; // Word matched in this direction
+}
+
+// Main function to search for the word in the grid
+vector<pair<int, int>> searchWord(const vector<vector<char>>& grid, const string& word) {
+    int n = grid.size();
+    int m = grid[0].size();
+    vector<pair<int, int>> result;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            // Start searching if the first character matches
+            if (grid[i][j] == word[0]) {
+                for (int dir = 0; dir < 8; dir++) {
+                    if (searchInDirection(grid, word, i, j, dir)) {
+                        result.emplace_back(i, j);
+                        break; // Avoid duplicates from different directions
+                    }
+                }
+            }
+        }
+    }
+
+    // Sort result to ensure lexicographical order
+    sort(result.begin(), result.end());
+    return result;
+}
+
+//KMP
 // Function to build the prefix table for KMP algorithm
 vector<int> buildPrefixTable(const string& pattern) {
     int m = pattern.size();

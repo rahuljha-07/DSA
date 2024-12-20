@@ -39,10 +39,12 @@ int transform(string A, string B) {
     // Calculate LCS length
     int lcsLength = lcs(A.length(), B.length(), A, B);
     
-    // Number of insertions needed to transform A into B
-    int numInsertions = B.length() - lcsLength;
+    // bascially we will delete char from A to make LCS and add remaining char from B to make B
     // Number of deletions needed to transform A into B
     int numDeletions = A.length() - lcsLength;
+    // Number of insertions needed to transform A into B
+    int numInsertions = B.length() - lcsLength;
+
 
     // Return total number of operations (insertions + deletions)
     return numInsertions + numDeletions;

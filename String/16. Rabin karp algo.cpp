@@ -11,14 +11,14 @@ vector<int> rabinKarp(string text, string pattern) {
 
     int patternHash = 0;  // Hash value for the pattern
     int windowHash = 0;   // Hash value for the current window in the text
-    int h = 1;            // The value of base^(m-1) % prime
+    // int h = 1;            // The value of base^(m-1) % prime
 
     // Result vector to store the starting indices of matched patterns
     vector<int> result;
 
     // Pre-compute base^(m-1) % prime
-    for (int i = 0; i < m - 1; i++)
-        h = (h * base) % prime;
+    // for (int i = 0; i < m - 1; i++)
+    //     h = (h * base) % prime;
 
     // Compute the hash value of the pattern and the first window of the text
     for (int i = 0; i < m; i++) {

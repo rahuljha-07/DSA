@@ -97,3 +97,55 @@ int main() {
 
     return 0;
 }
+
+
+// recursive
+// Directions for moving in the matrix
+int dx[] = {0, 0, -1, 1}; // left, right, up, down
+int dy[] = {-1, 1, 0, 0};
+
+// Helper function for recursive search
+int searchFromCell(const vector<vector<char>>& grid, const string& pattern, int x, int y, int index) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+
+    // Base cases
+    if (index == pattern.size()) return 1; // Found the pattern
+    if (x < 0 || y < 0 || x >= rows || y >= cols || grid[x][y] != pattern[index]) return 0;
+
+    // Mark the current cell as visited to prevent revisiting
+    char temp = grid[x][y];
+    grid[x][y] = '#'; // Temporarily mark as visited
+
+    int count = 0;
+    // Explore all 4 directions
+    for (int dir = 0; dir < 4; dir++) {
+        int newX = x + dx[dir];
+        int newY = y + dy[dir];
+        count += searchFromCell(grid, pattern, newX, newY, index + 1);
+    }
+
+    // Restore the original value of the cell
+    grid[x][y] = temp;
+
+    return count;
+}
+
+// Main function to count pattern occurrences in the grid
+int countOccurrencesInGrid(const vector<vector<char>>& grid, const string& pattern) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+    int totalCount = 0;
+
+    // Iterate through every cell in the matrix
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            // Start recursion if the first character matches
+            if (grid[i][j] == pattern[0]) {
+                totalCount += searchFromCell(grid, pattern, i, j, 0);
+            }
+        }
+    }
+
+    return totalCount;
+}

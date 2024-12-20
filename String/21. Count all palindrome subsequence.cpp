@@ -10,9 +10,7 @@ int countPalindromicSubsequences(const string& str, int start, int end) {
     string key = to_string(start) + "_" + to_string(end);
     
     // Check if the result is already memoized
-    if (memo.find(key) != memo.end()) {
-        return memo[key];
-    }
+    if (memo.find(key) != memo.end()) return memo[key];
 
     // Base case: if the substring is empty
     if (start > end) {

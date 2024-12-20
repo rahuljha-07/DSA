@@ -40,8 +40,8 @@ int lcs(int n, int m, const string &str1, const string &str2) {
     vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
 
     // Build the DP table iteratively
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
             // If characters match, add 1 to the result from previous indices
             if (str1[i - 1] == str2[j - 1]) {
                 dp[i][j] = 1 + dp[i - 1][j - 1];

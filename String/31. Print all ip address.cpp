@@ -23,7 +23,7 @@ void restoreIpAddresses(const string &s, int start, int part, string currentIP, 
     if (part == 4 || start == s.size()) return;
 
     // Try each segment length (1 to 3 digits)
-    for (int len = 1; len <= 3 && start + len <= s.size(); ++len) {
+    for (int len = 1; len <= 3 && start + len <= s.size(); len++) {
         string segment = s.substr(start, len);
 
         if (isValidSegment(segment)) {
