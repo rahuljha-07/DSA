@@ -11,7 +11,7 @@ struct Job {
 
 // Function to find the next job that can be scheduled after the current job
 int findNextJob(const vector<Job>& jobs, int currentIndex) {
-    for (int j = currentIndex + 1; j < jobs.size(); ++j) {
+    for (int j = currentIndex + 1; j < jobs.size(); j++) {
         if (jobs[j].start >= jobs[currentIndex].finish) {
             return j; // Return the index of the next job that can be included
         }

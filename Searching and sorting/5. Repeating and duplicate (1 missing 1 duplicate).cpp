@@ -1,6 +1,6 @@
 #include <vector>
 #include <algorithm> 
-using namespace std
+using namespace std;
 
 vector<int> findTwoElement(vector<int> arr, int n) {
     // Create a vector to hold the result

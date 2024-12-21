@@ -1,7 +1,8 @@
 // same as median of 2 sorted array
 // this also works for same size
-#include <vector>
-#include <algorithm>
+#include "vector"
+#include "math"
+#include "algorithm"
 #include <climits>
 using namespace std;
 
@@ -12,8 +13,9 @@ int kthsmallest(vector<int>& a, vector<int>& b) {
     // Ensure that `a` is the smaller array to minimize binary search range
     if (n1 > n2) return kthsmallest(b, a);
 
-    int low = max(k-n2, 0); // We can't take more than k from b, so we adjust accordingly.
     int high = min(k, n1);  // We can't take more than n1 from a.
+    int low = max(0, k-n2); // We can't take more than k from b, so we adjust accordingly.
+    
 
     int left = k;
     int n = n1 + n2;

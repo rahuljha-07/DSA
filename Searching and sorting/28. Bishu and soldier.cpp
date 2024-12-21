@@ -1,5 +1,5 @@
 #include <iostream>
-#include <algorithm> // For std::sort and std::upper_bound
+#include <algorithm>
 #include <vector>
 
 using namespace std;

@@ -1,6 +1,6 @@
 #include <vector>
 #include <iostream>
-using namespace std
+using namespace std;
 
 int searchInStepArray(const vector<int>& arr, int k, int x) {
     int n = arr.size();

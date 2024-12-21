@@ -1,8 +1,9 @@
 #include <iostream>
 #include <vector>
+using namespace std;
 
 // code uses logic of dutch national flag
-void threeWayPartition(std::vector<int>& arr, int pivot) {
+void threeWayPartition(vector<int>& arr, int pivot) {
     int low = 0; // Pointer for the next position of elements less than pivot
     int mid = 0; // Pointer for the current element being checked
     int high = arr.size() - 1; // Pointer for the next position of elements greater than pivot
@@ -11,12 +12,12 @@ void threeWayPartition(std::vector<int>& arr, int pivot) {
     while (mid <= high) {
         if (arr[mid] < pivot) {
             // Swap arr[low] and arr[mid], increment both low and mid
-            std::swap(arr[low], arr[mid]);
+            swap(arr[low], arr[mid]);
             low++;
             mid++;
         } else if (arr[mid] > pivot) {
             // Swap arr[mid] and arr[high], decrement high
-            std::swap(arr[mid], arr[high]);
+            swap(arr[mid], arr[high]);
             high--;
         } else { // arr[mid] == pivot
             // Just increment mid
@@ -26,16 +27,16 @@ void threeWayPartition(std::vector<int>& arr, int pivot) {
 }
 
 int main() {
-    std::vector<int> arr = {3, 5, 2, 3, 7, 3, 1, 4};
+    vector<int> arr = {3, 5, 2, 3, 7, 3, 1, 4};
     int pivot = 3;
 
     threeWayPartition(arr, pivot);
 
     // Output the sorted and partitioned array
     for (int i : arr) {
-        std::cout << i << " ";
+        cout << i << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 
     return 0;
 }

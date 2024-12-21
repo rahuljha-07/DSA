@@ -5,9 +5,9 @@ using namespace std;
 int countSquares(int n) {
     int count = 0;  // Initialize count of squares to 0
 
-    // Loop through numbers starting from 1, check if their square is less than 'n'
-    for (int i = 1; i * i < n; i++) {
-        count++;  // Increment count if i*i is less than n
+    // Loop through numbers starting from 1
+    for (int i = 1; i < n; i = i * i) {
+        count++;  // Increment count for each perfect square found
     }
     
     return count;  // Return the final count of perfect squares

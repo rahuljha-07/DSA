@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+using namespace std;
 
 // Function to count the number of set bits in an integer
 int countSetBits(int n) {
@@ -21,21 +22,21 @@ bool compare(int a, int b) {
 }
 
 // Function to sort the array by set bit count
-void sortBySetBitCount(std::vector<int>& arr) {
-    std::sort(arr.begin(), arr.end(), compare);
+void sortBySetBitCount(vector<int>& arr) {
+    sort(arr.begin(), arr.end(), compare);
 }
 
 int main() {
-    std::vector<int> arr = {5, 2, 3, 9, 4, 6, 7, 15, 32};
+    vector<int> arr = {5, 2, 3, 9, 4, 6, 7, 15, 32};
     
     // Sort the array by set bit count
     sortBySetBitCount(arr);
     
     // Print the sorted array
     for (int num : arr) {
-        std::cout << num << " ";
+        cout << num << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 
     return 0;
 }

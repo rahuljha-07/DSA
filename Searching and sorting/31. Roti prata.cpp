@@ -1,3 +1,6 @@
+#include <vector>
+using namespace std;
+
 // Function to determine if it's possible to make 'par' parathas within 'timeLimit'
 int canMakeParathas(const vector<int>& cookingTimes, int par, int timeLimit) {
     int totalParathas = 0; // Count of total parathas made
