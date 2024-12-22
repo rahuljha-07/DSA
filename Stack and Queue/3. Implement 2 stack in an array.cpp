@@ -9,7 +9,7 @@ private:
     vector<int> arr; // Vector to hold stack elements
     int top1;        // Index for Stack 1 (front)
     int top2;        // Index for Stack 2 (back)
-    static const int NULL_VALUE = std::numeric_limits<int>::min(); // A value to indicate a "null" or empty slot
+    static const int NULL_VALUE = numeric_limits<int>::min(); // A value to indicate a "null" or empty slot
 
 public:
     // Constructor to initialize the two stacks

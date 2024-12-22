@@ -84,8 +84,6 @@ string infixToPrefix(const string &infix) {
     // Get the postfix expression of the modified reversed infix
     string postfix = infixToPostfix(reversedInfix);
 
-    // Reverse the postfix expression to get the prefix expression
-    string prefix;
     reverse(postfix.begin(), postfix.end());
     return postfix; // Return the resulting prefix expression
 }

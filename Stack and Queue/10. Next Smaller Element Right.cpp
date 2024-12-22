@@ -18,7 +18,7 @@ vector<long long> nextSmallerElement(vector<long long> arr, int n) {
             v.push_back(-1); // No smaller element found, push -1 to result
         }
         // If the stack is not empty and the top element is smaller than arr[i]
-        else if (st.top() < arr[i]) {
+        else if (st.size() > 0 && st.top() < arr[i]) {
             v.push_back(st.top()); // Top element is the next smaller, push it to result
         }
         // If the stack is not empty and the top element is not smaller than arr[i]

@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 
+// Function to calculate the minimized value of the string
 int minValue(string s, int k) {
     int ans = 0; // Variable to store the final minimized value
     unordered_map<char, int> m; // Map to store the frequency of each character
@@ -20,11 +21,13 @@ int minValue(string s, int k) {
     }
 
     // Step 3: Reduce the frequency of the most frequent characters k times
-    while (k--) {
+    while (k-- && !q.empty()) {
         int temp = q.top(); // Get the highest frequency
         q.pop(); // Remove it from the heap
-        temp--; // Reduce this frequency by 1
-        q.push(temp); // Push the updated frequency back to the heap
+        if (temp > 1) {
+            temp--; // Reduce this frequency by 1
+            q.push(temp); // Push the updated frequency back to the heap if > 0
+        }
     }
 
     // Step 4: Calculate the minimized value as the sum of squares of all remaining frequencies
