@@ -35,11 +35,11 @@ vector<string> getFirstNonRepeatingCharactersInStream(char stream[], int n) {
             }
         }
 
-        // Add the first non-repeating character to the result vector or "-1" if none
+        // Add the first non-repeating character to the result vector or "#" if none
         if (q.empty()) {
-            result.push_back("-1"); // No non-repeating character
+            result.push_back("#"); // No non-repeating character
         } else {
-            result.push_back(string(1, q.front())); // Convert char to string
+            result.push_back(to_string(q.front())); // Convert char to string
         }
     }
 

@@ -60,7 +60,7 @@ Node* multiplyTwoLists(Node* L1, Node* L2) {
     L1 = reverse(L1);
     L2 = reverse(L2);
     
-    Node *result = nullptr, *tail = nullptr;
+    Node *result = nullptr;
     int carry = 0;
     
     // Multiply digit by digit
@@ -90,6 +90,67 @@ Node* multiplyTwoLists(Node* L1, Node* L2) {
     // Reverse the final result to get the correct order
     result = reverse(temp);
     return result;
+}
+
+// Add two linked lists
+Node* addTwoLists(Node* l1, Node* l2) {
+    Node* dummy = new Node(0);
+    Node* current = dummy;
+    int carry = 0;
+
+    while (l1 || l2 || carry) {
+        int sum = carry + (l1 ? l1->data : 0) + (l2 ? l2->data : 0);
+        carry = sum / 10;
+        current->next = new Node(sum % 10);
+        current = current->next;
+        if (l1) l1 = l1->next;
+        if (l2) l2 = l2->next;
+    }
+
+    return dummy->next;
+}
+
+// Multiply two linked lists
+Node* multiplyTwoLists(Node* L1, Node* L2) {
+    L1 = reverse(L1);
+    L2 = reverse(L2);
+
+    Node* result = nullptr;
+    Node* p = L1;
+    int zeroPadding = 0;
+
+    while (p) {
+        Node* temp = nullptr;
+        Node* q = L2;
+        int carry = 0;
+
+        for (int i = 0; i < zeroPadding; i++) {
+            Node* newNode = new Node(0);
+            newNode->next = temp;
+            temp = newNode;
+        }
+
+        while (q) {
+            int product = p->data * q->data + carry;
+            carry = product / 10;
+            Node* newNode = new Node(product % 10);
+            newNode->next = temp;
+            temp = newNode;
+            q = q->next;
+        }
+
+        if (carry) {
+            Node* newNode = new Node(carry);
+            newNode->next = temp;
+            temp = newNode;
+        }
+
+        result = addTwoLists(result, temp);
+        zeroPadding++;
+        p = p->next;
+    }
+
+    return reverse(result);
 }
 
 // Function to print the linked list
