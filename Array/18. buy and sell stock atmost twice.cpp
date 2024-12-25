@@ -10,8 +10,7 @@ int maxProfit(vector<int> price, int n){
     // buying and selling, doing 1st tranction from front and also updating arrayS
     for (int i = 1; i < n; i++) {
         if (price[i] < min_price) min_price = price[i];
-        profit[i] = max(profit[i - 1],
-        profit[i] + (price[i] - min_price));
+        profit[i] = max(profit[i - 1], profit[i] + (price[i] - min_price));
     }
     return profit[n-1];
 }    

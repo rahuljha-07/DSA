@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <algorithm> // For the min function
 using namespace std;
@@ -15,20 +16,19 @@ int minFlipsToAlternating(string s) {
     int countFlipsToPattern1 = 0; // Flips needed for the pattern "010101..."
     int countFlipsToPattern2 = 0; // Flips needed for the pattern "101010..."
 
-    // Iterate through the string to count flips needed for both patterns
     for (int i = 0; i < s.length(); i++) {
-        // Check against the first pattern
-        if (i % 2 == 0) { // Even index
-            if (s[i] == '1') countFlipsToPattern1++; // Expecting '0'
-        } else { // Odd index
-            if (s[i] == '0') countFlipsToPattern1++; // Expecting '1'
-        }
-
-        // Check against the second pattern
-        if (i % 2 == 0) { // Even index
-            if (s[i] == '0') countFlipsToPattern2++; // Expecting '1'
-        } else { // Odd index
-            if (s[i] == '1') countFlipsToPattern2++; // Expecting '0'
+        if (i % 2 == 0) { // Checking for even index
+            if (s[i] == '1') { 
+                countFlipsToPattern1++; // Pattern 1 needs to increment for '1' at even
+            } else { 
+                countFlipsToPattern2++; // Pattern 2 needs to increment for '0' at even
+            }
+        } else { // i % 2 != 0, checking for odd index
+            if (s[i] == '0') { 
+                countFlipsToPattern1++; // Pattern 1 needs to increment for '0' at odd
+            } else { 
+                countFlipsToPattern2++; // Pattern 2 needs to increment for '1' at odd
+            }
         }
     }
 

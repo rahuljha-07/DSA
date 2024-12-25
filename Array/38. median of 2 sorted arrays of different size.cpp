@@ -35,7 +35,7 @@ double median(vector<int>& a, vector<int>& b) {
         }
         // Adjust search range based on partition conditions
         else if (l1 > r2) {
-            high = mid1 - 1; // Move left in `a`
+            high = mid1 - 1; // Move left in `a` 
         } else {
             low = mid1 + 1;  // Move right in `a`
         }

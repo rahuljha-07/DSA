@@ -39,9 +39,10 @@ int solveWordWrap(vector<int> wordLengths, int lineWidth) {
     return minCostHelper(1, wordLengths[0], wordLengths, lineWidth);
 }
 
-// Wrapper function for reading input and calling the solveWordWrap function
-void solve() {
-    int wordCount;
+
+// Main function
+int main() {
+     int wordCount;
     cin >> wordCount;
     vector<int> wordLengths(wordCount);
     for (int i = 0; i < wordCount; i++) {
@@ -51,23 +52,5 @@ void solve() {
     cin >> lineWidth;
     
     cout << solveWordWrap(wordLengths, lineWidth) << endl;
-}
-
-// Main function
-int main() {
-    #ifndef ONLINE_JUDGE
-        freopen("input.txt", "r", stdin);
-        freopen("output.txt", "w", stdout);
-    #endif
-    
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    
-    int testCases = 1;
-    // cin >> testCases;  // Uncomment if there are multiple test cases
-    while (testCases--) {
-        solve();
-    }
     return 0;
 }

@@ -43,42 +43,29 @@ void rearrangeInPlace(vector<int>& nums) {
 }
 
 //// O(1) space uneven +,- order  maintained
-// Function to rearrange positive and negative
-// integers in alternate fashion. The below
-// solution doesn't maintain original order of
-// elements
-void rearrange(int arr[], int n)
-{
-    int i = 0, j = n-1;
- 
-    // shift all negative values to the end
-    while (i < j) {
-        while (i <= n - 1 and arr[i] > 0)
-            i += 1;
-        while (j >= 0 and arr[j] < 0)
-            j -= 1;
-        if (i < j )
-            swap(arr[i], arr[j]);
-    }
- 
-    // i has index of leftmost
-    // negative element
-    if (i == 0 || i == n)
-        return;
- 
-    // start with first positive
-    // element at index 0
- 
-    // Rearrange array in alternating
-    // positive &
-    // negative items
-    int k = 0;
-    while (k < n && i < n ) {
-        // swap next positive
-        // element at even position
-        // from next negative element.
-        swap(arr[k], arr[i]);
-        i = i + 1;
-        k = k + 2;
+void rearrangeMaintainOrder(vector<int>& nums) {
+    int n = nums.size();
+    for (int i = 0; i < n; i++) {
+        if (i % 2 == 0) {
+            // Expect positive at even index
+            if (nums[i] < 0) {
+                // Find next positive element
+                int j = i + 1;
+                while (j < n && nums[j] < 0) j++;
+                if (j == n) break; // No more positive numbers left
+                // Rotate to bring the positive number to index i
+                rotate(nums.begin() + i, nums.begin() + j, nums.begin() + j + 1);
+            }
+        } else {
+            // Expect negative at odd index
+            if (nums[i] >= 0) {
+                // Find next negative element
+                int j = i + 1;
+                while (j < n && nums[j] >= 0) j++;
+                if (j == n) break; // No more negative numbers left
+                // Rotate to bring the negative number to index i
+                rotate(nums.begin() + i, nums.begin() + j, nums.begin() + j + 1);
+            }
+        }
     }
 }
