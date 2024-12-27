@@ -36,3 +36,38 @@ Node* compute(Node *head) {
     head = reverse(head);
     return head;
 }
+
+Node* deleteNodes(Node* head, int& maxi) {
+    // Base case: If the list is empty, return NULL
+    if (head == nullptr) {
+        maxi = INT_MIN; // Reset maxi when the list is empty
+        return nullptr;
+    }
+
+    // Base case: If we are at the last node, update maxi and return the node
+    if (head->next == nullptr) {
+        maxi = head->data;
+        return head; // Keep the last node
+    }
+
+    // Recursive call: Process the rest of the list
+    Node* newHead = deleteNodes(head->next, maxi);
+
+    // Check the current node against the updated maxi
+    if (head->data < maxi) {
+        // If the current node's value is smaller than maxi, delete it
+        delete head;
+        return newHead;
+    }
+
+    // Otherwise, keep the current node and update maxi
+    maxi = head->data;
+    head->next = newHead;
+    return head;
+}
+
+// Wrapper function
+Node* deleteNodes(Node* head) {
+    int maxi = INT_MIN;
+    return deleteNodes(head, maxi);
+}

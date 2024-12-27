@@ -1,19 +1,22 @@
-bool isCircular(Node *head)
-{
-   // If the list is empty, it's not circular
-   if(head == NULL) return false;  // Return false for empty list, as it's not circular
+bool isCircular(Node *head) {
+    // If the list is empty, it's not circular
+    if (head == NULL) return false;
 
-   // Initialize a temporary pointer to traverse the list
-   Node *temp = head;
+    // Initialize slow and fast pointers
+    Node *slow = head;
+    Node *fast = head;
 
-   // Traverse the list and check if any node's next points to the head
-   while (temp) {
-      if (temp->next == head) {  // If current node's next pointer is the head, it's circular
-         return true;
-      }
-      temp = temp->next;  // Move to the next node
-   }
+    // Traverse the list
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;            // Move slow pointer one step
+        fast = fast->next->next;      // Move fast pointer two steps
 
-   // If we reach the end of the list without finding a cycle, it's not circular
-   return false;
+        // If slow and fast meet, there's a cycle (circular list)
+        if (slow == fast) {
+            return true;
+        }
+    }
+
+    // If fast or fast->next becomes NULL, the list is not circular
+    return false;
 }
