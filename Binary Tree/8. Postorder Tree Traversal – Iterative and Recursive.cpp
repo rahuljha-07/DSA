@@ -25,21 +25,22 @@ void postorderRecursive(Node* root) {
     cout << root->data << " ";
 }
 
-// Iterative Postorder Traversal (using two stacks)
+// Iterative Postorder Traversal (using one stack and a vector)
 void postorderIterative(Node* root) {
     if (root == nullptr) {
         return;
     }
 
-    stack<Node*> st1, st2;
+    stack<Node*> st1;
+    vector<int> result; // To store the postorder traversal
     st1.push(root);
 
     while (!st1.empty()) {
         Node* current = st1.top();
         st1.pop();
-        st2.push(current);  // Push to second stack
+        result.push_back(current->data); // Store the node data in the vector
 
-        // Push left and right children to the first stack
+        // Push left and right children to the stack
         if (current->left) {
             st1.push(current->left);
         }
@@ -48,12 +49,15 @@ void postorderIterative(Node* root) {
         }
     }
 
-    // Now pop all elements from the second stack and print them
-    while (!st2.empty()) {
-        cout << st2.top()->data << " ";
-        st2.pop();
+    // Reverse the vector to get the correct postorder sequence
+    reverse(result.begin(), result.end());
+
+    // Print the postorder traversal
+    for (int data : result) {
+        cout << data << " ";
     }
 }
+
 
 
 int main() {

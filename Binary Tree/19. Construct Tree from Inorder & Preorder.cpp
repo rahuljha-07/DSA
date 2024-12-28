@@ -40,4 +40,4 @@ Node* buildTree(const vector<int>& inorder, const vector<int>& preorder, int n) 
     return buildTreeFromPreorderInorder(inorder, preorder, 0, n - 1, inorderMap);
 }
 
-// for post otder traver and inorder run loop from behinf thats it
+// for post order traversal and inorder run loop from behind thats it

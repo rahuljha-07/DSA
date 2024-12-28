@@ -68,7 +68,7 @@ int main() {
     // Find and print all duplicate subtrees
     vector<Node*> duplicates = findDuplicateSubtrees(root);
     cout << "Duplicate Subtrees:\n";
-    for (Node* duplicateRoot : duplicates) {
+for (Node* duplicateRoot : duplicates) {
         printSubtree(duplicateRoot); // Print the subtree
         cout << endl;
     }

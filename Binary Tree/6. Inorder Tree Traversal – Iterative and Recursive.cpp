@@ -20,7 +20,7 @@ void inorderRecursive(Node* root) {
     inorderRecursive(root->right);  // Traverse right subtree
 }
 
-/ Iterative Inorder Traversal
+// Iterative Inorder Traversal
 void inorderIterative(Node* root) {
     stack<Node*> st;
     Node* current = root;
