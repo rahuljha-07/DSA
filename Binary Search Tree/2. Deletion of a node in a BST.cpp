@@ -69,7 +69,7 @@ Node* deleteNode(Node* root, int key) {
 void inOrderTraversal(Node* root) {
     if (root != nullptr) {
         inOrderTraversal(root->left);
-        std::cout << root->data << " ";
+        cout << root->data << " ";
         inOrderTraversal(root->right);
     }
 }
@@ -91,9 +91,9 @@ int main() {
     int keyToDelete = 3;
     root = deleteNode(root, keyToDelete);
 
-    std::cout << "In-order traversal after deletion: ";
+    cout << "In-order traversal after deletion: ";
     inOrderTraversal(root);
-    std::cout << std::endl;
+    cout << endl;
 
     return 0;
 }

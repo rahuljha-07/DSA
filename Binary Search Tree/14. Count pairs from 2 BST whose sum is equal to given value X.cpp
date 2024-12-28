@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <unordered_set>
 using namespace std;
 
 // Definition for a binary tree node.
@@ -14,39 +14,36 @@ class Solution {
 public:
     // Function to count pairs from two BSTs whose sum is equal to given value X
     int countPairs(Node* root1, Node* root2, int X) {
-        // Step 1: Get sorted arrays from both BSTs
-        vector<int> bst1Elements, bst2Elements;
-        inorderTraversal(root1, bst1Elements);
-        inorderTraversal(root2, bst2Elements);
+        if (!root1 || !root2) return 0; // Handle edge case when either BST is empty
+        
+        // Step 1: Traverse the first BST and store its elements in a hash set
+        unordered_set<int> elements;
+        storeElementsInSet(root1, elements);
 
-        // Step 2: Use two-pointer technique to count pairs with sum X
+        // Step 2: Traverse the second BST and count pairs that sum to X
         int count = 0;
-        int i = 0;  // Pointer for bst1Elements (start of first array)
-        int j = bst2Elements.size() - 1;  // Pointer for bst2Elements (end of second array)
-
-        while (i < bst1Elements.size() && j >= 0) {
-            int sum = bst1Elements[i] + bst2Elements[j];
-            if (sum == X) {
-                count++;
-                i++;
-                j--;
-            } else if (sum < X) {
-                i++;
-            } else {
-                j--;
-            }
-        }
+        countPairsWithSet(root2, elements, X, count);
 
         return count;
     }
 
 private:
-    // Helper function to perform inorder traversal and store nodes in a sorted list
-    void inorderTraversal(Node* root, vector<int>& elements) {
+    // Helper function to traverse the first BST and store elements in a hash set
+    void storeElementsInSet(Node* root, unordered_set<int>& elements) {
         if (!root) return;
-        inorderTraversal(root->left, elements);
-        elements.push_back(root->data);
-        inorderTraversal(root->right, elements);
+        storeElementsInSet(root->left, elements);
+        elements.insert(root->data);
+        storeElementsInSet(root->right, elements);
+    }
+
+    // Helper function to traverse the second BST and find pairs that sum to X
+    void countPairsWithSet(Node* root, const unordered_set<int>& elements, int X, int& count) {
+        if (!root) return;
+        countPairsWithSet(root->left, elements, X, count);
+        if (elements.count(X - root->data)) {
+            count++;
+        }
+        countPairsWithSet(root->right, elements, X, count);
     }
 };
 
