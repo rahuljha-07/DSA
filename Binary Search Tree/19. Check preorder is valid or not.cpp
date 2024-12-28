@@ -35,3 +35,23 @@ public:
         return (index == N) ? 1 : 0;
     }
 };
+// kashish mahendatta video
+ int canRepresentBST(int arr[], int n) {
+       stack<int> s;
+       int parent=0;
+       for(int i=0;i<n;i++){
+           if(s.empty() || arr[i]<s.top()){
+                if(parent>arr[i]){
+                   return 0;
+               }
+               s.push(arr[i]);
+           } else{
+               while(!s.empty() && s.top()<arr[i]){
+                   parent=s.top();
+                   s.pop();
+               }
+               s.push(arr[i]);
+           }
+       }
+    return 1;
+}
