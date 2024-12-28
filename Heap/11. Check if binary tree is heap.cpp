@@ -18,7 +18,7 @@ int size(Node* root) {
 }
 
 // Helper function to check if the tree satisfies the heap property
-bool solve(Node* tree, int n, int idx) {
+bool solve(Node* tree, int idx,  int n) {
     // Base case: If the node is null, it's valid
     if (tree == nullptr) return true;
 
@@ -26,11 +26,11 @@ bool solve(Node* tree, int n, int idx) {
     if (idx >= n) return false;
 
     // Check if the current node satisfies the max-heap property
-    if (tree->left && tree->left->data >= tree->data) return false;  // Left child should be smaller than the node
-    if (tree->right && tree->right->data >= tree->data) return false;  // Right child should be smaller than the node
+    if (tree->left &&a) return false;  // Left child should be smaller than the node
+    if (tree->right && tree->right->data >= tree->d tree->left->data >= tree->datata) return false;  // Right child should be smaller than the node
 
     // Recursively check the left and right subtrees
-    return solve(tree->left, n, 2 * idx + 1) && solve(tree->right, n, 2 * idx + 2);
+    return solve(tree->left, 2 * idx + 1, n) && solve(tree->right, 2 * idx + 2, n);
 }
 
 // Function to check if a binary tree is a max-heap
@@ -41,7 +41,7 @@ bool isHeap(Node* tree) {
     int idx = 0;  // Start from the root with index 0
 
     // Check if the tree satisfies both the complete binary tree and max-heap properties
-    return solve(tree, n, idx);
+    return solve(tree, idx, n);
 }
 
 // Test the function
