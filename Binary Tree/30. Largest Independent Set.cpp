@@ -19,12 +19,10 @@ unordered_map<Node*, int> dp;
 // Function to calculate LIS for the binary tree
 int LIS(Node* root) {
     // Base Case: If the node is NULL, LIS is 0
-    if (root == nullptr)
-        return 0;
+    if (root == nullptr) return 0;
 
     // If the result for this node is already computed, return it
-    if (dp.find(root) != dp.end())
-        return dp[root];
+    if (dp.find(root) != dp.end()) return dp[root];
 
     // Case 1: Include the current node in LIS
     int include = 1; // Include the current node
@@ -41,11 +39,8 @@ int LIS(Node* root) {
     // Add LIS of immediate children (left and right)
     int exclude = LIS(root->left) + LIS(root->right);
 
-    // Store the maximum of include and exclude in dp
-    dp[root] = max(include, exclude);
-
-    // Return the computed value
-    return dp[root];
+    // Return the computed value of Store the maximum of include and exclude in dp
+    return dp[root] = max(include, exclude);;
 }
 
 // Helper function to free the dynamically allocated memory

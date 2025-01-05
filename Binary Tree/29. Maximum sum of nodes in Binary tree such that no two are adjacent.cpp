@@ -41,7 +41,7 @@ int getMaxSum(Node* root) {
     int excludeCurrent = getMaxSum(root->left) + getMaxSum(root->right);
 
     // Return the maximum sum for the current node
-    return memo[root] max(includeCurrent, excludeCurrent);
+    return memo[root] = max(includeCurrent, excludeCurrent);
 }
 
 // Example usage
