@@ -109,7 +109,7 @@ int main() {
         second=second->next;
         last->next=NULL;
     }
-    while(first!=NULL and second!=NULL){
+    while(first!=NULL && second!=NULL){
         if(first->data < second->data){
             last->next=first;
             last=first;

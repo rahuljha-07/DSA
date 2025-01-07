@@ -1,4 +1,4 @@
-typedef pair<int, pair<int, int>> p;  // First: value, second: (array index, element index)
+typedef pair<int, pair<int, int>> p;  // First: value, second: (array index(row), element index(col))
 
 pair<int, int> findSmallestRange(int arr[][N], int n, int k) {
     priority_queue<p, vector<p>, greater<p>> q;
