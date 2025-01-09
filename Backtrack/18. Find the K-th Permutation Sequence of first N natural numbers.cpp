@@ -3,7 +3,7 @@ using namespace std;
 
 void findKthPermutation(vector<int>& nums, vector<bool>& visited, string& current, int& count, int K, string& result) {
     // Base case: If the current permutation is of length N
-    if (current.length() == nums.size()) {
+    if (current.size() == nums.size()) {
         count++; // Increment the count of generated permutations
         if (count == K) { // If this is the K-th permutation
             result = current; // Store the result
@@ -15,7 +15,7 @@ void findKthPermutation(vector<int>& nums, vector<bool>& visited, string& curren
     for (int i = 0; i < nums.size(); i++) {
         if (!visited[i]) {
             visited[i] = true; // Mark the number as used
-            current += to_string(nums[i]); // Add the number to the current permutation
+            current.push_back(nums[i]); // Add the number to the current permutation
 
             findKthPermutation(nums, visited, current, count, K, result);
 
@@ -34,8 +34,8 @@ string getKthPermutation(int N, int K) {
     }
 
     vector<bool> visited(N, false); // To track used numbers
-    string current = ""; // Current permutation being built
-    string result = ""; // K-th permutation result
+    vector<int> current; // Current permutation being built
+    vector<int> result; // K-th permutation result
     int count = 0; // To track how many permutations have been generated
 
     findKthPermutation(nums, visited, current, count, K, result);
@@ -50,8 +50,12 @@ int main() {
     cout << "Enter K (desired permutation): ";
     cin >> K;
 
-    string result = getKthPermutation(N, K);
-    cout << "The " << K << "-th permutation is: " << result << endl;
+    vector result = getKthPermutation(N, K);
+    cout << "The " << K << "-th permutation is: ";
+    for (int num : result) { // Iterate through the vector
+        cout << num;
+    }
+    cout << endl;
 
     return 0;
 }

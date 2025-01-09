@@ -6,6 +6,11 @@ void findPaths(vector<vector<int>>& matrix, int i, int j, vector<int>& path, vec
     int rows = matrix.size();
     int cols = matrix[0].size();
 
+    // Return if the current cell is out of bounds
+    if (i >= rows || j >= cols) {
+        return;
+    }
+
     // Add the current cell to the path
     path.push_back(matrix[i][j]);
 
@@ -13,20 +18,17 @@ void findPaths(vector<vector<int>>& matrix, int i, int j, vector<int>& path, vec
     if (i == rows - 1 && j == cols - 1) {
         result.push_back(path);
     } else {
-        // Move down if within bounds
-        if (i + 1 < rows) {
-            findPaths(matrix, i + 1, j, path, result);
-        }
+        // Call the function for moving down
+        findPaths(matrix, i + 1, j, path, result);
 
-        // Move right if within bounds
-        if (j + 1 < cols) {
-            findPaths(matrix, i, j + 1, path, result);
-        }
+        // Call the function for moving right
+        findPaths(matrix, i, j + 1, path, result);
     }
 
     // Backtrack: remove the current cell from the path
     path.pop_back();
 }
+
 
 vector<vector<int>> allPaths(vector<vector<int>>& matrix) {
     vector<vector<int>> result;

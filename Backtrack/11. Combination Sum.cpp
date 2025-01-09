@@ -1,6 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/ Helper function to find combinations using knapsack-like approach
+void knapsackApproach(int index, vector<int>& candidates, int target, vector<int>& currentCombination, vector<vector<int>>& result) {
+    // Base case: If the target becomes zero, we have found a valid combination
+    if (target == 0) {
+        result.push_back(currentCombination);
+        return;
+    }
+
+    // Base case: If index is out of bounds, stop recursion
+    if (index == candidates.size()) {
+        return;
+    }
+
+    // If the current candidate is less than or equal to the target
+    if (candidates[index] <= target) {
+        // Option 1: Pick the current element
+        currentCombination.push_back(candidates[index]);
+        // Since repetition is allowed, do not increment the index
+        knapsackApproach(index, candidates, target - candidates[index], currentCombination, result);
+        // Backtrack by removing the last element
+        currentCombination.pop_back();
+    }
+
+    // Option 2: Do not pick the current element and move to the next index
+    knapsackApproach(index + 1, candidates, target, currentCombination, result);
+}
+
 // Helper function to find combinations
 void findCombinations(int index, vector<int>& candidates, int target, vector<int>& currentCombination, vector<vector<int>>& result) {
     // If the target becomes zero, we have found a valid combination
@@ -12,8 +39,7 @@ void findCombinations(int index, vector<int>& candidates, int target, vector<int
     // Iterate over the candidates array starting from the current index
     for (int i = index; i < candidates.size(); i++) {
         // If the current number exceeds the target, skip further processing
-        if (candidates[i] > target) 
-            break;
+        if (candidates[i] > target) break;
 
         // Include the current number in the combination
         currentCombination.push_back(candidates[i]);
@@ -42,6 +68,11 @@ vector<vector<int>> combinationSum(vector<int>& arr, int target) {
 
     // Start finding combinations from index 0
     findCombinations(0, arr, target, currentCombination, result);
+
+    // or 
+    
+    // Start finding combinations from index 0
+    knapsackApproach(0, arr, target, currentCombination, result);
 
     return result;
 }
