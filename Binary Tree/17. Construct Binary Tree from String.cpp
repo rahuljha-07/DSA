@@ -38,7 +38,7 @@ Node* stringToTree(string& s) {
 
     Node* root = new Node(num);
     
-    // If the string has no more characters, return the rootent node
+    // If the string has no more characters, return the root end node
     if (start >= s.length()) return root;
 
     // If the next character is '(', it indicates a left child

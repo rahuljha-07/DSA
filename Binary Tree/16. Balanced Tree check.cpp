@@ -24,6 +24,7 @@ int height(Node* root) {
     // If the difference between left and right subtree heights is greater than 1, it's not balanced
     if (abs(leftHeight - rightHeight) > 1) {
         isBalancedFlag = 0;  // Set the flag to false (0) if the tree is unbalanced
+        return 0;
     }
     
     // Return the height of the current node

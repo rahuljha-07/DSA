@@ -53,8 +53,6 @@ long long getMaxArea(long long arr[], int n) {
         s.push({arr[i], i}); // Push current bar height and its index onto the stack
     }
     
-    // Reverse the right vector to match the order of the histogram bars
-    reverse(right.begin(), right.end());
     
     // Calculate the maximum area using the left and right vectors
     for (long long i = 0; i < n; i++) {

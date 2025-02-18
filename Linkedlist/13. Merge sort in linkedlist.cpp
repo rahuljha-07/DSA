@@ -17,8 +17,8 @@ void findmiddle(Node* cur, Node** first, Node** second) {
 
 // Function to merge two sorted linked lists iteratively.
 Node* mergeboth(Node* first, Node* second) {
-    Node dummy;
-    Node* tail = &dummy;
+    Node* dummy = new Node(0); // Initialize with a dummy value
+    Node* tail = dummy;
 
     while (first && second) {
         if (first->data <= second->data) {
@@ -31,7 +31,10 @@ Node* mergeboth(Node* first, Node* second) {
         tail = tail->next;
     }
     tail->next = (first) ? first : second;
-    return dummy.next;
+
+    Node* result = dummy->next;
+    delete dummy; // Clean up
+    return result;
 }
 
 // Recursive function to perform merge sort on the linked list.

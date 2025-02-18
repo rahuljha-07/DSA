@@ -24,7 +24,7 @@ vector<pair<int, int>> findPairsWithSum(Node* head, int target) {
         right = right->next;
 
     // Two-pointer technique to find pairs
-    while (left != right && right->next != left) {
+    while (left != right && left->next != right) {
         int sum = left->data + right->data;
 
         if (sum == target) {

@@ -1,5 +1,4 @@
-vector<vector<string>> Anagrams(vector<string>& inputStrings) 
-{
+vector<vector<string>> Anagrams(vector<string>& inputStrings) {
     // Map to store sorted strings as keys and their corresponding anagrams as values
     map<string, vector<string>> anagramMap;
 

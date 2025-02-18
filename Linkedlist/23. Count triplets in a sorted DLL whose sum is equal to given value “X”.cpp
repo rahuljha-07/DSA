@@ -33,26 +33,43 @@ void printTripletsWithSum(Node* head, int X) {
         tail = tail->next;
     }
 
+    bool found = false;
+
     // Iterate through the DLL with the first element fixed
-    Node* first = head;
-    while (first != nullptr) {
+    for (Node* first = head; first != nullptr; first = first->next) {
         Node* left = first->next;
         Node* right = tail;
 
         // Use two-pointer technique to find pairs for the fixed first element
-        while (left != right && left != nullptr && right != nullptr) {
+        while (left != nullptr && right != nullptr && left != right && left->prev != right) {
             int sum = first->data + left->data + right->data;
             if (sum == X) {
                 cout << "(" << first->data << ", " << left->data << ", " << right->data << ")\n";
-                left = left->next;
-                right = right->prev;
-            } else if (sum < X) {
-                left = left->next;  // Move left pointer to the right to increase the sum
-            } else {
-                right = right->prev;  // Move right pointer to the left to decrease the sum
+                found = true;
+
+                // Skip duplicates on the left side
+                Node* tempLeft = left;
+                while (left != nullptr && left->data == tempLeft->data) {
+                    left = left->next;
+                }
+
+                // Skip duplicates on the right side
+                Node* tempRight = right;
+                while (right != nullptr && right->data == tempRight->data) {
+                    right = right->prev;
+                }
+            } 
+            else if (sum < X) {
+                left = left->next;  // Increase sum
+            } 
+            else {
+                right = right->prev;  // Decrease sum
             }
         }
-        first = first->next;  // Move the first pointer to the next node
+    }
+
+    if (!found) {
+        cout << "No triplets found with sum " << X << endl;
     }
 }
 

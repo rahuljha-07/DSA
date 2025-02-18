@@ -2,7 +2,7 @@ int maxProfit(vector<int> price, int n){
     vector<int>(n, 0) profit; 
     int max_price = price[n 1];
     // selling and buying , doing 2nd tranc from back
-    for (int i = n = 2; i >= 0; i--) {
+    for (int i = n - 2; i >= 0; i--) {
         if (price[i] > max_price) max_price = price[i];
         profit[i] = max(profit[i + 1], max_price - price[i]);
     }

@@ -4,8 +4,7 @@ using namespace std;
 // Function to find the maximum number
 void findMaximum(string str, int k, string &maxNum, int currentIndex) {
     // If no swaps are left, return
-    if (k == 0) 
-        return;
+    if (k == 0)  return;
 
     // Store the current character for comparison
     char maxChar = str[currentIndex];
@@ -17,8 +16,7 @@ void findMaximum(string str, int k, string &maxNum, int currentIndex) {
     }
 
     // If the maximum character is the current character, no swaps are needed
-    if (maxChar != str[currentIndex]) 
-        k--;
+    if (maxChar != str[currentIndex])   k--;
 
     // Explore all positions with the maximum character
     for (int i = currentIndex; i < str.size(); i++) {

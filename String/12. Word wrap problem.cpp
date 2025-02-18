@@ -42,7 +42,7 @@ int solveWordWrap(vector<int> wordLengths, int lineWidth) {
 
 // Main function
 int main() {
-     int wordCount;
+    int wordCount;
     cin >> wordCount;
     vector<int> wordLengths(wordCount);
     for (int i = 0; i < wordCount; i++) {

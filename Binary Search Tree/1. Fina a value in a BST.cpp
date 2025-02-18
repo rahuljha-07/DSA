@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 struct TreeNode {
     int val;
@@ -46,9 +47,9 @@ int main() {
     int target = 6;
 
     if (findValue(root, target)) {
-        std::cout << "Value " << target << " found in the BST." << std::endl;
+        cout << "Value " << target << " found in the BST." << endl;
     } else {
-        std::cout << "Value " << target << " not found in the BST." << std::endl;
+        cout << "Value " << target << " not found in the BST." << endl;
     }
 
     // Free allocated memory (for simplicity, manual deletion is omitted)

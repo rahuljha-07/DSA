@@ -10,16 +10,13 @@ Node* reverse(Node* head) {
         temp = curr->prev;       // Store the previous pointer
         curr->prev = curr->next; // Swap next and prev
         curr->next = temp;       // Complete the swap
+        head = curr;             // Update head to the current node
         curr = curr->prev;       // Move to the next node in original order
     }
 
-    // After the loop, temp points to the new head
-    if (temp != nullptr) {
-        head = temp->prev;
-    }
-
-    return head;
+    return head; // Return the new head of the reversed list
 }
+
 
 // Recursive function to reverse a doubly linked list
 Node* reverseRecursive(Node* curr) {

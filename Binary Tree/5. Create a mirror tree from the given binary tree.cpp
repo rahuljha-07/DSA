@@ -37,8 +37,9 @@ Node* mirror(Node* root) {
     Node* leftMirror = mirror(root->left);
     Node* rightMirror = mirror(root->right);
 
-    // Now swap the left and right children of the current node
-    swap(root->left, root->right);
+    // Swap the mirrored subtrees
+    root->left = rightMirror;
+    root->right = leftMirror;
 
     return root;
 }
