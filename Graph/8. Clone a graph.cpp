@@ -20,6 +20,38 @@ public:
     }
 };
 
+//BFS
+class Solution {
+    public:
+        Node* cloneGraph(Node* node) {
+            if (node == nullptr) return nullptr;
+            
+            unordered_map<Node*, Node*> map;
+            queue<Node*> queue;
+            
+            queue.push(node);
+            map[node] = new Node(node->val, {});
+            
+            while (!queue.empty()) {
+                Node* h = queue.front();
+                queue.pop();
+                
+                for (Node* neighbor : h->neighbors) {
+                    if (!map.count(neighbor)) {
+                        map[neighbor] = new Node(neighbor->val, {});
+                        queue.push(neighbor);
+                    }
+                    map[h]->neighbors.push_back(map[neighbor]);
+                }
+            }
+            
+            return map[node];
+        }
+    };
+
+
+
+//DFS
 class Solution {
 public:
     // Helper function to perform DFS and clone the graph

@@ -29,9 +29,11 @@ double Knapsack(int wt[], int val[], int W, int n) {
         } else {
             // Option 3: Include a fractional part of the item
             double includeFraction = (double)val[n - 1] * ((double)W / wt[n - 1]);
+            // Option 2: Exclude the current item
+            double exclude = Knapsack(wt, val, W, n - 1);
 
             // Store the maximum value when taking the fraction
-            t[n][W] = max(includeFraction, Knapsack(wt, val, W, n - 1));
+            t[n][W] = max(includeFraction, exclude);
         }
 
         return t[n][W];

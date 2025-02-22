@@ -20,8 +20,7 @@ void dfs(int row, int col, vector<vector<char>>& grid, vector<vector<bool>>& vis
         int newCol = col + dir.second;
 
         // Check boundaries and whether the cell is unvisited land
-        if (newRow >= 0 && newRow < n && newCol >= 0 && newCol < m &&
-            grid[newRow][newCol] == '1' && !visited[newRow][newCol]) {
+        if (newRow >= 0 && newRow < n && newCol >= 0 && newCol < m && grid[newRow][newCol] == '1' && !visited[newRow][newCol]) {
             dfs(newRow, newCol, grid, visited);
         }
     }

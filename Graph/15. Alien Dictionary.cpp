@@ -3,10 +3,11 @@
 #include <stack>
 #include <string>
 #include <algorithm>
+
 using namespace std;
 
 // Helper function to perform DFS and store nodes in topological order
-void topoSortUtil(int node, vector<int> adj[], vector<bool>& visited, stack<int>& topoStack) {
+void topoSortUtil(int node, const vector<vector<int>>& adj, vector<bool>& visited, stack<int>& topoStack) {
     visited[node] = true;  // Mark the node as visited
 
     // Explore all neighbors
@@ -21,7 +22,7 @@ void topoSortUtil(int node, vector<int> adj[], vector<bool>& visited, stack<int>
 }
 
 // Function to perform topological sorting
-string topologicalSort(vector<int> adj[], int K) {
+string topologicalSort(const vector<vector<int>>& adj, int K) {
     vector<bool> visited(K, false); // To track visited nodes
     stack<int> topoStack;           // Stack to store topological order
 
@@ -42,14 +43,19 @@ string topologicalSort(vector<int> adj[], int K) {
     return topoOrder;
 }
 
-// Function to find the order of characters in the alien dictionary
-string findOrder(string words[], int N, int K) {
-    vector<int> adj[K]; // Graph with K nodes (representing the alphabet)
+// Function to build the graph based on the given words
+vector<vector<int>> buildGraph(string words[], int N, int K) {
+    vector<vector<int>> adj(K); // Graph with K nodes (representing the alphabet)
 
     // Build the graph based on the given words
     for (int i = 0; i < N - 1; i++) {
         string word1 = words[i];
         string word2 = words[i + 1];
+
+        // Check for invalid case where prefix comes later
+        if (word1.size() > word2.size() && word1.substr(0, word2.size()) == word2) {
+            return {}; // Return an empty graph indicating an invalid input
+        }
 
         // Compare characters of both words
         for (int j = 0; j < min(word1.size(), word2.size()); j++) {
@@ -60,6 +66,18 @@ string findOrder(string words[], int N, int K) {
                 break; // Only the first differing character determines the order
             }
         }
+    }
+
+    return adj;
+}
+
+// Function to find the order of characters in the alien dictionary
+string findOrder(string words[], int N, int K) {
+    vector<vector<int>> adj = buildGraph(words, N, K);
+
+    // Check for invalid graph (prefix issue)
+    if (adj.empty()) {
+        return "Invalid input (prefix ordering issue).";
     }
 
     // Perform topological sort to find the order of characters

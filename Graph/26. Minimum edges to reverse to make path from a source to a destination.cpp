@@ -16,7 +16,7 @@ int minEdgesToReverse(int n, vector<pair<int, int>>& edges, int src, int dest) {
     }
 
     // Step 2: Priority Queue for Dijkstra's Algorithm
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+    priority_queue< pair<int, int>, vector< pair<int, int> >, greater< pair<int, int> > > pq;
     vector<int> dist(n + 1, INT_MAX); // Distance array
 
     // Start from the source

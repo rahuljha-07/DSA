@@ -36,7 +36,7 @@ int journeyToMoon(int n, vector<vector<int>> astronaut) {
     }
 
     // Step 3: Calculate total pairs
-    long long totalPairs = (long long)n * (n - 1) / 2;
+    long long totalPairs = (long long)n * (n - 1) / 2; //nC2 = n*(n-1) /2
 
     // Step 4: Subtract invalid pairs (within the same country)
     long long invalidPairs = 0;
