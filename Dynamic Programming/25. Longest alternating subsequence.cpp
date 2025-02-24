@@ -36,3 +36,25 @@ int main() {
     cout << "Length of Longest Alternating Subsequence: " << AlternatingMaxLength(a) << endl;
     return 0;
 }
+
+//another O(n)
+int AlternatingMaxLength(vector<int>& a) {
+    int n = a.size();
+    if (n == 1) return 1;
+
+    int inc = 1; // Length of increasing subsequence
+    int dec = 1; // Length of decreasing subsequence
+
+    for (int i = 1; i < n; i++) {
+        if (a[i] > a[i - 1]) {
+            // Current element is greater, so extend the decreasing sequence
+            inc = dec + 1;
+        } else if (a[i] < a[i - 1]) {
+            // Current element is smaller, so extend the increasing sequence
+            dec = inc + 1;
+        }
+    }
+
+    // The result is the maximum length of either an increasing or decreasing sequence
+    return max(inc, dec);
+}
