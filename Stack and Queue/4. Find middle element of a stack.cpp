@@ -22,13 +22,18 @@ public:
     // Push an element onto the stack
     void push(int data) {
         Node* newNode = new Node(data);
-        newNode->next = head;
         
-        // Link the new node at the beginning
-        if (head) head->prev = newNode;
-        head = newNode;
+        if (head == nullptr) {
+            head = newNode;
+            mid = head;
+        } else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+    
         count++;
-
+    
         // Update mid pointer
         if (count == 1) {
             mid = head;
@@ -36,7 +41,7 @@ public:
             mid = mid->prev;
         }
     }
-
+    
     // Pop the top element from the stack
     int pop() {
         if (count == 0) {
@@ -53,7 +58,9 @@ public:
         count--;
 
         // Update mid pointer
-        if (count % 2 != 0) {
+        if (count == 0) {
+            mid = nullptr;
+        } else if (count % 2 != 0) {
             mid = mid->next;
         }
 
@@ -75,29 +82,34 @@ public:
             cout << "Stack is empty." << endl;
             return;
         }
-        
         Node* temp = mid;
         int midData = mid->data;
-
-        // Update the mid pointer and count
+    
+        // Case 1: Only one element in the stack
         if (count == 1) {
             head = nullptr;
             mid = nullptr;
-        } else if (count % 2 == 0) { // Move mid pointer to next if count is even
-            mid = mid->next;
-        } else { // Move mid pointer to prev if count is odd
-            mid = mid->prev;
         }
-
-        // Update links to remove the middle node
-        if (temp->prev) temp->prev->next = temp->next;
-        if (temp->next) temp->next->prev = temp->prev;
-
+        // Case 2: Middle node has both prev and next
+        else {
+            if (mid->prev) mid->prev->next = mid->next;
+            if (mid->next) mid->next->prev = mid->prev;
+        }
+    
+        // Move `mid` correctly after deletion
+        if (count > 1) {
+            if (count % 2 == 0) {
+                mid = temp->next;  // Move forward when count is even
+            } else {
+                mid = temp->prev;  // Move backward when count is odd
+            }
+        }
+    
         delete temp;
         count--;
-
         cout << "Deleted middle element: " << midData << endl;
     }
+    
 };
 
 int main() {

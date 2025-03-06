@@ -1,14 +1,15 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <deque>  // Using deque for O(1) dequeue operation
 
 using namespace std;
 
 class NQueuesInArray {
 private:
-    vector<int> vec;                  // Array to store the elements of all queues
-    vector<int> free_indices;         // Indices in vec that are free for enqueueing
-    unordered_map<int, vector<int>> queue_map;  // Map each queue to its indices in vec
+    vector<int> vec;                 // Array to store the elements of all queues
+    vector<int> free_indices;        // Indices in vec that are free for enqueueing
+    unordered_map<int, deque<int>> queue_map;  // Map each queue to its indices in vec (deque for O(1) front removal)
 
 public:
     // Constructor initializes the vector and free_indices
@@ -32,7 +33,7 @@ public:
 
         // Place the value in vec and record the index in queue_map
         vec[index] = value;
-        queue_map[queue_num].push_back(index);
+        queue_map[queue_num].push_back(index);  // Using deque for O(1) enqueue at back
     }
 
     // Dequeue a value from the specified queue
@@ -43,8 +44,8 @@ public:
         }
 
         // Get the first index for this queue
-        int front_index = queue_map[queue_num].front();
-        queue_map[queue_num].erase(queue_map[queue_num].begin());
+        int front_index = queue_map[queue_num].front();  // O(1)
+        queue_map[queue_num].pop_front();  // O(1) with deque
 
         // Retrieve the value at this index
         int value = vec[front_index];
@@ -64,7 +65,7 @@ public:
         }
 
         // Get the first index for this queue
-        int front_index = queue_map[queue_num].front();
+        int front_index = queue_map[queue_num].front();  // O(1)
         return vec[front_index];
     }
 };

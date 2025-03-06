@@ -39,7 +39,7 @@ vector<string> getFirstNonRepeatingCharactersInStream(char stream[], int n) {
         if (q.empty()) {
             result.push_back("#"); // No non-repeating character
         } else {
-            result.push_back(to_string(q.front())); // Convert char to string
+            result.push_back(string(1, q.front())); // Convert char to string
         }
     }
 

@@ -1,48 +1,32 @@
 #include <iostream>
 #include <queue>
-#include <stack>
 
 using namespace std;
 
-// Function to interleave the first half of the queue with the second half
+// Function to interleave the first half with the second half of a queue
 void interleaveQueue(queue<int>& q) {
-    stack<int> s;
+    if (q.size() % 2 != 0) {
+        cout << "Queue size must be even for interleaving.\n";
+        return;
+    }
+
     int n = q.size();
     int halfSize = n / 2;
+    queue<int> firstHalf;
 
-    // Step 1: Push the first half elements into the stack
+    // Step 1: Move the first half of elements to another queue
     for (int i = 0; i < halfSize; i++) {
-        s.push(q.front());
+        firstHalf.push(q.front());
         q.pop();
     }
 
-    // Step 2: Enqueue back the stack elements (first half)
-    while (!s.empty()) {
-        q.push(s.top());
-        s.pop();
-    }
+    // Step 2: Interleave elements from firstHalf and secondHalf (remaining q elements)
+    while (!firstHalf.empty()) {
+        q.push(firstHalf.front());  // First half element
+        firstHalf.pop();
 
-    // Step 3: Dequeue the first half elements and enqueue them back
-    for (int i = 0; i < halfSize; i++) {
-        q.push(q.front());
+        q.push(q.front());  // Second half element
         q.pop();
-    }
-
-    // Step 4: Push the first half elements into the stack again
-    for (int i = 0; i < halfSize; i++) {
-        s.push(q.front());
-        q.pop();
-    }
-
-    // Step 5: Interleave the elements of queue and stack
-    while (!s.empty()) {
-        // Queue element
-        q.push(q.front());
-        q.pop();
-        
-        // Stack element
-        q.push(s.top());
-        s.pop();
     }
 }
 
