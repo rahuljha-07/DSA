@@ -1,6 +1,6 @@
 #include <vector>
 
-int majorityElement(std::vector<int>& arr) {
+int majorityElement(vector<int>& arr) {
     // Variable to count occurrences and hold the candidate for majority element
     int count = 0;           // Counter for occurrences
     int candidate = 0;       // Potential majority element

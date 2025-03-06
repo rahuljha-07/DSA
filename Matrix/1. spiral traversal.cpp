@@ -1,4 +1,6 @@
+#include <iostream>
 #include <vector>
+
 using namespace std;
 
 vector<int> spirallyTraverse(vector<vector<int>> matrix, int rows, int cols) {
@@ -24,8 +26,35 @@ vector<int> spirallyTraverse(vector<vector<int>> matrix, int rows, int cols) {
             for (int i = bottom; i >= top; i--) result.push_back(matrix[i][left]);
             left++;
         }
-        dir = (dir + 1) % 4; // Change direction in a cyclic manner
+        dir = (dir + 1) % 4; // Change direction cyclically
     }
 
     return result;
+}
+
+int main() {
+    int rows, cols;
+    cout << "Enter number of rows: ";
+    cin >> rows;
+    cout << "Enter number of columns: ";
+    cin >> cols;
+
+    vector<vector<int>> matrix(rows, vector<int>(cols));
+
+    cout << "Enter matrix elements row-wise:\n";
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cin >> matrix[i][j];
+        }
+    }
+
+    vector<int> spiralOrder = spirallyTraverse(matrix, rows, cols);
+
+    cout << "Spiral Order Traversal: ";
+    for (int num : spiralOrder) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
 }

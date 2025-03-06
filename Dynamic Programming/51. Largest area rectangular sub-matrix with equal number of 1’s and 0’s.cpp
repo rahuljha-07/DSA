@@ -1,7 +1,7 @@
 /*
 Same as largest submatrix with 0 sum.
 There was a array question why says find largest equal 0 and 1
-So we replace 0->1 and 1-> 1 
+So we replace 0->-1 and 1-> 1 
 and do the same below is sample
 */
 

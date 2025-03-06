@@ -9,6 +9,11 @@ struct Job {
     int start, finish, profit;
 };
 
+// Comparator function for sorting jobs based on finish time
+bool compare(const Job &a, const Job &b) {
+    return a.finish < b.finish;
+}
+
 // Function to find the next job that can be scheduled after the current job
 int findNextJob(const vector<Job>& jobs, int currentIndex) {
     for (int j = currentIndex + 1; j < jobs.size(); j++) {
@@ -50,9 +55,7 @@ int findMaxProfit(const vector<Job>& jobs, int currentIndex, vector<int>& memo) 
 // Wrapper function to sort jobs and initiate the recursive call with memoization
 int jobScheduling(vector<Job>& jobs) {
     // Sort jobs based on finish time
-    sort(jobs.begin(), jobs.end(), [](const Job &a, const Job &b) {
-        return a.finish < b.finish;
-    });
+    sort(jobs.begin(), jobs.end(), compare);
 
     // Create a memoization array initialized to -1
     vector<int> memo(jobs.size(), -1);

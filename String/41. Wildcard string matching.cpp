@@ -1,3 +1,10 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Memoization table
+vector<vector<int>> memo;
+
 // Helper function to perform recursive pattern matching with wildcards
 bool matchPatternUtil(int patternIdx, int strIdx, int patternLen, int strLen, string pattern, string str) {
     // If both pattern and string are fully matched
@@ -19,26 +26,37 @@ bool matchPatternUtil(int patternIdx, int strIdx, int patternLen, int strLen, st
     if (patternIdx == patternLen) {
         return false;
     }
+        
+    // Check if result is already computed
+    if (memo[patternIdx][strIdx] != -1) {
+        return memo[patternIdx][strIdx];
+    }
 
+    bool result = false;
+    
     // Case where pattern character is '?', matches any single character
     if (pattern[patternIdx] == '?') {
-        return matchPatternUtil(patternIdx + 1, strIdx + 1, patternLen, strLen, pattern, str);
+        result = matchPatternUtil(patternIdx + 1, strIdx + 1, patternLen, strLen, pattern, str);
     }
 
     // Case where pattern character is '*', matches any sequence of characters (including an empty sequence)
     if (pattern[patternIdx] == '*') {
         // Try matching '*' with an empty sequence or advancing the string index
-        return matchPatternUtil(patternIdx + 1, strIdx, patternLen, strLen, pattern, str) || 
-               matchPatternUtil(patternIdx, strIdx + 1, patternLen, strLen, pattern, str);
+        result = matchPatternUtil(patternIdx + 1, strIdx, patternLen, strLen, pattern, str) || 
+                 matchPatternUtil(patternIdx, strIdx + 1, patternLen, strLen, pattern, str);
     }
 
-    // Case where pattern character is a regular character that doesn't match the string character
-    if (pattern[patternIdx] != str[strIdx]) {
-        return false;
+    // Case where characters must match exactly
+    else {
+        if (pattern[patternIdx] == str[strIdx]) {
+            result = matchPatternUtil(patternIdx + 1, strIdx + 1, patternLen, strLen, pattern, str);
+        } else {
+            result = false;
+        }
     }
 
-    // Regular character match, move to the next character in both pattern and string
-    return matchPatternUtil(patternIdx + 1, strIdx + 1, patternLen, strLen, pattern, str);
+    // Store result before returning
+    return memo[patternIdx][strIdx] = result;
 }
 
 // Main function to check if the pattern matches the string

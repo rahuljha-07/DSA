@@ -16,14 +16,12 @@ int kthsmallest(vector<int>& a, vector<int>& b) {
     int high = min(k, n1);  // We can't take more than n1 from a.
     int low = max(0, k-n2); // We can't take more than k from b, so we adjust accordingly.
     
-
-    int left = k;
     int n = n1 + n2;
 
     while (low <= high) {
         // Partition positions for both arrays
         int mid1 = (low + high) >> 1;
-        int mid2 = left - mid1;
+        int mid2 = k - mid1;
 
         // Edge cases for left and right elements on both sides of the partitions
         int l1 = (mid1 == 0) ? INT_MIN : a[mid1 - 1]; // Left element from `a`

@@ -26,14 +26,14 @@ string rearrangeString(string s) {
         return "Not Possible"; // If the most frequent character's count is greater than half of the string length
     }
 
-    string result;
+
     // Create a vector to store the characters while maintaining the odd/even index filling
     vector<char> resultVec(n);
     int index = 0;
 
     // Fill characters in the result
     while (!maxHeap.empty()) {
-        auto [count, char] = maxHeap.top(); // Get the character with the highest frequency
+        auto [count, character] = maxHeap.top(); // Get the character with the highest frequency
         maxHeap.pop();
 
         // Place the character in the result
@@ -41,7 +41,7 @@ string rearrangeString(string s) {
             if (index >= n) {
                 index = 1; // Move to odd index after filling even indices
             }
-            resultVec[index] = char; // Place character at the current index
+            resultVec[index] = character; // Place character at the current index
             index += 2; // Increment index to fill the next position
         }
     }

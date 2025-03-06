@@ -1,44 +1,51 @@
-// this also works for same size
+#include <iostream>
 #include <vector>
-#include <algorithm>
 #include <climits>
 using namespace std;
 
-double median(vector<int>& a, vector<int>& b) {
+double findMedian(vector<int>& a, vector<int>& b) {
     int n1 = a.size();
     int n2 = b.size();
 
-    // Ensure that `a` is the smaller array to minimize binary search range
-    if (n1 > n2) return median(b, a);
+    // Ensure `a` is the smaller array to minimize binary search range
+    if (n1 > n2) return findMedian(b, a); 
 
-    int low = 0, high = n1;
-    int left = (n1 + n2 + 1) / 2; // Mid-point for partitioning both arrays
-    int n = n1 + n2;
+    int low = 0, high = n1; // Binary search range in `a`
+    int total = (n1 + n2 + 1) / 2; // Total elements in the left partition
 
     while (low <= high) {
-        // Partition positions for both arrays
-        int mid1 = (low + high) >> 1;
-        int mid2 = left - mid1;
+        int mid1 = (low + high) / 2; // Partition index for `a`
+        int mid2 = total - mid1;     // Partition index for `b` (remaining elements)
 
-        // Edge cases for left and right elements on both sides of the partitions
-        int l1 = (mid1 == 0) ? INT_MIN : a[mid1 - 1]; // Left element from `a`
-        int l2 = (mid2 == 0) ? INT_MIN : b[mid2 - 1]; // Left element from `b`
-        int r1 = (mid1 == n1) ? INT_MAX : a[mid1];    // Right element from `a`
-        int r2 = (mid2 == n2) ? INT_MAX : b[mid2];    // Right element from `b`
+        // Edge cases: Handle when the partition is at the start or end of an array
+        int leftA = (mid1 == 0) ? INT_MIN : a[mid1 - 1]; // Last element in left half of `a`
+        int leftB = (mid2 == 0) ? INT_MIN : b[mid2 - 1]; // Last element in left half of `b`
+        int rightA = (mid1 == n1) ? INT_MAX : a[mid1];   // First element in right half of `a`
+        int rightB = (mid2 == n2) ? INT_MAX : b[mid2];   // First element in right half of `b`
 
-        // Check if we found the correct partition
-        if (l1 <= r2 && l2 <= r1) {
-            // If total length is odd, median is max of left partition
-            if (n % 2 == 1) return max(l1, l2);
-            // If total length is even, median is average of max left and min right
-            return ((double)(max(l1, l2) + min(r1, r2))) / 2.0;
+        // Check if partitioning is correct
+        if (leftA <= rightB && leftB <= rightA) {
+            // If total size is odd, median is the max of the left partition
+            if ((n1 + n2) % 2 == 1) return max(leftA, leftB);
+            // If total size is even, median is the average of max left and min right
+            return (max(leftA, leftB) + min(rightA, rightB)) / 2.0;
         }
-        // Adjust search range based on partition conditions
-        else if (l1 > r2) {
-            high = mid1 - 1; // Move left in `a` 
-        } else {
-            low = mid1 + 1;  // Move right in `a`
+        // If leftA is greater, move left in `a`
+        else if (leftA > rightB) {
+            high = mid1 - 1;
+        }
+        // If leftB is greater, move right in `a`
+        else {
+            low = mid1 + 1;
         }
     }
-    return 0.0; // In case no median is found, though logically unreachable
+    return 0.0; // Should never reach here
+}
+
+int main() {
+    vector<int> a = {1, 3, 8}; 
+    vector<int> b = {7, 9, 10, 11}; 
+
+    cout << "Median: " << findMedian(a, b) << endl;
+    return 0;
 }

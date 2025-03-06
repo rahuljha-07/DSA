@@ -28,7 +28,7 @@ int LCS(int n, int m, const string &str1, const string &str2) {
 
 int lcs(int n, int m, const string &str1, const string &str2) {
     // Initialize the memoization table with -1
-    t = vector<vector<int>>(n + 1, vector<int>(m + 1, -1));
+    t.assign(n + 1, vector<int>(m + 1, -1));
     
     // Call the helper LCS function
     return LCS(n, m, str1, str2);

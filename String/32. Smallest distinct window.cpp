@@ -26,22 +26,21 @@ string minWindow(string s) {
         }
 
         // Try to contract the window until it's no longer valid
-        while (count == 0) {
-            // Update minimum window length and start index if needed
+        while (count == 0) {  
+            // Update the minimum window before contracting
+            if (j - i + 1 < minLen) {
+                minLen = j - i + 1;
+                startIdx = i;
+            }
+            // Try to remove s[i] and contract the window
             if (mp.find(s[i]) != mp.end()) {
                 mp[s[i]]++;
-                if (mp[s[i]] == 1) {
-                    count++; // We're missing this character now
-                    // Update minimum length and start index
-                    if (j - i + 1 < minLen) {
-                        minLen = j - i + 1;
-                        startIdx = i;
-                    }
+                if (mp[s[i]] == 1) {  
+                    count++;  // We lost a required character
                 }
             }
-            i++; // Move the left pointer to contract the window
+            i++;  // Move left pointer to contract
         }
-
         j++; // Expand the window by moving the right pointer
     }
 

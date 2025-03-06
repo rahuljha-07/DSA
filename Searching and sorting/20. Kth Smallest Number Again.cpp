@@ -15,7 +15,7 @@ long long findKthSmallestNumber(vector<Range>& intervals, long long k) {
     // Step 2: Merge overlapping or contiguous intervals
     int idx = 0;  // Pointer to the last merged interval
     for (int i = 1; i < intervals.size(); i++) {
-        if (intervals[idx].end >= intervals[i].start - 1) {
+        if (intervals[idx].end >= intervals[i].start) {
             // If intervals overlap or are contiguous, merge them
             intervals[idx].end = max(intervals[idx].end, intervals[i].end);
         } else {
