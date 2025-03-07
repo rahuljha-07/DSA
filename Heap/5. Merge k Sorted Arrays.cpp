@@ -82,7 +82,7 @@ vector<int> mergeKArrays(vector<vector<int>>& arr, int k) { //with pair
 
         // If the index is within the array bounds, push the next element into the priority queue
         if (col < arr[row].size()) {
-            q.push({arr[arrayIndex][col], {row, col}});
+            q.push({arr[row][col], {row, col}});
         }
     }
 

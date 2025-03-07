@@ -21,17 +21,25 @@ void inorderTraversal(Node* root, vector<int>& elements) {
     inorderTraversal(root->right, elements); // Traverse right subtree
 }
 
-// Helper function to perform level order traversal and assign elements from the sorted array
-void convertBSTToMinHeap(Node* root, vector<int>& elements, int& idx) {
-    if (root == nullptr) return;
+void convertBSTToMinHeap(Node* root, vector<int>& elements) {
+    if (!root) return;
 
-    // Assign the current node value from the sorted list
-    root->data = elements[idx++];
+    queue<Node*> q;
+    q.push(root);
     
-    // Perform level order traversal for left and right children
-    if (root->left) convertBSTToMinHeap(root->left, elements, idx);
-    if (root->right) convertBSTToMinHeap(root->right, elements, idx);
+    int idx = 0; // Index to track elements from the sorted array
+
+    while (!q.empty()) {
+        Node* current = q.front();
+        q.pop();
+
+        current->data = elements[idx++]; // Assign the next smallest element
+        
+        if (current->left) q.push(current->left);
+        if (current->right) q.push(current->right);
+    }
 }
+
 
 // Main function to convert BST to Min Heap
 Node* convertToMinHeap(Node* root) {
