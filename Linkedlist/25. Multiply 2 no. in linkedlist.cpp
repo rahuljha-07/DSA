@@ -50,59 +50,18 @@ Node* reverse(Node *head) {
     return prev;
 }
 
-// Multiply two linked lists and return the result as a linked list
-Node* multiplyTwoLists(Node* L1, Node* L2) {
-    if (L1 == nullptr || L2 == nullptr) {
-        return nullptr;  // Edge case if any list is empty
-    }
-    
-    // Reverse both linked lists
-    L1 = reverse(L1);
-    L2 = reverse(L2);
-    
-    Node *result = nullptr;
-    int carry = 0;
-    
-    // Multiply digit by digit
-    Node* p = L1;
-    Node* q = L2;
-    while (p != nullptr) {
-        q = L2;
-        Node* temp = nullptr;
-        while (q != nullptr) {
-            int val = p->data * q->data + carry;
-            carry = val / 10;
-            int digit = val % 10;
-            
-            // Insert the digit in the result linked list
-            Node* newNode = new Node(digit);
-            if (temp == nullptr) {
-                temp = newNode;
-            } else {
-                newNode->next = temp;
-                temp = newNode;
-            }
-            q = q->next;
-        }
-        p = p->next;
-    }
-    
-    // Reverse the final result to get the correct order
-    result = reverse(temp);
-    return result;
-}
-
-// Add two linked lists
-Node* addTwoLists(Node* l1, Node* l2) {
+// Function to add two numbers represented by linked lists
+Node* addLists(Node* l1, Node* l2) {
     Node* dummy = new Node(0);
-    Node* current = dummy;
+    Node* temp = dummy;
     int carry = 0;
 
     while (l1 || l2 || carry) {
         int sum = carry + (l1 ? l1->data : 0) + (l2 ? l2->data : 0);
         carry = sum / 10;
-        current->next = new Node(sum % 10);
-        current = current->next;
+        temp->next = new Node(sum % 10);
+        temp = temp->next;
+
         if (l1) l1 = l1->next;
         if (l2) l2 = l2->next;
     }
@@ -110,46 +69,53 @@ Node* addTwoLists(Node* l1, Node* l2) {
     return dummy->next;
 }
 
-// Multiply two linked lists
+// Function to multiply two linked lists
 Node* multiplyTwoLists(Node* L1, Node* L2) {
+    if (!L1 || !L2) return nullptr;
+
+    // Reverse both lists to make multiplication easier
     L1 = reverse(L1);
     L2 = reverse(L2);
 
     Node* result = nullptr;
-    Node* p = L1;
-    int zeroPadding = 0;
+    Node* tempResult = nullptr;
+    Node* tempL1 = L1;
 
-    while (p) {
-        Node* temp = nullptr;
-        Node* q = L2;
-        int carry = 0;
+    int positionShift = 0;
 
-        for (int i = 0; i < zeroPadding; i++) {
-            Node* newNode = new Node(0);
-            newNode->next = temp;
-            temp = newNode;
+    // Multiply each digit of L1 with entire L2
+    while (tempL1) {
+        Node* tempL2 = L2;
+        Node* temp = new Node(0); // Dummy node for intermediate sum
+        Node* current = temp;
+        
+        // Add position shift (multiply by 10)
+        for (int i = 0; i < positionShift; i++) {
+            current->next = new Node(0);
+            current = current->next;
         }
 
-        while (q) {
-            int product = p->data * q->data + carry;
-            carry = product / 10;
-            Node* newNode = new Node(product % 10);
-            newNode->next = temp;
-            temp = newNode;
-            q = q->next;
+        int carry = 0;
+        while (tempL2) {
+            int mul = tempL1->data * tempL2->data + carry;
+            carry = mul / 10;
+            current->next = new Node(mul % 10);
+            current = current->next;
+            tempL2 = tempL2->next;
         }
 
         if (carry) {
-            Node* newNode = new Node(carry);
-            newNode->next = temp;
-            temp = newNode;
+            current->next = new Node(carry);
         }
 
-        result = addTwoLists(result, temp);
-        zeroPadding++;
-        p = p->next;
+        // Add intermediate result to final result
+        result = addLists(result, temp->next);
+
+        positionShift++;
+        tempL1 = tempL1->next;
     }
 
+    // Reverse the result list to correct the order
     return reverse(result);
 }
 

@@ -27,7 +27,7 @@ void append(Node*& head, int data) {
 void printTripletsWithSum(Node* head, int X) {
     if (!head) return;
 
-    // Traverse to the last node to get the tail of the DLL
+    // Find tail node
     Node* tail = head;
     while (tail->next) {
         tail = tail->next;
@@ -36,26 +36,26 @@ void printTripletsWithSum(Node* head, int X) {
     bool found = false;
 
     // Iterate through the DLL with the first element fixed
-    for (Node* first = head; first != nullptr; first = first->next) {
+    for (Node* first = head; first != tail->prev; first = first->next) {
         Node* left = first->next;
         Node* right = tail;
 
-        // Use two-pointer technique to find pairs for the fixed first element
-        while (left != nullptr && right != nullptr && left != right && left->prev != right) {
+        // Two-pointer approach to find the pair for the fixed element
+        while (left != right) {
             int sum = first->data + left->data + right->data;
             if (sum == X) {
                 cout << "(" << first->data << ", " << left->data << ", " << right->data << ")\n";
                 found = true;
 
-                // Skip duplicates on the left side
+                // Move left pointer to avoid duplicates
                 Node* tempLeft = left;
-                while (left != nullptr && left->data == tempLeft->data) {
+                while (left && left->data == tempLeft->data) {
                     left = left->next;
                 }
 
-                // Skip duplicates on the right side
+                // Move right pointer to avoid duplicates
                 Node* tempRight = right;
-                while (right != nullptr && right->data == tempRight->data) {
+                while (right && right->data == tempRight->data) {
                     right = right->prev;
                 }
             } 

@@ -1,3 +1,13 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+    Node(int val) : data(val), next(nullptr), prev(nullptr) {}
+};
+
 // Function to reverse a doubly linked list
 Node* reverse(Node* head) {
     if (head == nullptr) return nullptr;
@@ -17,45 +27,28 @@ Node* reverse(Node* head) {
     return head; // Return the new head of the reversed list
 }
 
-
-// Recursive function to reverse a doubly linked list
-Node* reverseRecursive(Node* curr) {
-    if (curr == nullptr) return nullptr;   // Base case: empty list
-    if (curr->next == nullptr) {           // Base case: last node becomes the new head
-        curr->prev = curr->next;           // Set the prev to next (nullptr) as new head's prev should be nullptr
-        return curr;                       // Return the new head
-    }
-    
-    // Swap the next and prev pointers
-    Node* temp = curr->prev;
-    curr->prev = curr->next;
-    curr->next = temp;
-
-    // Recursive call for the next node (which is curr->prev after swap)
-    return reverseRecursive(curr->prev);   // Returns the new head after complete reversal
-}
-
-// Recursive function to reverse the list, modifying head by reference
-void reverseRecursive(Node*& head, Node* curr) {
-    // Base case: if we reach the end of the list, update head and return
-    if (curr->next == nullptr) {
-        head = curr;           // Update head to the last node
-        curr->prev = nullptr;   // Set the prev pointer of the new head to nullptr
-        return;
+// Recursive function to reverse the linked list
+Node* reverseRecursive(Node* curr, Node*& revHead) {
+    // Base case: If we reach the last node, set revHead to it
+    if (curr == nullptr || curr->next == nullptr) {
+        revHead = curr;
+        return curr;  // Return last node (new tail)
     }
 
-    // Recur for the next node
-    reverseRecursive(head, curr->next);
+    // Recursive call to process the next node
+    Node* newHead = reverseRecursive(curr->next, revHead);
 
-    // Backtracking phase: update pointers to reverse the list
-    Node* nextNode = curr->next;
-    nextNode->next = curr;      // Set next node's next to current node
-    curr->prev = nextNode;      // Set current node's prev to next node
-    curr->next = nullptr;       // Set current node's next to nullptr as it becomes the last in reversed list
+    // Link the current node to the reversed list
+    newHead->next = curr;
+    curr->prev = newHead;
+    curr->next = nullptr;  // Mark current node as the new tail
+
+    return curr;  // Return current node to help in backtracking
 }
 
-// Helper function to call the recursive function with head as reference
+// Wrapper function to initiate recursion
 void reverse(Node*& head) {
-    if (head == nullptr || head->next == nullptr) return; // If list is empty or has one node
-    reverseRecursive(head, head);
+    Node* revHead = nullptr;  // This will store the new head after reversal
+    reverseRecursive(head, revHead);
+    head = revHead;  // Update the head of the original list to the reversed list
 }
