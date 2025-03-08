@@ -2,7 +2,7 @@
 int preorderIndex = 0;
 
 // Function to build the binary tree from preorder and inorder traversals
-Node* buildTreeFromPreorderInorder(const vector<int>& inorder, const vector<int>& preorder, int leftBound, int rightBound, unordered_map<int, int>& inorderMap) {
+Node* buildTreeFromPreorderInorder(const vector<int>& preorder, int leftBound, int rightBound, unordered_map<int, int>& inorderMap) {
     // Base case: if the current range is invalid (left > right), return NULL
     if (leftBound > rightBound) {
         return nullptr;
@@ -20,8 +20,8 @@ Node* buildTreeFromPreorderInorder(const vector<int>& inorder, const vector<int>
     int inorderIndex = inorderMap[currentNode->data];
 
     // Recursively build the left and right subtrees
-    currentNode->left = buildTreeFromPreorderInorder(inorder, preorder, leftBound, inorderIndex - 1, inorderMap);
-    currentNode->right = buildTreeFromPreorderInorder(inorder, preorder, inorderIndex + 1, rightBound, inorderMap);
+    currentNode->left = buildTreeFromPreorderInorder(preorder, leftBound, inorderIndex - 1, inorderMap);
+    currentNode->right = buildTreeFromPreorderInorder(preorder, inorderIndex + 1, rightBound, inorderMap);
 
     return currentNode;
 }
@@ -37,7 +37,7 @@ Node* buildTree(const vector<int>& inorder, const vector<int>& preorder, int n) 
     }
 
     // Start building the tree
-    return buildTreeFromPreorderInorder(inorder, preorder, 0, n - 1, inorderMap);
+    return buildTreeFromPreorderInorder(preorder, 0, n - 1, inorderMap);
 }
 
 // for post order traversal and inorder run loop from behind thats it

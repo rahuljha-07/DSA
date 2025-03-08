@@ -20,10 +20,12 @@ vector<Node*> duplicateRoots; // Vector to store roots of duplicate subtrees
 string findDuplicateSubtreesUtil(Node* root) {
     if (!root) return "#"; // Use "#" to represent null nodes to avoid ambiguity
 
-    // Serialize the current subtree as a string
-    string subtree = to_string(root->data) + "," + 
-                     findDuplicateSubtreesUtil(root->left) + "," + 
-                     findDuplicateSubtreesUtil(root->right);
+    // Serialize left and right subtrees separately
+    string leftString = findDuplicateSubtreesUtil(root->left);
+    string rightString = findDuplicateSubtreesUtil(root->right);
+    
+    // Form the final subtree string
+    string subtree = to_string(root->data) + "," + leftString + "," + rightString;
 
     // If this subtree has already appeared once, add its root to duplicateRoots
     if (subtreeMap[subtree] == 1) {
@@ -35,7 +37,6 @@ string findDuplicateSubtreesUtil(Node* root) {
 
     return subtree;
 }
-
 // Main function to find all duplicate subtrees
 vector<Node*> findDuplicateSubtrees(Node* root) {
     subtreeMap.clear(); // Clear the map before starting

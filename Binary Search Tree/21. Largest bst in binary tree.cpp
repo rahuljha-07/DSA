@@ -49,7 +49,7 @@ BSTInfo largestBSTSubtree(Node* root) {
             max(leftInfo.size, rightInfo.size), // Take the maximum of left or right subtree BST sizes
             -1,
             -1
-        };
+        }; 
     }
 }
 

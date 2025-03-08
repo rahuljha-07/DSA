@@ -16,13 +16,15 @@ unordered_map<string, int> subtreeMap; // Map to store subtree serializations an
 
 // Helper function to serialize subtrees and check for duplicates
 string serializeSubtree(Node* root) {
-    // Base case: if the node is null, return an empty string
-    if (!root) return "$"; //adding symbol bcz it tree can be 2,3,4 (l,root,r) and root,r,r will give same output
+    // Base case: if the node is null, return a unique symbol to represent it
+    if (!root) return "$";
 
-    // Serialize the current subtree as a string
-    string subtree = serializeSubtree(root->left) + "," + 
-                     to_string(root->data) + "," +
-                     serializeSubtree(root->right);
+    // Serialize the left and right subtrees separately
+    string leftString = serializeSubtree(root->left);
+    string rightString = serializeSubtree(root->right);
+
+    // Create the subtree representation
+    string subtree = leftString + "," + to_string(root->data) + "," + rightString;
 
     // Increment the count of this serialized subtree in the map
     subtreeMap[subtree]++;
