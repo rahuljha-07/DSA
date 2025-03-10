@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/ Helper function to find combinations using knapsack-like approach
+// Helper function to find combinations using knapsack-like approach
 void knapsackApproach(int index, vector<int>& candidates, int target, vector<int>& currentCombination, vector<vector<int>>& result) {
     // Base case: If the target becomes zero, we have found a valid combination
     if (target == 0) {

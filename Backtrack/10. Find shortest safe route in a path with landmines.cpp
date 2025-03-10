@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Recursive function to find the shortest safe route
 int findShortestSafeRoute(int rows, int cols, set<pair<int, int>>& unsafeCells,
                           vector<vector<bool>>& visited, int currentRow, int currentCol, int steps) {
     // Base case: Check if the current cell is out of bounds, unsafe, or already visited
@@ -31,23 +30,11 @@ int findShortestSafeRoute(int rows, int cols, set<pair<int, int>>& unsafeCells,
     return min({moveDown, moveUp, moveRight, moveLeft});
 }
 
-int main() {
-    int rows, cols;
-    cout << "Enter the number of rows and columns: ";
-    cin >> rows >> cols;
-
-    vector<vector<int>> grid(rows, vector<int>(cols)); // Input grid
-    vector<vector<bool>> visited(rows, vector<bool>(cols, false)); // Visited cells tracker
-
-    cout << "Enter the grid (0 for landmine, 1 for safe cell):\n";
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            cin >> grid[i][j];
-        }
-    }
-
-    // Identify unsafe cells and mark neighboring cells as unsafe
+int shortestPath(vector<vector<int>>& grid, int rows, int cols) {
+    // Create a set to store unsafe cells
     set<pair<int, int>> unsafeCells;
+
+    // Mark landmine cells and their adjacent cells as unsafe
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             if (grid[i][j] == 0) { // Landmine cell
@@ -60,21 +47,48 @@ int main() {
         }
     }
 
+    // Initialize visited matrix
+    vector<vector<bool>> visited(rows, vector<bool>(cols, false));
+
     // Find the shortest safe route from the first column to the last column
     int shortestRoute = INT_MAX;
     for (int i = 0; i < rows; ++i) {
-    // Check if the cell (i, 0) is not in unsafeCells
-    if (unsafeCells.find({i, 0}) == unsafeCells.end()) {
-        int pathLength = findShortestSafeRoute(rows, cols, unsafeCells, visited, i, 0, 0);
-        shortestRoute = min(shortestRoute, pathLength);
+        // Check if the starting cell (i, 0) is safe
+        if (unsafeCells.find({i, 0}) == unsafeCells.end()) {
+            int pathLength = findShortestSafeRoute(rows, cols, unsafeCells, visited, i, 0, 0);
+            shortestRoute = min(shortestRoute, pathLength);
+        }
     }
+
+    return (shortestRoute == INT_MAX) ? -1 : shortestRoute;
 }
 
+int main() {
+    int rows, cols;
+    
+    // Take user input for the grid dimensions
+    cout << "Enter the number of rows and columns: ";
+    cin >> rows >> cols;
+
+    // Define the grid
+    vector<vector<int>> grid(rows, vector<int>(cols));
+
+    // Input grid values from user (0 for landmine, 1 for safe cell)
+    cout << "Enter the grid (0 for landmine, 1 for safe cell):\n";
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            cin >> grid[i][j];
+        }
+    }
+
+    // Find the shortest path using `shortestPath` function
+    int result = shortestPath(grid, rows, cols);
+
     // Output the result
-    if (shortestRoute == INT_MAX) {
+    if (result == -1) {
         cout << "No safe route exists.\n";
     } else {
-        cout << "The length of the shortest safe route is: " << shortestRoute << endl;
+        cout << "The length of the shortest safe route is: " << result << endl;
     }
 
     return 0;

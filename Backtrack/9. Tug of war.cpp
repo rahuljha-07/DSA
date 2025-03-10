@@ -4,23 +4,21 @@
 #include <climits>
 using namespace std;
 
-// Global variables to store the minimum difference and the answer
+// Global variables to store the best partition and minimum difference
 int minDifference = INT_MAX;
-string bestPartition = "";
+vector<int> bestSet1, bestSet2;
 
 // Recursive function to solve the Tug of War problem
 void solve(vector<int>& arr, int index, vector<int>& set1, vector<int>& set2, int sumSet1, int sumSet2) {
-    // Base case: when all elements have been considered
+    // Base case: If all elements are placed
     if (index == arr.size()) {
-        int delta = abs(sumSet1 - sumSet2); // Calculate the difference between the sums
-        // Update the best solution if a smaller difference is found
+        if (abs((int)set1.size() - (int)set2.size()) > 1) return; // Ensure valid partition size
+
+        int delta = abs(sumSet1 - sumSet2);
         if (delta < minDifference) {
             minDifference = delta;
-            bestPartition = "{Set1: ";
-            for (int num : set1) bestPartition += to_string(num) + " ";
-            bestPartition += "} {Set2: ";
-            for (int num : set2) bestPartition += to_string(num) + " ";
-            bestPartition += "}";
+            bestSet1 = set1;
+            bestSet2 = set2;
         }
         return;
     }
@@ -51,8 +49,11 @@ int main() {
     solve(arr, 0, set1, set2, 0, 0);
 
     // Print the best partition and the minimum difference
-    cout << "Best Partition: " << bestPartition << endl;
-    cout << "Minimum Difference: " << minDifference << endl;
+    cout << "Best Partition:\nSet 1: ";
+    for (int num : bestSet1) cout << num << " ";
+    cout << "\nSet 2: ";
+    for (int num : bestSet2) cout << num << " ";
+    cout << "\nMinimum Difference: " << minDifference << endl;
 
     return 0;
 }

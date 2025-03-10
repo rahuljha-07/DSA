@@ -30,6 +30,38 @@ bool helper(int startIndex, int arr[], bool visited[], int k, int currentSum, in
     return false;
 }
 
+
+// Helper function for backtracking (Knapsack-style recursion)
+bool helper(int n, int arr[], bool visited[], int k, int currentSum, int targetSum) { // the calls with n instead of 0
+    // If only one subset is left, the remaining elements automatically form a valid subset
+    if (k == 1) 
+        return true;
+
+    // If current subset's sum reaches the target, move to the next subset
+    if (currentSum == targetSum) 
+        return helper(n - 1, arr, visited, k - 1, 0, targetSum);
+
+    // If no elements left, return false
+    if (n <= 0)
+        return false;
+
+    // Option 1: Exclude current element and move to the next
+    if (helper(n - 1, arr, visited, k, currentSum, targetSum))
+        return true;
+
+    // Option 2: Include current element in the subset (if not visited)
+    if (!visited[n - 1] && currentSum + arr[n - 1] <= targetSum) {
+        visited[n - 1] = true; // Mark as used
+
+        if (helper(n - 1, arr, visited, k, currentSum + arr[n - 1], targetSum))
+            return true;
+
+        visited[n - 1] = false; // Backtrack
+    }
+
+    return false;
+}
+
 // Main function to check if partitioning is possible
 bool isKPartitionPossible(int arr[], int n, int k) {
     int sum = accumulate(arr, arr + n, 0); // Calculate the sum of the array
