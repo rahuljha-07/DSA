@@ -1,8 +1,9 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 // Function to check if it's safe to color a node with a given color
-bool isSafe(int node, int color[], bool graph[101][101], int n, int col) {
+bool isSafe(int node, vector<int> &color, bool graph[101][101], int n, int col) {
     for (int k = 0; k < n; k++) {
         if (k != node && graph[k][node] == 1 && color[k] == col) {
             return false; // Adjacent node has the same color
@@ -12,7 +13,7 @@ bool isSafe(int node, int color[], bool graph[101][101], int n, int col) {
 }
 
 // Recursive function to solve the graph coloring problem
-bool solve(int node, int color[], int m, int N, bool graph[101][101]) {
+bool solve(int node, vector<int> &color, int m, int N, bool graph[101][101]) {
     // Base case: If all nodes are colored, return true
     if (node == N) {
         return true;
@@ -38,7 +39,7 @@ bool solve(int node, int color[], int m, int N, bool graph[101][101]) {
 
 // Function to determine if the graph can be colored with at most m colors
 bool graphColoring(bool graph[101][101], int m, int N) {
-    int color[N] = {0}; // Array to store colors assigned to nodes
+    vector<int> color(N, 0); // Array to store colors assigned to nodes
 
     // Solve the coloring problem starting from node 0
     if (solve(0, color, m, N, graph)) {

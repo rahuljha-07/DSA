@@ -13,7 +13,7 @@ int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int
         graph[u].push_back({v, w}); // Use push_back to add edges
     }
 
-    // Step 2: Min-heap priority queue (cost, node, remaining stops)
+    // Step 2: Min-heap priority queue (cost, node, current stops taken)
     priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<>> pq;
     pq.push({0, src, 0}); // Push initial state (0 cost, src, 0 stops)
 

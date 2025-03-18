@@ -39,7 +39,7 @@ void findLongestPath(int V, vector<pair<int, int>> adj[], int source) {
     vector<int> dist(V, INT_MIN);
     dist[source] = 0;
 
-    // Step 4: BFS using reversed topological order
+    // Step 4: BFS using topological order
     for (int u : topoOrder) {
         if (dist[u] != INT_MIN) { // Process only reachable nodes
             for (auto &neighbor : adj[u]) {

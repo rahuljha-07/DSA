@@ -27,7 +27,7 @@ bool check(int x, int y) {
     return false;
 }
 
-int32_t main() {
+int main() {
 
     int n;
     cin >> n;

@@ -1,53 +1,115 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <queue>
+
+using namespace std;
+
 // Definition for a Node.
 class Node {
 public:
-    int val;                           // Value of the node
-    vector<Node*> neighbors;           // List of neighboring nodes
+    int val;
+    vector<Node*> neighbors;
 
-    Node() {                           // Default constructor
+    Node() {
         val = 0;
         neighbors = vector<Node*>();
     }
-    
-    Node(int _val) {                   // Constructor with node value
+
+    Node(int _val) {
         val = _val;
         neighbors = vector<Node*>();
     }
-    
-    Node(int _val, vector<Node*> _neighbors) {  // Constructor with value and neighbors
+
+    Node(int _val, vector<Node*> _neighbors) {
         val = _val;
         neighbors = _neighbors;
     }
 };
 
-//BFS
-class Solution {
-    public:
-        Node* cloneGraph(Node* node) {
-            if (node == nullptr) return nullptr;
-            
-            unordered_map<Node*, Node*> map;
-            queue<Node*> queue;
-            
-            queue.push(node);
-            map[node] = new Node(node->val, {});
-            
-            while (!queue.empty()) {
-                Node* h = queue.front();
-                queue.pop();
-                
-                for (Node* neighbor : h->neighbors) {
-                    if (!map.count(neighbor)) {
-                        map[neighbor] = new Node(neighbor->val, {});
-                        queue.push(neighbor);
-                    }
-                    map[h]->neighbors.push_back(map[neighbor]);
-                }
+// Function to clone the graph using BFS
+Node* cloneGraph(Node* node) {
+    if (node == nullptr) return nullptr;
+
+    unordered_map<Node*, Node*> map; // Keeps track of cloned nodes
+    queue<Node*> queue; // BFS queue
+
+    // Clone the first node and add it to queue
+    queue.push(node);
+    map[node] = new Node(node->val);
+
+    // BFS traversal
+    while (!queue.empty()) {
+        Node* current = queue.front();
+        queue.pop();
+
+        // Process all neighbors
+        for (Node* neighbor : current->neighbors) {
+            if (map.find(neighbor) == map.end()) { // If not cloned yet
+                map[neighbor] = new Node(neighbor->val); // Clone it
+                queue.push(neighbor); // Add to queue for processing
             }
-            
-            return map[node];
+            // Link the cloned node to its cloned neighbors
+            map[current]->neighbors.push_back(map[neighbor]);
         }
-    };
+    }
+
+    return map[node]; // Return the cloned graph's entry point
+}
+
+// Function to print a graph (for debugging)
+void printGraph(Node* node, unordered_map<Node*, bool>& visited) {
+    if (node == nullptr || visited[node]) return;
+
+    // Mark node as visited
+    visited[node] = true;
+
+    // Print the node and its neighbors
+    cout << "Node " << node->val << " -> { ";
+    for (Node* neighbor : node->neighbors) {
+        cout << neighbor->val << " ";
+    }
+    cout << "}" << endl;
+
+    // Recursively print neighbors
+    for (Node* neighbor : node->neighbors) {
+        printGraph(neighbor, visited);
+    }
+}
+
+// Main function to test cloning
+int main() {
+    // Create the original graph:
+    //      1
+    //     / \
+    //    2   3
+    //     \ /
+    //      4
+    Node* node1 = new Node(1);
+    Node* node2 = new Node(2);
+    Node* node3 = new Node(3);
+    Node* node4 = new Node(4);
+
+    node1->neighbors = {node2, node3};
+    node2->neighbors = {node1, node4, node3};
+    node3->neighbors = {node1, node2, node4};
+    node4->neighbors = {node2, node3};
+
+    // Print original graph
+    cout << "Original Graph:\n";
+    unordered_map<Node*, bool> visited;
+    printGraph(node1, visited);
+
+    // Clone the graph
+    Node* clonedGraph = cloneGraph(node1);
+
+    // Print cloned graph
+    cout << "\nCloned Graph:\n";
+    unordered_map<Node*, bool> visitedCloned;
+    printGraph(clonedGraph, visitedCloned);
+
+    return 0;
+}
 
 
 
