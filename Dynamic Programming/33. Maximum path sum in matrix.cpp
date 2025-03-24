@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <climits>
+#include <algorithm>
 using namespace std;
 
 // Helper function for recursion with memoization
@@ -37,6 +38,28 @@ int maxPathSum(vector<vector<int>> &mat) {
     }
 
     return maxSum;
+}
+
+
+// bottom up
+int maxPathSumBottomUp(vector<vector<int>> &mat) {
+    int n = mat.size();
+    if (n == 0) return 0;
+
+    vector<vector<int>> dp = mat; // Copy initial values
+
+    for (int row = n - 2; row >= 0; row--) {
+        for (int col = 0; col < n; col++) {
+            int down = dp[row + 1][col];
+            int downLeft = (col > 0) ? dp[row + 1][col - 1] : INT_MIN;
+            int downRight = (col < n - 1) ? dp[row + 1][col + 1] : INT_MIN;
+
+            dp[row][col] += max({down, downLeft, downRight});
+        }
+    }
+
+    // Max value in the first row is the answer
+    return *max_element(dp[0].begin(), dp[0].end());
 }
 
 int main() {

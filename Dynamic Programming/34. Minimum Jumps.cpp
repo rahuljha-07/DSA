@@ -26,8 +26,7 @@ int minJumpsHelper(vector<int> &arr, int index, int n, vector<int> &dp) {
     }
 
     // Store the result in dp
-    dp[index] = minJumps;
-    return dp[index];
+    return dp[index] = minJumps;
 }
 
 int minJumps(vector<int> &arr) {

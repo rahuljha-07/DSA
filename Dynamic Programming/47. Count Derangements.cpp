@@ -38,9 +38,7 @@ int countDerangementsHelper(int n, vector<int>& memo) {
     if (memo[n] != -1) return memo[n];
 
     // Recursive formula: D(n) = (n-1) * (D(n-1) + D(n-2))
-    memo[n] = (n - 1) * (countDerangementsHelper(n - 1, memo) + countDerangementsHelper(n - 2, memo));
-    
-    return memo[n];
+    return memo[n] = (n - 1) * (countDerangementsHelper(n - 1, memo) + countDerangementsHelper(n - 2, memo));
 }
 
 // Wrapper function for memoization

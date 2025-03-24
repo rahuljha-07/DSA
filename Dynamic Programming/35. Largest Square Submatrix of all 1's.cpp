@@ -25,9 +25,7 @@ int findLargestSquare(int i, int j, vector<vector<int>> &mat, vector<vector<int>
     int diagonal = findLargestSquare(i + 1, j + 1, mat, dp);
 
     // Calculate the size of the largest square that can end at (i, j)
-    dp[i][j] = 1 + min({right, down, diagonal});
-
-    return dp[i][j];
+    return dp[i][j] = 1 + min({right, down, diagonal});
 }
 
 // Function to find the largest square submatrix with all 1s

@@ -22,9 +22,7 @@ int solve(int i, int j, vector<int>& a, vector<vector<int>>& dp) {
     int take_last = a[j] + min(solve(i + 1, j - 1, a, dp), solve(i, j - 2, a, dp));
 
     // Store the result in dp[i][j] to avoid redundant computations
-    dp[i][j] = max(take_first, take_last);
-
-    return dp[i][j];
+    return dp[i][j] = max(take_first, take_last);
 }
 
 // Wrapper function to start solving the game from the whole array

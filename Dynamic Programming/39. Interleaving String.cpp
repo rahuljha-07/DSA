@@ -5,14 +5,15 @@ using namespace std;
 
 // Helper function to check if interleaving is possible
 bool isInterleave_helper(string s1, string s2, string s3, int i, int j, int k, vector<vector<int>> &m) {
-    // If we have already computed this state, return the result
-    if (m[i][j] != -1) {
-        return m[i][j];
-    }
 
     // If we have reached the end of both s1 and s2 and s3, return true
     if (i == s1.length() && j == s2.length() && k == s3.length()) {
         return true;
+    }
+    
+    // If we have already computed this state, return the result
+    if (m[i][j] != -1) {
+        return m[i][j];
     }
 
     bool x = false, y = false;
