@@ -17,6 +17,11 @@
     - [3.3 Inheritance](#33-inheritance)
       - [Types of Inheritance](#types-of-inheritance)
     - [3.4 Polymorphism](#34-polymorphism)
+    - [1. Compile-time Polymorphism](#1-compile-time-polymorphism)
+      - [a) Function Overloading](#a-function-overloading)
+      - [b) Operator Overloading](#b-operator-overloading)
+    - [2. Run-time Polymorphism](#2-run-time-polymorphism)
+      - [Virtual Functions](#virtual-functions)
   - [4. Constructor \& Destructor Execution Flow](#4-constructor--destructor-execution-flow)
     - [Definition](#definition-1)
     - [Why use them?](#why-use-them)
@@ -26,12 +31,21 @@
     - [Why use them?](#why-use-them-1)
     - [Table Representation](#table-representation)
     - [Complete Examples](#complete-examples)
+  - [**1. Composition** – "Has-a" relationship, strong ownership](#1-composition--has-a-relationship-strong-ownership)
+  - [**2. Aggregation** – "Has-a" relationship, but weaker (shared ownership)](#2-aggregation--has-a-relationship-but-weaker-shared-ownership)
+  - [**3. Association** – Just a link, no ownership](#3-association--just-a-link-no-ownership)
+    - [Summary:](#summary)
   - [6. Shallow Copy vs Deep Copy](#6-shallow-copy-vs-deep-copy)
     - [Definition](#definition-2)
     - [Why?](#why)
     - [Complete Example](#complete-example-2)
+  - [**1. Shallow Copy Example** (bad if pointer involved)](#1-shallow-copy-example-bad-if-pointer-involved)
+    - [🧨 Problem:](#-problem)
+  - [**2. Deep Copy Example** (safe \& proper)](#2-deep-copy-example-safe--proper)
+    - [Benefit:](#benefit)
+  - [🧠 TL;DR:](#-tldr)
   - [7. Virtual Functions \& Abstract Classes](#7-virtual-functions--abstract-classes)
-    - [Virtual Functions](#virtual-functions)
+    - [Virtual Functions](#virtual-functions-1)
     - [Abstract Classes](#abstract-classes)
   - [8. Friend Function](#8-friend-function)
     - [Definition](#definition-3)
@@ -350,7 +364,10 @@ int main() {
 1. **Compile-time Polymorphism** (Function overloading, Operator overloading)  
 2. **Run-time Polymorphism** (Virtual functions)
 
-**Complete Example (Function Overloading)**:
+
+### 1. Compile-time Polymorphism
+
+#### a) Function Overloading
 
 ```cpp
 #include <iostream>
@@ -375,6 +392,76 @@ int main() {
 }
 ```
 
+#### b) Operator Overloading
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Complex {
+    float real, imag;
+public:
+    Complex(float r = 0, float i = 0) : real(r), imag(i) {}
+
+    Complex operator + (const Complex& obj) {
+        return Complex(real + obj.real, imag + obj.imag);
+    }
+
+    void display() {
+        cout << real << " + " << imag << "i" << endl;
+    }
+};
+
+int main() {
+    Complex c1(1.2, 3.4), c2(2.3, 4.5);
+    Complex result = c1 + c2;
+    result.display();
+    return 0;
+}
+```
+
+---
+
+### 2. Run-time Polymorphism
+
+#### Virtual Functions
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    virtual void speak() {
+        cout << "Animal speaks" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void speak() override {
+        cout << "Dog barks" << endl;
+    }
+};
+
+int main() {
+    Animal* animal;
+    Dog dog;
+
+    animal = &dog;
+    animal->speak();  // Run-time decision: Dog's speak() will be called
+
+    return 0;
+}
+
+// alternate way
+int main() {
+    Dog dog;
+    dog.speak();  // No pointer, no confusion
+
+    return 0;
+}
+```
 ---
 
 ## 4. Constructor & Destructor Execution Flow
@@ -445,84 +532,115 @@ Main Ended
 
 ### Complete Examples
 
+## **1. Composition** – "Has-a" relationship, strong ownership
+
+**Example**: A `House` *has a* `Room`. If the house is destroyed, so is the room.
+
 ```cpp
 #include <iostream>
-#include <vector>
 using namespace std;
 
-// Composition Example
-// Car "composes" an Engine - The Engine is created and destroyed with Car
-class Engine {
+class Room {
 public:
-    Engine() { cout << "Engine created.\n"; }
-    ~Engine() { cout << "Engine destroyed.\n"; }
+    Room() { cout << "Room is built.\n"; }
+    ~Room() { cout << "Room is destroyed.\n"; }
 };
 
-class Car {
-private:
-    Engine engine; // Composition (engine's lifetime = car's lifetime)
+class House {
+    Room room; // Created and destroyed with House
 public:
-    Car() { cout << "Car created.\n"; }
-    ~Car() { cout << "Car destroyed.\n"; }
+    House() { cout << "House is built.\n"; }
+    ~House() { cout << "House is destroyed.\n"; }
 };
 
-// Aggregation Example
-// Team has a list of Players, but Players can exist outside a Team
-class Player {
+int main() {
+    cout << "== Composition ==\n";
+    House h;
+    return 0;
+}
+```
+
+🧠 *Room lives and dies with the House*
+
+---
+
+## **2. Aggregation** – "Has-a" relationship, but weaker (shared ownership)
+
+**Example**: A `School` *has* `Students`, but students can exist without the school.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Student {
 public:
     string name;
-    Player(const string& n) : name(n) {}
+    Student(string n) : name(n) {}
 };
 
-class Team {
-private:
-    vector<Player*> players; // Aggregation (pointers to existing Players)
+class School {
 public:
-    void addPlayer(Player* p) { players.push_back(p); }
-    void showPlayers() {
-        for (auto p : players) {
-            cout << p->name << " ";
-        }
-        cout << endl;
-    }
-};
-
-// Association Example
-// Teacher and Classroom are associated, but each can exist independently
-class Classroom {
-public:
-    string roomNumber;
-    Classroom(const string& room) : roomNumber(room) {}
-};
-
-class Teacher {
-public:
-    void teachesIn(Classroom& c) {
-        cout << "Teacher teaches in room: " << c.roomNumber << endl;
+    void enroll(Student* s) {
+        cout << s->name << " enrolled in school.\n";
     }
 };
 
 int main() {
-    {
-        cout << "=== Composition Demo ===\n";
-        Car myCar;
-    } // myCar goes out of scope, so does its Engine
-
-    cout << "\n=== Aggregation Demo ===\n";
-    Player p1("Alice"), p2("Bob");
-    Team team;
-    team.addPlayer(&p1);
-    team.addPlayer(&p2);
-    team.showPlayers(); // Team doesn't own players' lifetimes
-
-    cout << "\n=== Association Demo ===\n";
-    Teacher t;
-    Classroom c("A101");
-    t.teachesIn(c);
-
+    cout << "\n== Aggregation ==\n";
+    Student s1("Alice");
+    School school;
+    school.enroll(&s1); // School uses existing student
     return 0;
 }
 ```
+
+🧠 *Student is not owned by School, just connected to it*
+
+---
+
+## **3. Association** – Just a link, no ownership
+
+**Example**: A `Doctor` visits a `Hospital`, but both exist separately.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Hospital {
+public:
+    string name;
+    Hospital(string n) : name(n) {}
+};
+
+class Doctor {
+public:
+    void visit(Hospital& h) {
+        cout << "Doctor visits " << h.name << endl;
+    }
+};
+
+int main() {
+    cout << "\n== Association ==\n";
+    Hospital h("City Hospital");
+    Doctor d;
+    d.visit(h);
+    return 0;
+}
+```
+
+🧠 *Doctor and Hospital just interact, no lifetime or ownership dependency*
+
+---
+
+###  Summary:
+
+| Type          | Ownership      | Lifetime tied? | Relationship   |
+|---------------|----------------|----------------|----------------|
+| Composition   | Strong         | Yes            | Part-of        |
+| Aggregation   | Weak           | No             | Has-a          |
+| Association   | Just connected | No             | Uses / Works with |
+
+
 
 ---
 
@@ -538,56 +656,112 @@ int main() {
 
 ### Complete Example
 
+
+## **1. Shallow Copy Example** (bad if pointer involved)
+
 ```cpp
 #include <iostream>
 using namespace std;
 
-class CopyDemo {
+class ShallowCopy {
 private:
     int* data;
 public:
-    // Constructor
-    CopyDemo(int val) {
+    ShallowCopy(int val) {
         data = new int(val);
-        cout << "Constructor: allocated data with value " << *data << endl;
+        cout << "Constructor: value = " << *data << endl;
     }
 
     // Shallow Copy Constructor
-    // CopyDemo(const CopyDemo& obj) {
-    //     data = obj.data; // Shallow copy: both point to same address
-    // }
-
-    // Deep Copy Constructor
-    CopyDemo(const CopyDemo& obj) {
-        data = new int(*(obj.data)); // Deep copy: new memory allocated
-        cout << "Deep Copy: allocated new data with value " << *data << endl;
+    ShallowCopy(const ShallowCopy& obj) {
+        data = obj.data;  // Just copy the pointer
+        cout << "Shallow Copy: same address, value = " << *data << endl;
     }
 
-    // Destructor
-    ~CopyDemo() {
-        cout << "Destructor: freeing data with value " << *data << endl;
+    ~ShallowCopy() {
+        cout << "Destructor: deleting value = " << *data << endl;
         delete data;
     }
 
-    int getValue() { return *data; }
     void setValue(int val) { *data = val; }
+    int getValue() { return *data; }
 };
 
 int main() {
-    CopyDemo obj1(10);
-    CopyDemo obj2 = obj1;  // Calls deep copy constructor
+    cout << "== Shallow Copy ==\n";
+    ShallowCopy a(100);
+    ShallowCopy b = a;  // Same memory address
 
-    cout << "\nBefore changing obj1:\n";
-    cout << "obj1: " << obj1.getValue() << ", obj2: " << obj2.getValue() << endl;
+    a.setValue(200);
 
-    obj1.setValue(20);
-
-    cout << "\nAfter changing obj1:\n";
-    cout << "obj1: " << obj1.getValue() << ", obj2: " << obj2.getValue() << endl;
+    cout << "a: " << a.getValue() << ", b: " << b.getValue() << endl;
 
     return 0;
 }
 ```
+
+### 🧨 Problem:
+Both `a` and `b` point to the **same memory**. So:
+- If one changes, both change.
+- Destructor runs twice on the same pointer = ❌ **Double delete crash!**
+
+---
+
+## **2. Deep Copy Example** (safe & proper)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class DeepCopy {
+private:
+    int* data;
+public:
+    DeepCopy(int val) {
+        data = new int(val);
+        cout << "Constructor: value = " << *data << endl;
+    }
+
+    // Deep Copy Constructor
+    DeepCopy(const DeepCopy& obj) {
+        data = new int(*(obj.data));  // New memory
+        cout << "Deep Copy: new memory, value = " << *data << endl;
+    }
+
+    ~DeepCopy() {
+        cout << "Destructor: deleting value = " << *data << endl;
+        delete data;
+    }
+
+    void setValue(int val) { *data = val; }
+    int getValue() { return *data; }
+};
+
+int main() {
+    cout << "\n== Deep Copy ==\n";
+    DeepCopy x(50);
+    DeepCopy y = x;  // Separate memory
+
+    x.setValue(99);
+
+    cout << "x: " << x.getValue() << ", y: " << y.getValue() << endl;
+
+    return 0;
+}
+```
+
+### Benefit:
+Each object manages its own memory:
+- Changes in one don’t affect the other
+- Destructors delete different memory blocks = ✔️ Safe!
+
+---
+
+## 🧠 TL;DR:
+| Copy Type     | Copies Pointer? | Shared Memory? | Safe?   | Real-world use |
+|---------------|------------------|----------------|---------|----------------|
+| Shallow Copy  | ✅ Yes            | ✅ Yes         | ❌ No    | Dangerous with dynamic memory |
+| Deep Copy     | ❌ No             | ❌ No          | ✅ Yes   | Needed when class owns heap memory |
 
 ---
 

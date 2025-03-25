@@ -1,6 +1,3 @@
-Here is the properly formatted **Markdown (`.md`) file** version of your **SOLID Principles in C++** document:
-
-```md
 # **SOLID Principles in C++**
 
 The **SOLID** principles are five key design principles in object-oriented programming that help developers create more **maintainable, scalable, and flexible** code.
