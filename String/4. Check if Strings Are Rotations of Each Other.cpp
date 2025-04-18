@@ -6,3 +6,4 @@ bool areRotations(string s1,string s2){
 	if(ind==-1) return false;
 	return true;
 }
+// kmp algorithm

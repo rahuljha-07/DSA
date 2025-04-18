@@ -6,25 +6,29 @@ using namespace std;
 
 // Function to check if it's possible to place cows in the stalls such that the minimum distance is at least minDist
 bool canPlaceCows(const vector<int>& stalls, int numCows, int minDist) {
-    int countCows = 1; // Start by placing the first cow in the first stall
-    int lastPlaced = stalls[0]; // Position of the last placed cow
+    int countCows = 1;             // Start by placing the first cow
+    int lastPlaced = stalls[0];    // First stall is already used
 
-    // Iterate through the stalls to try placing the remaining cows
+    // Iterate through the stalls
     for (int i = 1; i < stalls.size(); i++) {
-        // If the current stall is far enough from the last placed cow
-        if (stalls[i] - lastPlaced >= minDist) {
-            countCows++; // Place a cow in the current stall
-            lastPlaced = stalls[i]; // Update the last placed position
+        int gap = stalls[i] - lastPlaced; // Distance from last placed cow
 
-            // If all cows have been placed successfully, return true
+        // Check if the gap is sufficient
+        if (gap >= minDist) {
+            countCows++;                // Place cow
+            lastPlaced = stalls[i];     // Update position
+
+            // If all cows are placed, return true
             if (countCows == numCows) {
                 return true;
             }
         }
     }
 
-    return false; // Not all cows could be placed with the required minimum distance
+    // Not all cows could be placed with the required minimum distance
+    return false;
 }
+
 
 // Function to find the largest minimum distance between cows
 int largestMinDistance(vector<int>& stalls, int numCows) {

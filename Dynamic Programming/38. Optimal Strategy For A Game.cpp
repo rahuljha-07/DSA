@@ -11,9 +11,7 @@ int solve(int i, int j, vector<int>& a, vector<vector<int>>& dp) {
     }
 
     // Check if the value is already computed (memoization)
-    if (dp[i][j] != -1) {
-        return dp[i][j];
-    }
+    if (dp[i][j] != -1) return dp[i][j];
 
     // Option 1: Take the first coin (a[i]) and the opponent plays optimally on the remaining subarray (i+1 to j)
     int take_first = a[i] + min(solve(i + 2, j, a, dp), solve(i + 1, j - 1, a, dp));

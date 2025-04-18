@@ -7,24 +7,29 @@ using namespace std;
 
 // Function to check if it is possible to paint all boards with the given maximum time
 bool canPaint(const vector<int>& boards, int k, long long maxTime) {
-    int painterCount = 1; // Start with one painter
-    long long currentTime = 0; // Time spent by the current painter
+    int painterCount = 1;         // Start with one painter
+    long long currentTime = 0;    // Time used by current painter
 
-    for (int board : boards) {
-        // If adding the current board exceeds maxTime, we need a new painter
-        if (currentTime + board > maxTime) {
-            painterCount++; // Use a new painter
-            currentTime = board; // Start time for the new painter with the current board
-            // If the number of painters exceeds k, return false
+    // Iterate through each board
+    for (int i = 0; i < boards.size(); i++) {
+        currentTime += boards[i]; // Add current board's length to current painter's time
+
+        // If total time exceeds allowed maxTime
+        if (currentTime > maxTime) {
+            painterCount++;              // Allocate to a new painter
+            currentTime = boards[i];     // Start with current board for new painter
+
+            // If painters used exceed allowed limit, return false
             if (painterCount > k) {
                 return false;
             }
-        } else {
-            currentTime += board; // Add the current board to the current painter's time
         }
     }
-    return true; // All boards can be painted within the given time
+
+    // All boards can be painted within maxTime using k painters
+    return true;
 }
+
 
 // Function to find the minimum time required to paint all boards with k painters
 long long findMinimumTime(vector<int>& boards, int k) {

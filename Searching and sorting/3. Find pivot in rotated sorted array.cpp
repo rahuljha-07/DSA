@@ -12,9 +12,9 @@ int findPivotInRotatedArray(const vector<int>& arr) {
         int mid = start + (end - start) / 2;
         
         // Calculate the indices for the next and previous elements in a circular manner
-        int next = (mid + 1) % n;       // Wrap-around to the start of the array if mid is at the end
-        int prev = (mid + n - 1) % n;   // Wrap-around to the end of the array if mid is at the start
-
+        int next = (mid == n - 1) ? 0 : mid + 1;
+        int prev = (mid == 0) ? n - 1 : mid - 1;
+        
         // Check if the mid element is less than or equal to both its next and previous elements
         // If true, mid is the pivot (minimum element) in the rotated array
         if (arr[mid] <= arr[next] && arr[mid] <= arr[prev]) {

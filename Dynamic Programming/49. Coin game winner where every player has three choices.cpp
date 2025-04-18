@@ -2,16 +2,6 @@
 #include <unordered_map>
 using namespace std;
 
-/**
- * Recursive helper function to determine if A will win with n coins remaining.
- * Includes memoization for optimization.
- * 
- * @param n The number of coins remaining.
- * @param x Option to pick x coins.
- * @param y Option to pick y coins.
- * @param memo Memoization table to store results of already computed states.
- * @return True if A wins, otherwise False.
- */
 bool willAWinHelper(int n, int x, int y, unordered_map<int, bool>& memo) {
     // Base cases
     if (n == 0) return false; // A loses if no coins left

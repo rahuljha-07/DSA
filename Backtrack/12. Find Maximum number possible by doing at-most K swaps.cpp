@@ -26,8 +26,7 @@ void findMaxNumber(string &str, int k, string &maxNum, int index) {
         if (str[i] == maxChar) {
             swap(str[index], str[i]);
 
-            if (str > maxNum) 
-                maxNum = str;
+            if (str > maxNum)  maxNum = str;
 
             findMaxNumber(str, k, maxNum, index + 1);
 

@@ -1,7 +1,7 @@
 // same as median of 2 sorted array
 // this also works for same size
 #include "vector"
-#include "math"
+#include <cmath>
 #include "algorithm"
 #include <climits>
 using namespace std;

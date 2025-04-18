@@ -1,6 +1,6 @@
-#include <algorithm> // for std::sort
-#include <iostream>  // for std::cout
-#include <vector>    // for std::vector
+#include <algorithm> 
+#include <iostream> 
+#include <vector>
 
 using namespace std;
 

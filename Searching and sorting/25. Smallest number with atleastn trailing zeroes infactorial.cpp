@@ -30,6 +30,7 @@ int findSmallestFactorialNumberWithTrailingZeroes(int n) {
     while (low < high) {
         int mid = (low + high) / 2;  // Calculate the middle point
         if (hasAtLeastNTrailingZeroes(mid, n)) {
+            result = mid;   // Store candidate
             high = mid;  // If mid has at least n trailing zeroes, search in the left half
         } else {
             low = mid + 1; // Otherwise, search in the right half

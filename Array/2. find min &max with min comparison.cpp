@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 int findMinMax(int arr[], int n) {
     int i, max, min;
     if (n % 2 == 0) {

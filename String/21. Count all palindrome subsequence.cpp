@@ -36,8 +36,7 @@ int countPalindromicSubsequences(const string& str, int start, int end) {
     count -= countPalindromicSubsequences(str, start + 1, end - 1); // subtracting the overlap, as it gets counted twice
 
     // Memoize the result
-    memo[key] = count;
-    return count;
+    return memo[key] = count;
 }
 
 int main() {

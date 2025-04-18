@@ -36,12 +36,6 @@ int maxLengthEqual01(vector<int>& nums) {
 #include <unordered_map>
 using namespace std;
 
-/**
- * Function to find the largest zero-sum subarray in a 1D array using prefix sums.
- * 
- * @param columnSums The input array representing compressed row sums.
- * @return The length of the largest subarray with sum 0.
- */
 int maxZeroSumSubarray(vector<int>& columnSums) {
     unordered_map<int, int> prefixSumMap;
     prefixSumMap[0] = -1; // To handle the case when prefix sum itself is 0
@@ -61,14 +55,7 @@ int maxZeroSumSubarray(vector<int>& columnSums) {
     return maxLength;
 }
 
-/**
- * Helper function to calculate the maximum area of a submatrix with equal number
- * of 1's and 0's starting from a specific row (`rowStart`).
- * 
- * @param matrix The input 2D binary matrix.
- * @param rowStart The starting row for the current submatrix.
- * @return The maximum area of a submatrix with equal number of 1's and 0's.
- */
+
 int solve(vector<vector<int>>& matrix, int rowStart) {
     int n = matrix.size();    // Number of rows
     int m = matrix[0].size(); // Number of columns
@@ -98,12 +85,6 @@ int solve(vector<vector<int>>& matrix, int rowStart) {
     return maxArea;
 }
 
-/**
- * Main function to find the largest submatrix with equal number of 1's and 0's.
- * 
- * @param matrix The input 2D binary matrix.
- * @return The area of the largest submatrix with equal number of 1's and 0's.
- */
 int largestSubmatrixWithEqual01(vector<vector<int>>& matrix) {
     int n = matrix.size();    // Number of rows
     int maxArea = 0;

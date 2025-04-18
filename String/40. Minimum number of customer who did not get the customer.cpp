@@ -1,46 +1,46 @@
 #include <iostream>
+#include <unordered_set>
 #include <unordered_map>
 #include <string>
 
 using namespace std;
 
 int runCustomerSimulation(int n, const string &seq) {
-    unordered_map<char, bool> customerStatus; // Tracks if a customer is using a computer
-    int occupied = 0; // Tracks the number of computers currently in use
-    int result = 0;   // Tracks customers who couldn't get a computer
+    unordered_map<char, bool> inUse; // whether customer has a computer
+    unordered_set<char> inCafe;      // who is currently in the cafe
+    int occupied = 0, result = 0;
 
     for (char customer : seq) {
-        if (customerStatus.find(customer) == customerStatus.end()) {
-            // Customer arrives for the first time
+        if (inCafe.find(customer) == inCafe.end()) {
+            // Customer arrives
+            inCafe.insert(customer);
             if (occupied < n) {
-                // Assign a computer
-                customerStatus[customer] = true;
+                inUse[customer] = true; // got a computer
                 occupied++;
             } else {
-                // No computers available
-                customerStatus[customer] = false;
-                result++;
+                inUse[customer] = false; // couldn't get a computer
             }
         } else {
-            // Customer is departing
-            if (customerStatus[customer]) {
-                // Free up the computer
-                occupied--;
+            // Customer leaves
+            if (inUse[customer]) {
+                occupied--; // free the computer
+            } else {
+                result++; // they never got a computer
             }
-            customerStatus.erase(customer); // Remove the customer record
+            inCafe.erase(customer);
+            inUse.erase(customer);
         }
     }
 
-    return result; // Return the count of customers who couldn't get a computer
+    return result;
 }
 
 // Example usage
 int main() {
-    cout << runCustomerSimulation(2, "ABBAJJKZKZ") << endl; // Output: 0
-    cout << runCustomerSimulation(3, "GACCBDDBAGEE") << endl; // Output: 1
-    cout << runCustomerSimulation(3, "GACCBGDDBAEE") << endl; // Output: 0
-    cout << runCustomerSimulation(1, "ABCBCA") << endl; // Output: 2
-    cout << runCustomerSimulation(1, "ABCBCADEED") << endl; // Output: 3
-
+    cout << runCustomerSimulation(2, "ABBAJJKZKZ") << endl;    // Output: 0
+    cout << runCustomerSimulation(3, "GACCBDDBAGEE") << endl;  // Output: 1
+    cout << runCustomerSimulation(3, "GACCBGDDBAEE") << endl;  // Output: 0
+    cout << runCustomerSimulation(1, "ABCBCA") << endl;        // Output: 2
+    cout << runCustomerSimulation(1, "ABCBCADEED") << endl;    // Output: 3
     return 0;
 }

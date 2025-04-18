@@ -22,8 +22,7 @@ int maxSteal(const vector<int>& houses, int index, vector<int>& memo) {
     int skip = maxSteal(houses, index + 1, memo);
 
     // Store the result in memo and return the maximum of both choices
-    memo[index] = max(steal, skip);
-    return memo[index];
+    return memo[index] = max(steal, skip);
 }
 
 int main() {

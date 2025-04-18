@@ -13,4 +13,4 @@ int findDuplicate(vector<int>& nums) {
         fast = nums[fast];
     }
     return slow
-};
+}; 

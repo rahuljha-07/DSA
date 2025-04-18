@@ -23,7 +23,7 @@ using namespace std;
 
 int kthsmallest(vector<vector<int>>& mat, int N, int K) {
     // Min-heap to store tuples of the form {value, row, col}
-    priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<>> minHeap;
+    priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>> minHeap;
 
     // Push the first element of each row into the heap
     for (int i = 0; i < N; i++) {

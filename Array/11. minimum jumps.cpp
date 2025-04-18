@@ -1,4 +1,7 @@
 // Global memoization array
+#include <vector>
+using namespace std;
+
 vector<int> t; // Global variable for memoization
 
 int recursiveMinJumps(int currentIndex, const vector<int>& arr, int n) {

@@ -5,26 +5,27 @@
 using namespace std;
 
 // Recursive function to form sentences from the word lists
-void solve(int row, int col, string ans, const vector<vector<string>>& matrix) {
-    // Base case: If we've processed all rows (word lists), print the sentence
+void solve(int row, string ans, const vector<vector<string>>& matrix) {
+    // Base case: If all rows are processed, print the sentence
     if (row == matrix.size()) {
-        cout << ans << endl; // Print the formed sentence
+        cout << ans << endl;
         return;
     }
 
+    int colSize = matrix[row].size(); // Dynamically get size for the current row
+
     // Loop through each word in the current row
-    for (int i = 0; i < col; i++) {
-        string word = matrix[row][i]; // Select the word from the current row
-        // Recur to process the next row, appending the current word to the answer
-        solve(row + 1, col, ans + (ans.empty() ? "" : " ") + word, matrix);
+    for (int i = 0; i < colSize; i++) {
+        string word = matrix[row][i];
+        // Add space only if ans is not empty
+        solve(row + 1, ans + (ans.empty() ? "" : " ") + word, matrix);
     }
 }
 
 // Wrapper function to initiate the recursive process
 void generateSentences(const vector<vector<string>>& matrix) {
-    if (matrix.empty()) return; // Check for empty matrix
-    int colSize = matrix[0].size(); // Get the size of the first row
-    solve(0, colSize, "", matrix); // Start solving with row 0
+    if (matrix.empty()) return;
+    solve(0, "", matrix);
 }
 
 int main() {

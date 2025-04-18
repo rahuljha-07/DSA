@@ -22,10 +22,8 @@ int findMaxSumPath(Node* root, int currentLength, int& maxLength, int currentSum
 
     // Apply logic: Check the current path's length and sum to update maxLength and maxSum
     if (!root->left && !root->right) { // At a leaf node
-        if (currentLength > maxLength) {
+        if (currentLength >= maxLength) {
             maxLength = currentLength;
-            maxSum = currentSum + root->data;
-        } else if (currentLength == maxLength) {
             maxSum = max(maxSum, currentSum + root->data);
         }
     }

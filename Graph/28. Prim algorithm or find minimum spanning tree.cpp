@@ -13,7 +13,7 @@ void primMST(int N, vector<vector<pair<int, int>>>& adj) {
 
     vector<bool> visited(N, false); // To track visited nodes
 
-    // Initial push (starting with node 0, weight = 0, parent = -1)
+    // Initial push (starting with weight = 0, node 0, parent = -1)
     pq.push({0, {0, -1}});
 
     cout << "Edges in the MST:" << endl;

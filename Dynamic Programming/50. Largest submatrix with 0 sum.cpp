@@ -3,19 +3,7 @@
 #include <unordered_map>
 using namespace std;
 
-// Global Memoization Table using an unordered_map
-// Key: prefixSum
-// Value: pair<rowStart, colIndex>
-unordered_map<int, pair<int, int>> memo;
-
-/**
- * Function to find the largest zero-sum subarray in a 1D array using prefix sums.
- * 
- * @param columnSums The input array representing compressed row sums.
- * @param rowStart The starting row of the current submatrix.
- * @return The maximum area of the zero-sum submatrix.
- */
-int maxZeroSumSubarray(vector<int>& columnSums, int rowStart) {
+int maxZeroSumSubarray(vector<int>& columnSums) {
     unordered_map<int, int> prefixSumMap;
     prefixSumMap[0] = -1; // To handle the case when prefix sum itself is 0
     int prefixSum = 0, maxLength = 0;
@@ -26,25 +14,15 @@ int maxZeroSumSubarray(vector<int>& columnSums, int rowStart) {
         if (prefixSumMap.find(prefixSum) != prefixSumMap.end()) {
             int length = col - prefixSumMap[prefixSum];
             maxLength = max(maxLength, length);
-            
-            // Store the prefix sum with rowStart and column index
-            memo[prefixSum] = {rowStart, col};
         } else {
             prefixSumMap[prefixSum] = col;
         }
     }
 
-    return maxLength * (rowStart + 1); // Area = width * height
+    return maxLength;
 }
 
-/**
- * Helper function to calculate the maximum area of a submatrix with sum 0
- * starting from a specific row (`rowStart`) using simplified memoization.
- * 
- * @param matrix The input 2D matrix.
- * @param rowStart The starting row for the current submatrix.
- * @return The maximum area of a submatrix with sum 0.
- */
+
 int solve(vector<vector<int>>& matrix, int rowStart) {
     int n = matrix.size();    // Number of rows
     int m = matrix[0].size(); // Number of columns
@@ -60,25 +38,23 @@ int solve(vector<vector<int>>& matrix, int rowStart) {
             columnSums[col] += matrix[rowEnd][col];
         }
 
-        // Calculate the maximum zero-sum subarray area in the current column sums
-        maxArea = max(maxArea, maxZeroSumSubarray(columnSums, rowEnd - rowStart + 1));
+        // Calculate the maximum zero-sum subarray length in the current column sums
+        int maxWidth = maxZeroSumSubarray(columnSums);
+
+        // Calculate the area of the current submatrix
+        int height = rowEnd - rowStart + 1;
+        int currentArea = maxWidth * height;
+
+        // Update the maximum area found
+        maxArea = max(maxArea, currentArea);
     }
 
     return maxArea;
 }
 
-/**
- * Main function to find the largest submatrix with sum 0 using simplified memoization.
- * 
- * @param matrix The input 2D matrix.
- * @return The area of the largest submatrix with sum 0.
- */
 int largestSubmatrixWithSumZero(vector<vector<int>>& matrix) {
     int n = matrix.size();    // Number of rows
     int maxArea = 0;
-
-    // Clear the global memoization table before starting
-    memo.clear();
 
     // Iterate over each starting row
     for (int rowStart = 0; rowStart < n; ++rowStart) {

@@ -19,7 +19,7 @@ int searchInStepArray(const vector<int>& arr, int k, int x) {
         // Move to the next index based on the step property
         // We can skip ahead by the difference divided by k
         // and move to the right index without skipping possible matches
-        i += max(1, diff / k); // Ensure we move at least one step forward
+        i += max(1, diff / k); // Ensure we move at least on e step forward
     }
 
     // If the key is not found, return -1

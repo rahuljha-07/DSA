@@ -9,8 +9,9 @@ int findPivotInRotatedArray(const vector<int>& arr) {
 
     while (start <= end) {
         int mid = start + (end - start) / 2;
-        int next = (mid + 1) % n;
-        int prev = (mid + n - 1) % n;
+        
+        int next = (mid == n - 1) ? 0 : mid + 1;
+        int prev = (mid == 0) ? n - 1 : mid - 1;
 
         if (arr[mid] <= arr[next] && arr[mid] <= arr[prev]) {
             return mid;

@@ -8,17 +8,6 @@ public:
     int totalWays = 0; // To count the total valid ways
     vector<vector<vector<int>>> dp; // Memoization table
 
-    /**
-     * Recursive function to generate all valid painting combinations with memoization.
-     * 
-     * Parameters:
-     * idx: Current index of the post being painted.
-     * str: Current string representation of the color pattern.
-     * n: Total number of posts.
-     * k: Number of available colors.
-     * lastColor: The color used for the last post.
-     * count: Consecutive count of the last color.
-     */
     int solve(int idx, string str, int n, int k, int lastColor, int count) {
         // Base case: If all posts are painted
         if (idx == n) {
@@ -50,15 +39,7 @@ public:
         return dp[idx][lastColor][count] = ways;
     }
 
-    /**
-     * Function to initiate the recursive process with memoization.
-     * 
-     * Parameters:
-     * n: Number of posts.
-     * k: Number of colors.
-     */
     int countWays(int n, int k) {
-        totalWays = 0;
 
         // Initialize the memoization table with -1
         dp = vector<vector<vector<int>>>(n, vector<vector<int>>(k + 1, vector<int>(3, -1)));

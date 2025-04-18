@@ -35,10 +35,24 @@ int makeConnected(int n, vector<vector<int>>& connections) {
             dfsUtil(i, adj, visited); // Perform DFS from this node
         }
     }
+    
+    int totalEdges = connections.size(); // Total number of existing cables
 
-    // Calculate redundant connections
-    int redundantEdges = connections.size() - ((n - 1) - (components - 1));
-    return (redundantEdges >= components - 1) ? components - 1 : -1;
+    int minEdgesNeeded = n - 1; // We need at least (n - 1) cables to connect all computers
+
+    // connections.size() - (n - 1)
+    //This gives you how many extra (redundant) wires you have — ones forming cycles. These are free to move.
+    
+    // Counted earlier: 'components' = number of separate groups (disconnected parts)
+    // To connect all components into one group, we need (components - 1) connections (bridges)
+    int neededBridges = components - 1;
+
+    // Any cables beyond the minimum are extra, meaning they form cycles and can be reused elsewhere
+    int extraEdges = totalEdges - minEdgesNeeded;
+
+    // If we have enough extra cables to connect the groups, return how many bridges we need
+    // Otherwise, return -1 because we can't connect everything
+    return (extraEdges >= neededBridges) ? neededBridges : -1;
 }
 
 int main() {

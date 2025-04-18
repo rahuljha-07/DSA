@@ -11,9 +11,7 @@ int minRemovalsHelper(int left, int right, vector<int> &arr, int k, vector<vecto
     }
 
     // If already computed, return the stored value
-    if (dp[left][right] != -1) {
-        return dp[left][right];
-    }
+    if (dp[left][right] != -1) return dp[left][right];
 
     // Remove either the leftmost or the rightmost element
     int removeLeft = minRemovalsHelper(left + 1, right, arr, k, dp);

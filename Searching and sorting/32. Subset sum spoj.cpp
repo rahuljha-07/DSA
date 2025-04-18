@@ -1,38 +1,48 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+#include <string>
 
 using namespace std;
 
-// Recursive function to count subsets
-void countSubsets(int index, int currentSum, const vector<int>& nums, int A, int B, int& count) {
-    // Base case: if we've processed all elements
+// Memoization map: key = "index_sum", value = number of valid subsets
+unordered_map<string, int> memo;
+
+int countSubsets(int index, int currentSum, const vector<int>& nums, int A, int B) {
+    // Base case
     if (index == nums.size()) {
-        // Check if the current sum is within the range [A, B]
-        if (currentSum >= A && currentSum <= B) {
-            count++; // Increment count if within range
-        }
-        return;
+        return (currentSum >= A && currentSum <= B) ? 1 : 0;
     }
 
-    // Include the current element in the subset
-    countSubsets(index + 1, currentSum + nums[index], nums, A, B, count);
+    // Generate a unique key for memoization
+    string key = to_string(index) + "_" + to_string(currentSum);
 
-    // Exclude the current element from the subset
-    countSubsets(index + 1, currentSum, nums, A, B, count);
+    // Check if result is already memoized
+    if (memo.find(key) != memo.end()) {
+        return memo[key];
+    }
+
+    // Include current element
+    int include = countSubsets(index + 1, currentSum + nums[index], nums, A, B);
+
+    // Exclude current element
+    int exclude = countSubsets(index + 1, currentSum, nums, A, B);
+
+    // Memoize and return
+    return memo[key] = include + exclude;
 }
 
 int main() {
     int N, A, B;
     cin >> N >> A >> B;
-    
+
     vector<int> nums(N);
     for (int i = 0; i < N; i++) {
         cin >> nums[i];
     }
 
-    int count = 0; // To count the valid subsets
-    countSubsets(0, 0, nums, A, B, count); // Start recursion
+    int totalCount = countSubsets(0, 0, nums, A, B);
 
-    cout << count << endl; // Output the count of valid subsets
+    cout << totalCount << endl;
     return 0;
 }
