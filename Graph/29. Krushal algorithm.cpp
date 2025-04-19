@@ -53,7 +53,7 @@ int kruskal_mst(int V, const vector<vector<vector<int>>>& adj) {
         int p2 = findparent(v, ds); // Find the parent of v
 
         // If u and v belong to different sets, add the edge to MST
-        if (p1 != p2) {
+        if (p1 != p2) {// parents are different, so they are not in the same set i.e no cycle
             // Union by rank
             if (rank[p1] < rank[p2]) {
                 ds[p1] = p2; // Make p2 the parent of p1
