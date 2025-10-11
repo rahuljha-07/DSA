@@ -25,7 +25,7 @@ Node* reverseIterative(Node* head) {
 
 Node* reverseRecursive(Node* head) {
     // Base case: empty list or end of list reached
-    if (head == nullptr || head->next == nullptr)
+    if (head == nullptr || head->next == nullptr)                                
         return head;
 
     // Reverse the rest of the list

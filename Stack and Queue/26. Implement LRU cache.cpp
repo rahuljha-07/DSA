@@ -79,3 +79,141 @@ int main() {
 
     return 0;
 }
+
+//  doubly linklist way
+// LRU Cache (no sentinels, uses head/tail pointers)
+// --------------------------------------------------
+// - Doubly-linked list holds nodes in LRU -> MRU order.
+//   * head = LRU (front), tail = MRU (back)
+// - Hash map provides O(1) access: key -> Node*
+// - get(key):  return value if present and move node to MRU
+// - set(key,v): update if present (move to MRU), else insert;
+//               if full, evict LRU (the head)
+// - All operations are O(1).
+//
+// Notes:
+// - Works correctly for capacity = 1 (and 0 as a no-op cache).
+// - No debug/asserts; safe guards on null where helpful.
+// - Copying is disabled to avoid double-frees (owning raw pointers).
+
+#include <unordered_map>
+using namespace std;
+
+struct Node {
+    int key;
+    int val;
+    Node* prev;
+    Node* next;
+    Node(int k, int v) : key(k), val(v), prev(nullptr), next(nullptr) {}
+};
+
+class LRUCache {
+private:
+    int capacity;                        // maximum number of entries
+    unordered_map<int, Node*> cache;     // key -> node*
+    Node* head;                          // LRU (front of list)
+    Node* tail;                          // MRU (back of list)
+
+    // Detach a node from its current position in the list.
+    // Handles all edge cases (removing head, tail, or the only node).
+    void removeNode(Node* n) {
+        if (!n) return;
+        if (n->prev) n->prev->next = n->next;
+        else         head = n->next;         // n was head
+
+        if (n->next) n->next->prev = n->prev;
+        else         tail = n->prev;         // n was tail
+
+        n->prev = n->next = nullptr;
+    }
+
+    // Insert node at the back of the list (node becomes MRU / tail).
+    // Handles empty-list case.
+    void pushBack(Node* n) {
+        if (!n) return;
+        n->prev = tail;
+        n->next = nullptr;
+        if (tail) tail->next = n;            // link old tail -> n
+        else      head = n;                  // list was empty
+        tail = n;
+    }
+
+    // Remove and return the current LRU node (the head).
+    // Returns nullptr if the list is empty.
+    Node* popFront() {
+        if (!head) return nullptr;
+        Node* lru = head;
+        removeNode(lru);
+        return lru;
+    }
+
+public:
+    // Construct with a fixed capacity.
+    explicit LRUCache(int cap)
+        : capacity(cap), head(nullptr), tail(nullptr) {}
+
+    // Disable copying (this class manages owning raw pointers).
+    LRUCache(const LRUCache&) = delete;
+    LRUCache& operator=(const LRUCache&) = delete;
+
+    // Clean up all nodes.
+    ~LRUCache() {
+        Node* cur = head;
+        while (cur) {
+            Node* nxt = cur->next;
+            delete cur;
+            cur = nxt;
+        }
+    }
+
+    // Get the value for 'key'.
+    // - If found: move node to MRU and return value.
+    // - If not found: return -1 (no changes to structure).
+    int get(int key) {
+        auto it = cache.find(key);
+        if (it == cache.end()) return -1;
+
+        Node* n = it->second;
+        // If not already MRU, move it to the back.
+        if (n != tail) {
+            removeNode(n);
+            pushBack(n);
+        }
+        return n->val;
+    }
+
+    // Insert or update (key -> value).
+    // - If key exists: update value and move to MRU.
+    // - If new and cache full: evict current LRU, then insert as MRU.
+    // - If capacity == 0: do nothing.
+    void set(int key, int value) {
+        if (capacity == 0) return;
+
+        auto it = cache.find(key);
+        if (it != cache.end()) {
+            // Key already present: update and move to MRU
+            Node* n = it->second;
+            n->val = value;
+            if (n != tail) {
+                removeNode(n);
+                pushBack(n);
+            }
+            return;
+        }
+
+        // New key
+        if ((int)cache.size() == capacity) {
+            // Evict LRU (head)
+            Node* lru = popFront();
+            if (lru) {
+                cache.erase(lru->key);
+                delete lru;
+            }
+        }
+
+        // Insert as MRU
+        Node* n = new Node(key, value);
+        pushBack(n);
+        cache[key] = n;
+    }
+};

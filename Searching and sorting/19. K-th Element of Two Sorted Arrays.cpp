@@ -16,8 +16,6 @@ int kthsmallest(vector<int>& a, vector<int>& b) {
     int high = min(k, n1);  // We can't take more than n1 from a.
     int low = max(0, k-n2); // We can't take more than k from b, so we adjust accordingly.
     
-    int n = n1 + n2;
-
     while (low <= high) {
         // Partition positions for both arrays
         int mid1 = (low + high) >> 1;

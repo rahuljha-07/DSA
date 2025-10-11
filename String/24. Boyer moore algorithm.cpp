@@ -59,5 +59,3 @@ int main() {
     search(txt, pat);  // Call the search function
     return 0;
 }
-
-// This code is contributed by rathbhupendra

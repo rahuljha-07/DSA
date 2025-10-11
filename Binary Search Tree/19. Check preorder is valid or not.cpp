@@ -1,4 +1,8 @@
+#include <iostream>
+#include <stack>
 #include <climits>
+using namespace std;
+
 
 class Solution {
 public:
@@ -36,9 +40,6 @@ public:
     }
 };
 // kashish mahendatta video
-#include <iostream>
-#include <stack>
-using namespace std;
 
 int canRepresentBST(int arr[], int n) {
     stack<int> s;  // Stack to track nodes while constructing BST
@@ -65,6 +66,46 @@ int canRepresentBST(int arr[], int n) {
         }
     }
     return 1; // If all elements are processed without issue, it's a valid BST preorder
+}
+
+//gpt
+/*
+Function: canRepresentBST
+Purpose: Check if a given array can represent the preorder traversal of a Binary Search Tree (BST)
+
+Logic:
+1. Use a stack to simulate the traversal and construction of the BST.
+2. Initialize a variable `parent` to track the last popped value — this is the lower bound 
+   for all upcoming elements (they must be in the right subtree and hence greater than this).
+3. Loop through each element in the array:
+    a. If current element < parent → return 0 (invalid preorder for BST)
+       -> Because once we start visiting right subtree nodes, all must be greater than the root of that subtree.
+    b. While the stack is not empty and current element > stack.top():
+        → Pop elements (we're done with the left subtree of those nodes)
+        → Update `parent` to the last popped node (lowest valid ancestor)
+    c. Push current element onto the stack — it's the next node being processed
+4. If the loop completes, all values fit the BST preorder rules → return 1
+*/
+
+int canRepresentBST(int arr[], int n) {
+    stack<int> s;
+    int parent = INT_MIN;  // Lowest allowed value for right subtree nodes
+
+    for (int i = 0; i < n; i++) {
+        // Step 1: If current node is less than last valid parent (right subtree lower bound)
+        if (arr[i] < parent) return 0;
+
+        // Step 2: Pop smaller ancestors → we're entering the right subtree
+        while (!s.empty() && arr[i] > s.top()) {
+            parent = s.top();
+            s.pop();
+        }
+
+        // Step 3: Push current node onto stack (left or right child of last node)
+        s.push(arr[i]);
+    }
+
+    return 1;  // All values respected BST preorder rules
 }
 
 // Driver Code to test the function

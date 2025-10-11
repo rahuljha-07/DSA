@@ -28,6 +28,7 @@ Node* addOne(Node *head) {
             Node* temp = new Node(1);  // Create a new node for carry
             p->next = temp;  // Link the new node
             p = temp;  // Move to the new node
+            carry = false;  // No more carry, we are done
         } 
         // If the current node is 9, set it to 0 and move to the next
         else if (p->data == 9) {

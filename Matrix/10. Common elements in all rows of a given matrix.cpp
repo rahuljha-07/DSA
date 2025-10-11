@@ -2,9 +2,6 @@
 #include <vector>
 #include <unordered_map>
 using namespace std;
-#include <vector>
-#include <unordered_map>
-using namespace std;
 
 vector<int> commonElements(vector<vector<int>>& matrix) {
     vector<int> result;
@@ -37,8 +34,6 @@ vector<int> commonElements(vector<vector<int>>& matrix) {
 
     return result; // Return the list of common elements
 }
-
-
 
 vector<int> commonElements(vector<vector<int>>& matrix) { // using map
     vector<int> result;
@@ -127,4 +122,3 @@ int main() {
 
     return 0;
 }
-

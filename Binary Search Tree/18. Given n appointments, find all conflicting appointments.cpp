@@ -34,3 +34,65 @@ int main() {
     printConflicting(appointments);
     return 0;
 }
+
+
+//nlogn solution sweep solution gpt
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <set>
+using namespace std;
+
+// Define an interval (start to end time)
+struct Interval {
+    int low, high;
+    int id; // Used just to uniquely identify intervals
+};
+
+// Define an event (either start or end of an interval)
+struct Event {
+    int time;        // Time of event
+    bool isStart;    // true = start of interval, false = end
+    Interval interval;
+
+    // Sorting rule: earlier time comes first.
+    // If same time, start comes before end.
+    bool operator<(const Event& other) const {
+        if (time == other.time)
+            return isStart > other.isStart;
+        return time < other.time;
+    }
+};
+
+void printConflicting(vector<Interval>& intervals) {
+    vector<Event> events;
+
+    // Step 1: Convert each interval into start and end events
+    for (int i = 0; i < intervals.size(); ++i) {
+        intervals[i].id = i;
+        events.push_back({intervals[i].low, true, intervals[i]});  // start event
+        events.push_back({intervals[i].high, false, intervals[i]}); // end event
+    }
+
+    // Step 2: Sort all events by time
+    sort(events.begin(), events.end());
+
+    // Step 3: Sweep line: store active intervals
+    set<int> active; // store interval IDs that are currently running
+
+    for (const auto& event : events) {
+        if (event.isStart) {
+            // A new interval is starting — check for conflicts
+            for (int id : active) {
+                const Interval& other = intervals[id];
+                cout << "[" << event.interval.low << ", " << event.interval.high << "]"
+                     << " conflicts with [" << other.low << ", " << other.high << "]\n";
+            }
+            // Add this interval to the active set
+            active.insert(event.interval.id);
+        } else {
+            // An interval is ending — remove it from active
+            active.erase(event.interval.id);
+        }
+    }
+}

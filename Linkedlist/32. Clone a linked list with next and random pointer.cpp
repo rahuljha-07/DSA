@@ -1,4 +1,4 @@
-// Define the Node structure with data, next, and random (arb) pointers
+ // Define the Node structure with data, next, and random (arb) pointers
 struct Node {
     int data;            // Data of the node
     Node* next;          // Pointer to the next node in the list

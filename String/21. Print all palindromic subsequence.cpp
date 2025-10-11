@@ -41,8 +41,7 @@ unordered_set<string> countPalindromicSubsequences(const string& str, int start,
     result.insert(leftSubseqs.begin(), leftSubseqs.end());
     result.insert(rightSubseqs.begin(), rightSubseqs.end());
 
-    memo[key] = result;
-    return result;
+    return memo[key] = result;
 }
 
 int main() {

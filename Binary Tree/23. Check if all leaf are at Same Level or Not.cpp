@@ -17,37 +17,35 @@ void checkLeavesAtSameLevel(Node* root, int currentHeight, int& leafLevel) {
     // If the current node is null, return
     if (!root) return;
 
-    // If the global answer flag is already set to 0 (false), return early
+    // If the answer is already false, no need to proceed further
     if (ans == 0) return;
 
-    // If the current node is a leaf node
+    // First recursively check the left and right subtrees
+    checkLeavesAtSameLevel(root->left, currentHeight + 1, leafLevel);
+    checkLeavesAtSameLevel(root->right, currentHeight + 1, leafLevel);
+
+    // After checking children, process the current node
+    // If it's a leaf node
     if (!root->left && !root->right) {
-        // If this is the first leaf, set leafLevel to the current height
+        // If it's the first leaf found, record its level
         if (leafLevel == -1) {
             leafLevel = currentHeight;
         }
-        // If this is not the first leaf, check if it's at the same level
-        else {
-            if (leafLevel != currentHeight) {
-                ans = 0; // Set answer flag to 0 if levels don't match
-            }
+        // If it's not the first leaf, compare level with the first leaf's level
+        else if (leafLevel != currentHeight) {
+            ans = 0; // Set answer to false if leaf levels don't match
         }
     }
-
-    // Recursively check left and right subtrees
-    checkLeavesAtSameLevel(root->left, currentHeight + 1, leafLevel);
-    checkLeavesAtSameLevel(root->right, currentHeight + 1, leafLevel);
 }
 
 // Main function to check if all leaves in the binary tree are at the same level
 bool check(Node* root) {
-    ans = 1;          // Initialize answer flag to 1 (true)
-    int leafLevel = -1; // Initialize leaf level to -1 (not set)
+    ans = 1;           // Initialize answer flag to true
+    int leafLevel = -1; // Leaf level initially not set
 
-    // Call the helper function with the initial height of 0
-    checkLeavesAtSameLevel(root, 0, leafLevel);
+    checkLeavesAtSameLevel(root, 0, leafLevel); // Start from height 0
 
-    return ans; // Return true if all leaves are at the same level, else false
+    return ans; // Return the final result
 }
 
 // Example usage

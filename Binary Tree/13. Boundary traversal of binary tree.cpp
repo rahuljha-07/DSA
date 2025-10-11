@@ -20,14 +20,11 @@ void getLeftBoundary(Node* root, vector<int>& boundary) {
     Node* curr = root;
     while (curr) {
         // Add to boundary only if it's not a leaf node
-        if (curr->left || curr->right)
-            boundary.push_back(curr->data);
+        if (curr->left || curr->right) boundary.push_back(curr->data);
         
         // Move to the left child if exists, else move to right child
-        if (curr->left)
-            curr = curr->left;
-        else
-            curr = curr->right;
+        if (curr->left) curr = curr->left;
+        else curr = curr->right;
     }
 }
 
@@ -53,19 +50,15 @@ void getRightBoundary(Node* root, vector<int>& boundary) {
     Node* curr = root;
     while (curr) {
         // Add to temp only if it's not a leaf node
-        if (curr->left || curr->right)
-            temp.push_back(curr->data);
+        if (curr->left || curr->right) temp.push_back(curr->data);
         
         // Move to the right child if exists, else move to left child
-        if (curr->right)
-            curr = curr->right;
-        else
-            curr = curr->left;
+        if (curr->right) curr = curr->right;
+        else curr = curr->left;
     }
 
     // Add right boundary in reverse order
-    for (int i = temp.size() - 1; i >= 0; i--)
-        boundary.push_back(temp[i]);
+    for (int i = temp.size() - 1; i >= 0; i--) boundary.push_back(temp[i]);
 }
 
 // Main function to get the boundary traversal

@@ -73,15 +73,10 @@ Edge Cases:
 When two trains have the same arrival or departure times, the algorithm handles them correctly because both arrays are sorted.
 Example Walkthrough (Example 1):
 Input:
-plaintext
-Copy code
+
 arr[] = {900, 940, 950, 1100, 1500, 1800}
 dep[] = {910, 1200, 1120, 1130, 1900, 2000}
-Sorted:
-plaintext
-Copy code
-arr[] = {900, 940, 950, 1100, 1500, 1800}
-dep[] = {910, 1120, 1130, 1200, 1900, 2000}
+
 Execution:
 i=1, j=0, platforms_needed=1
 Train 2 arrives at 940. arr[i] <= dep[j] → platforms_needed = 2.

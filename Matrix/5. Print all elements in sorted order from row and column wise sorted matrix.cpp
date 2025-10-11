@@ -75,6 +75,14 @@ struct Element {
     bool operator>(const Element &other) const {
         return value > other.value; // Min-heap based on the value
     }
+    // Alternatively, you can define a separate comparator
+    struct Compare {
+    bool operator()(const Element &a, const Element &b) const {
+        return a.value > b.value; // min-heap
+    } // priority_queue<Element, vector<Element>, Compare> pq; use this
+};
+
+
 };
 
 void printSortedMatrix(vector<vector<int>>& matrix) {
