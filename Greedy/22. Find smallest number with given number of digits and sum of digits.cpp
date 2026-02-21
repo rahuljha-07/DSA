@@ -33,6 +33,7 @@ string findSmallest(int s, int d) {
         } else {
             result[i] = s;
             s = 0;
+            break;
         }
     }
 

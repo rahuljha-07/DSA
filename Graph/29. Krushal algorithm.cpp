@@ -9,6 +9,15 @@ using namespace std;
 
 using namespace std;
 
+// using loop
+int findparent(int element, vector<int>& ds) {
+    while (element != ds[element]) {
+        ds[element] = ds[ ds[element] ];
+        element = ds[element];
+    }
+    return element;
+}
+
 // Function to find the parent of a node using path compression
 int findparent(int element, vector<int>& ds) {
     if (element == ds[element]) 

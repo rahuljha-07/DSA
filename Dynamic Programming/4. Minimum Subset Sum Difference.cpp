@@ -58,6 +58,7 @@ int minSubsetSumDifference(int arr[], int n) {
     for (int s1 : validSums) {
         int s2 = sum - s1;          // Complementary subset sum
         mini = min(mini, abs(s2 - s1)); // Minimize the difference
+        // or mini = min(mini, sum - 2 * s1); 
     }
 
     return mini;

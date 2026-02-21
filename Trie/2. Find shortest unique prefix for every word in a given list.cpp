@@ -5,7 +5,7 @@ using namespace std;
 
 class TrieNode {
 public:
-    TrieNode* children[26] = {};
+    TrieNode* children[26] = {nullptr};
     int frequency = 0; // Frequency to track occurrences of each prefix
 };
 

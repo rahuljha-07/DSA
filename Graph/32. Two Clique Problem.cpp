@@ -4,7 +4,7 @@ using namespace std;
 // Function to check if it's safe to color a node with a given color
 bool isSafe(int node, int color[], bool graph[101][101], int n, int col) {
     for (int k = 0; k < n; k++) {
-        if (graph[node][k] && color[k] == col) {
+        if (k != node && graph[k][node] == 1 && color[k] == col) {
             return false; // Adjacent node has the same color
         }
     }

@@ -27,7 +27,7 @@ void findKthPermutation(vector<int>& nums, vector<bool>& visited, string& curren
     }
 }
 
-string getKthPermutation(int N, int K) {
+vector<int> getKthPermutation(int N, int K) {
     vector<int> nums;
     for (int i = 1; i <= N; i++) {
         nums.push_back(i); // Generate numbers from 1 to N

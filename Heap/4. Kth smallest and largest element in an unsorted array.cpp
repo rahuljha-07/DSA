@@ -22,10 +22,6 @@ pair<int, int> findKthSmallestAndLargest(vector<int>& nums, int k) {
         counter++;  // Increment counter after adding an element
         if (counter > k) {
             minHeap.pop();  // Remove the smallest element if heap size exceeds k
-        }
-
-        
-        if (counter > k) {
             maxHeap.pop();  // Remove the largest element if heap size exceeds k
         }
     }

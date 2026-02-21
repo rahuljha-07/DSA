@@ -16,7 +16,7 @@ bool subsetSum(int arr[], int n, int sum) {
         return t[n][sum];
 
     // If the current element is smaller than the remaining sum, include or exclude the current element
-    if (arr[n - 1] < sum) return t[n][sum] = subsetSum(arr, n - 1, sum - arr[n - 1]) || subsetSum(arr, n - 1, sum);
+    if (arr[n - 1] <= sum) return t[n][sum] = subsetSum(arr, n - 1, sum - arr[n - 1]) || subsetSum(arr, n - 1, sum);
 
     // Otherwise, exclude it
      return t[n][sum] = subsetSum(arr, n - 1, sum);

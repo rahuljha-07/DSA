@@ -14,7 +14,7 @@ int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int
     }
 
     // Step 2: Min-heap priority queue (cost, node, current stops taken)
-    priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<>> pq;
+    priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>> pq;
     pq.push({0, src, 0}); // Push initial state (0 cost, src, 0 stops)
 
     // Step 3: Distance array to track the minimum cost to reach a node

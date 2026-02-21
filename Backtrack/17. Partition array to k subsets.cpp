@@ -73,8 +73,8 @@ bool isKPartitionPossible(int arr[], int n, int k) {
     int targetSum = sum / k; // Each subset must sum to this value
     bool visited[n] = {false}; // Array to track visited elements
 
-    // Start backtracking
-    return helper(0, arr, visited, k, 0, targetSum, n);
+    return helper(0, arr, visited, k, 0, targetSum, n); // Start backtracking
+    return helper(n, arr, visited, k, 0, targetSum, n); //knapsack style
 }
 
 int main() {

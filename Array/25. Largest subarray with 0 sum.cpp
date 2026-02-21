@@ -12,5 +12,5 @@ int maxLen(vector<int> A, int n){
     }
    return maxi;
 }// we are creating a map with sum , its index
-// example 1,0 -> sum1 at index 0
+// example 1,0 -> sum 1 at index 0
 // 3,2 and in future if i get then i have the start index of that sum to find the length

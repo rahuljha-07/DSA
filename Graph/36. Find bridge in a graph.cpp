@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <set>
 
 using namespace std;
 
@@ -32,6 +33,49 @@ void dfs(int u, int &timer, vector<int> &disc, vector<int> &low, vector<vector<i
             low[u] = min(low[u], disc[v]);
         }
     }
+}
+
+
+int main() {
+    int n, m;
+    cin >> n >> m;                 // number of nodes and edges
+    vector<vector<int>> g(n);
+
+    // Read edges (0-indexed). If your input is 1-indexed, uncomment the --u; --v;
+    for (int i = 0; i < m; ++i) {
+        int u, v;
+        cin >> u >> v;
+        // --u; --v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    // Optional: keep traversal deterministic
+    for (int i = 0; i < n; ++i) sort(g[i].begin(), g[i].end());
+
+    vector<int> disc(n, -1), low(n, -1);
+    vector<pair<int,int>> bridges;
+    int timer = 0;
+
+    // Handle disconnected graphs
+    for (int i = 0; i < n; ++i) {
+        if (disc[i] == -1) {
+            dfs(i, timer, disc, low, g, -1, bridges);
+        }
+    }
+
+    // Normalize each bridge to (min, max) and sort for stable output
+    for (auto &e : bridges) {
+        if (e.first > e.second) swap(e.first, e.second);
+    }
+    sort(bridges.begin(), bridges.end());
+
+    // Output
+    cout << bridges.size() << "\n";
+    for (auto &e : bridges) {
+        cout << e.first << " " << e.second << "\n";
+    }
+    return 0;
 }
 
 
@@ -75,4 +119,54 @@ void dfs(int u, int &timer, vector<int> &disc, vector<int> &low, vector<vector<i
     if (parent == -1 && children > 1) {
         articulationPoints.insert(u);
     }
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;                 // number of nodes and edges
+    vector<vector<int>> g(n);
+
+    // Read edges (0-indexed). If your input is 1-indexed, uncomment the --u; --v;
+    for (int i = 0; i < m; ++i) {
+        int u, v;
+        cin >> u >> v;
+        // --u; --v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    // Optional: keep traversal deterministic
+    for (int i = 0; i < n; ++i) sort(g[i].begin(), g[i].end());
+
+    vector<int> disc(n, -1), low(n, -1);
+    vector<pair<int,int>> bridges;
+    set<int> articulationPoints;
+    int timer = 0;
+
+    // Handle disconnected graphs
+    for (int i = 0; i < n; ++i) {
+        if (disc[i] == -1) {
+            dfs(i, timer, disc, low, g, -1, bridges, articulationPoints);
+        }
+    }
+
+    // Normalize each bridge to (min, max) and sort for stable output
+    for (auto &e : bridges) {
+        if (e.first > e.second) swap(e.first, e.second);
+    }
+    sort(bridges.begin(), bridges.end());
+
+    // Output bridges
+    cout << bridges.size() << "\n";
+    for (auto &e : bridges) {
+        cout << e.first << " " << e.second << "\n";
+    }
+
+    // Output articulation points (already ordered by set)
+    cout << articulationPoints.size() << "\n";
+    for (int u : articulationPoints) {
+        cout << u << "\n";
+    }
+
+    return 0;
 }

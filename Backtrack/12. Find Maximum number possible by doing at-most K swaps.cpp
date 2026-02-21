@@ -9,8 +9,7 @@ void findMaxNumber(string &str, int k, string &maxNum, int index) {
 
     // Find the maximum character from index to end
     for (int i = index + 1; i < str.size(); i++) {
-        if (str[i] > maxChar) 
-            maxChar = str[i];
+        if (str[i] > maxChar)  maxChar = str[i];
     }
 
     // If current index already has the max digit, move to next
