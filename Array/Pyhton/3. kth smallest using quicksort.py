@@ -21,6 +21,9 @@ def partition(arr, low, high):
         if left < right:
             # Swap these elements to put them on the correct sides.
             arr[left], arr[right] = arr[right], arr[left]
+            # Advance even when both swapped values equal the pivot.
+            left += 1
+            right -= 1
         else:
             # Pointers have met or crossed. Put the pivot in its final position.
             # Values on its left are <= pivot; values on its right are >= pivot.
@@ -34,6 +37,7 @@ def kth_smallest(arr, k):
     if k < 1 or k > len(arr):
         return -1
 
+    arr = list(arr)
     low = 0
     high = len(arr) - 1
     target = k - 1  # Convert the rank to a 0-based index.
@@ -57,7 +61,7 @@ if __name__ == "__main__":
     arr = [7, 10, 4, 3, 20, 15]
     k = 3
 
-    # This function rearranges the original list directly.
+    # This function partitions a copy, leaving the original list unchanged.
     result = kth_smallest(arr, k)
     print(f"Smallest element at rank {k}: {result}")
 
@@ -113,15 +117,15 @@ if __name__ == "__main__":
 # Space complexity describes how memory usage grows with input size.
 # Here we measure EXTRA memory, excluding the existing input list.
 #
-# EXTRA SPACE: O(1)
-# - We rearrange the original list without creating another list.
+# EXTRA SPACE: O(n)
+# - We copy the input list to preserve C++'s pass-by-value behavior.
 # - We use a fixed number of variables regardless of input size.
 # - The algorithm is iterative, so there is no recursive call stack.
 #
 # SUMMARY:
 # Average time: O(n)
 # Worst time:   O(n²)
-# Extra space:  O(1)
+# Extra space:  O(n)
 
 
 '''
@@ -133,9 +137,9 @@ a good portion of the array, so the total work is n + n/2 + n/4 ... = O(n).
 If the pivot keeps removing only one element, partitioning costs become
 n + (n - 1) + ... + 1 = O(n^2).
 
-Space Complexity: O(1)
+Space Complexity: O(n)
 
 Reason:
-The array is partitioned in place and the algorithm is iterative, so only
-constant extra variables are used.
+Copying the input takes O(n) space. Partitioning that copy is iterative and
+uses only O(1) additional variables; there is no recursive call stack.
 '''

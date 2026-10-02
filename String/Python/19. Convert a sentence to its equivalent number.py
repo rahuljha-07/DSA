@@ -18,7 +18,7 @@ def convertToKeypadSequence(sentence):
 
     for c in sentence:
         upperChar = c.upper()
-        result += keypad[upperChar]
+        result += keypad.get(upperChar, "")
 
     return result
 

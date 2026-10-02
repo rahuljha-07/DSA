@@ -2,6 +2,7 @@
 
 
 def modifyQueue(q, k):
+    q = deque(q)
     s = []
 
     for i in range(k):
@@ -34,8 +35,9 @@ Reason:
 The first k elements are moved to a stack and back, then the remaining n-k
 elements are rotated once.
 
-Space Complexity: O(k)
+Space Complexity: O(n + k), which is O(n) for 0 <= k <= n
 
 Reason:
-The stack stores the first k queue elements.
+Copying the queue stores n elements, preserving C++'s pass-by-value behavior.
+The stack additionally stores the first k elements during reversal.
 '''

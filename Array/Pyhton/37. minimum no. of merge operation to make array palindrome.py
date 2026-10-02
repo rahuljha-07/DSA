@@ -1,5 +1,6 @@
 def findMinOps(arr):
-    # Assumes positive integers. Modifies the input array.
+    # Assumes positive integers. Merge a copy, as in C++ pass-by-value.
+    arr = list(arr)
     ans = 0
     n = len(arr)
     i = 0
@@ -36,8 +37,8 @@ print("Minimum operations to make the array palindrome:", findMinOps(arr))
 # Each iteration moves at least one pointer inward.
 # The pointers cross after at most O(n) iterations.
 #
-# EXTRA SPACE: O(1)
-# Merges update the array directly using a fixed number of variables.
+# EXTRA SPACE: O(n)
+# The input copy stores n elements; merges use a fixed number of variables.
 # The array is not physically shortened; pointers track the active portion.
 
 '''
@@ -47,8 +48,9 @@ Reason:
 The two pointers move inward after every comparison or merge. They cross
 after a linear number of operations.
 
-Space Complexity: O(1)
+Space Complexity: O(n)
 
 Reason:
-The array is updated in place and only pointers plus the answer counter are used.
+The local input copy stores n elements so the caller's array stays unchanged.
+Updating that copy uses only O(1) more space for pointers and the counter.
 '''

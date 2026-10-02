@@ -25,7 +25,7 @@ def findDuplicateSubtrees(root):
     subtreeMap.clear()
     duplicateRoots.clear()
     findDuplicateSubtreesUtil(root)
-    return duplicateRoots
+    return list(duplicateRoots)
 
 
 def printSubtree(root):

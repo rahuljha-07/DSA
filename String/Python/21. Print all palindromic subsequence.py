@@ -4,7 +4,7 @@
 def countPalindromicSubsequences(str, start, end):
     key = f"{start}_{end}"
     if key in memo:
-        return memo[key]
+        return set(memo[key])
 
     result = set()
 
@@ -29,7 +29,7 @@ def countPalindromicSubsequences(str, start, end):
     result.update(rightSubseqs)
 
     memo[key] = result
-    return memo[key]
+    return set(memo[key])
 
 
 str = "abcadb"
@@ -49,7 +49,8 @@ Reason:
 There are O(n^2) start/end states.
 For each state, sets of palindromic subsequences may be merged.
 The variable k represents the total cost of copying, storing,
-and merging those generated strings.
+and merging those generated strings. Returned sets are copied to preserve
+C++ value semantics, so callers cannot modify the memoized sets.
 
 Space Complexity: O(n^2 * k)
 

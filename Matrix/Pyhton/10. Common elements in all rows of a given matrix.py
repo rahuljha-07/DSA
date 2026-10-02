@@ -164,8 +164,8 @@ def commonElements_set(matrix):
         # Update common set
         commonElementsSet = intersection
 
-    # Convert set into result list
-    for num in commonElementsSet:
+    # C++ std::set iterates in sorted order.
+    for num in sorted(commonElementsSet):
         result.append(num)
 
     return result
@@ -173,7 +173,7 @@ def commonElements_set(matrix):
 
 '''
 Time Complexity:
-O(n * m) average
+O(n * m + u log u) average, where u is the number of common elements
 
 Reason:
 
@@ -182,12 +182,13 @@ For every row, we create a set of its elements.
 Creating the set takes O(m).
 
 Then we check the current common elements against that set.
+Finally, sorting the u common elements takes O(u log u) to match C++ order.
 
 Set lookup is O(1) on average.
 
 Therefore:
 
-O(n * m)
+O(n * m + u log u)
 
 
 Space Complexity:

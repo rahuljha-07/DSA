@@ -1,5 +1,3 @@
-from bisect import bisect_left, bisect_right
-
 class Node:
     def __init__(self, val):
         self.data = val
@@ -7,18 +5,85 @@ class Node:
         self.right = None
 
 
+class _SetNode(Node):
+    def __init__(self, val):
+        super().__init__(val)
+        self.height = 1
+
+
+class _OrderedSet:
+    # AVL balancing keeps insert and upper_bound logarithmic, like std::set.
+    def __init__(self):
+        self.root = None
+
+    @staticmethod
+    def _height(root):
+        return root.height if root else 0
+
+    def _update(self, root):
+        root.height = 1 + max(self._height(root.left), self._height(root.right))
+
+    def _rotate_left(self, root):
+        right = root.right
+        root.right = right.left
+        right.left = root
+        self._update(root)
+        self._update(right)
+        return right
+
+    def _rotate_right(self, root):
+        left = root.left
+        root.left = left.right
+        left.right = root
+        self._update(root)
+        self._update(left)
+        return left
+
+    def _insert(self, root, key):
+        if root is None:
+            return _SetNode(key)
+        if key < root.data:
+            root.left = self._insert(root.left, key)
+        elif key > root.data:
+            root.right = self._insert(root.right, key)
+        else:
+            return root
+        self._update(root)
+        balance = self._height(root.left) - self._height(root.right)
+        if balance > 1:
+            if key > root.left.data:
+                root.left = self._rotate_left(root.left)
+            return self._rotate_right(root)
+        if balance < -1:
+            if key < root.right.data:
+                root.right = self._rotate_right(root.right)
+            return self._rotate_left(root)
+        return root
+
+    def insert(self, key):
+        self.root = self._insert(self.root, key)
+
+    def upper_bound(self, key):
+        root = self.root
+        it = None
+        while root:
+            if root.data > key:
+                it = root.data
+                root = root.left
+            else:
+                root = root.right
+        return it
+
+
 def replaceWithLeastGreater(arr):
     n = len(arr)
     result = [-1] * n
-    # Sorted unique values emulate std::set without an external dependency.
-    s = []
+    s = _OrderedSet()
     for i in range(n - 1, -1, -1):
-        it = bisect_right(s, arr[i])
-        if it != len(s):
-            result[i] = s[it]
-        pos = bisect_left(s, arr[i])
-        if pos == len(s) or s[pos] != arr[i]:
-            s.insert(pos, arr[i])
+        it = s.upper_bound(arr[i])
+        if it is not None:
+            result[i] = it
+        s.insert(arr[i])
     return result
 
 
@@ -56,11 +121,12 @@ if __name__ == "__main__":
 
 '''
 Let n be the array length.
-Sorted-container time: O(n^2) worst case in Python: binary searches cost
-O(log n), but list insertion shifts O(n) items. The C++ balanced std::set
-version is O(n log n); ordering/uniqueness and upper-bound logic are retained.
+Ordered-set time: O(n log n) worst case. Each of n elements performs an
+upper-bound lookup and an insertion in an AVL tree of height O(log n).
+Rotations keep the tree balanced, so sorted inputs cannot create long chains.
 BST time: O(n log n) for balanced insertions, O(n^2) worst case for a skewed
 unbalanced BST, because insertion follows a path of up to n nodes.
-Space: both use O(n) auxiliary container/tree storage plus O(n) output; the BST
-also uses O(h) recursive stack space, bounded by O(n).
+Space: both use O(n) auxiliary tree storage plus O(n) output. AVL insertion
+uses O(log n) recursive stack space. The alternate unbalanced BST uses O(h)
+recursive stack space, bounded by O(n).
 '''

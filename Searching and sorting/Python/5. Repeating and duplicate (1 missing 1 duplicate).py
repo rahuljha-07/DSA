@@ -1,11 +1,13 @@
 ﻿def findTwoElement(arr, n):
+    arr = list(arr)
     ans = [0, 0]
 
     # Rearrange the array elements to their corresponding indices
     i = 0
     while i < n:
         if arr[i] != arr[arr[i] - 1]:
-            arr[i], arr[arr[i] - 1] = arr[arr[i] - 1], arr[i]
+            index = arr[i] - 1
+            arr[i], arr[index] = arr[index], arr[i]
         else:
             i += 1
 
@@ -31,8 +33,9 @@ The cyclic placement loop moves values toward their correct indexes.
 Although it has swaps, each successful swap places at least one value
 closer to its correct position. The final scan is also O(n).
 
-Space Complexity: O(1)
+Space Complexity: O(n)
 
 Reason:
-The array is rearranged in place and only a fixed-size answer list is used.
+A local copy of n elements preserves C++'s pass-by-value behavior. The copy
+is rearranged in place; the indexes and fixed-size answer use O(1) more space.
 '''
