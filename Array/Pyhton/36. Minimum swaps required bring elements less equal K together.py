@@ -44,3 +44,16 @@ print("Minimum swaps required:", minSwap(arr, len(arr), k))  # 1
 #
 # EXTRA SPACE: O(1)
 # Only a fixed number of variables are used.
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The code counts good elements, checks the first window, then slides the
+window once across the array. These linear steps add to O(n).
+
+Space Complexity: O(1)
+
+Reason:
+Only count, bad, ans, and pointer variables are used.
+'''

@@ -114,3 +114,16 @@ if __name__ == "__main__":
 #
 # Avoid nums[k + 1:] = nums[k + 1:][::-1] if O(1) space is required:
 # slicing would create additional lists.
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The algorithm scans from the right to find the pivot, scans again to find
+the next larger value, then reverses the suffix. Each step is linear at most.
+
+Space Complexity: O(1)
+
+Reason:
+All changes are made in place using only index variables and swaps.
+'''

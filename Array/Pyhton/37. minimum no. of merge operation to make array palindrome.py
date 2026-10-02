@@ -39,3 +39,16 @@ print("Minimum operations to make the array palindrome:", findMinOps(arr))
 # EXTRA SPACE: O(1)
 # Merges update the array directly using a fixed number of variables.
 # The array is not physically shortened; pointers track the active portion.
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The two pointers move inward after every comparison or merge. They cross
+after a linear number of operations.
+
+Space Complexity: O(1)
+
+Reason:
+The array is updated in place and only pointers plus the answer counter are used.
+'''

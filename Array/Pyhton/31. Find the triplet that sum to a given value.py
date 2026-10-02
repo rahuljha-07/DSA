@@ -94,3 +94,16 @@ if __name__ == "__main__":
 # However, Python's list.sort() can use O(n) temporary memory.
 #
 # Therefore, including sorting, worst-case extra space is O(n).
+
+'''
+Time Complexity: O(n^2)
+
+Reason:
+Sorting costs O(n log n). After that, each fixed first element uses a
+two-pointer scan over the remaining array. The O(n^2) scan dominates.
+
+Space Complexity: O(n) worst case in Python
+
+Reason:
+The two-pointer part uses O(1), but Python sorting may use O(n) temporary space.
+'''

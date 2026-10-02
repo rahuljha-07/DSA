@@ -101,3 +101,16 @@ if __name__ == "__main__":
 # Other variables use O(1) space.
 #
 # Therefore, worst-case extra space is O(n).
+
+'''
+Time Complexity: O(n) expected
+
+Reason:
+The loop visits each element once. Dictionary lookup and insertion for
+prefix sums are O(1) on average.
+
+Space Complexity: O(n)
+
+Reason:
+The dictionary can store the first index of up to n distinct prefix sums.
+'''

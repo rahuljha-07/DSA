@@ -37,3 +37,17 @@ def find_min_max(arr):
 
 arr = [1, 4, 3, 2, 6, 5]
 find_min_max(arr)
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The array is processed in pairs. Each pair is first compared internally,
+then only the larger value is compared with maximum and the smaller value
+with minimum. Every element is still visited once.
+
+Space Complexity: O(1)
+
+Reason:
+Only a fixed number of variables are used for indexes, minimum, and maximum.
+'''

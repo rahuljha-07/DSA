@@ -97,3 +97,16 @@ if __name__ == "__main__":
 # In the worst case, every value is distinct, so u = n.
 #
 # Therefore, worst-case extra space is O(n).
+
+'''
+Time Complexity: O(n) expected
+
+Reason:
+Each element is visited once. Dictionary lookup for the complement and
+frequency update are O(1) on average.
+
+Space Complexity: O(n)
+
+Reason:
+In the worst case, the frequency dictionary stores every distinct value.
+'''

@@ -21,10 +21,6 @@ def partition(arr, low, high):
         if left < right:
             # Swap these elements to put them on the correct sides.
             arr[left], arr[right] = arr[right], arr[left]
-
-            # Move past both elements so duplicates cannot stall the loop.
-            left += 1
-            right -= 1
         else:
             # Pointers have met or crossed. Put the pivot in its final position.
             # Values on its left are <= pivot; values on its right are >= pivot.
@@ -126,3 +122,20 @@ if __name__ == "__main__":
 # Average time: O(n)
 # Worst time:   O(n²)
 # Extra space:  O(1)
+
+
+'''
+Time Complexity: O(n) average case, O(n^2) worst case
+
+Reason:
+Each partition scans the current range once. On average, the pivot removes
+a good portion of the array, so the total work is n + n/2 + n/4 ... = O(n).
+If the pivot keeps removing only one element, partitioning costs become
+n + (n - 1) + ... + 1 = O(n^2).
+
+Space Complexity: O(1)
+
+Reason:
+The array is partitioned in place and the algorithm is iterative, so only
+constant extra variables are used.
+'''

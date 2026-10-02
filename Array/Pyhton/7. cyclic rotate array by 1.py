@@ -76,3 +76,16 @@ if __name__ == "__main__":
 # No additional list is created; range generates indices as needed.
 #
 # Extra memory does not grow with n, so it is O(1).
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The last element is saved, then n - 1 elements are shifted one position to
+the right. Each shift is O(1).
+
+Space Complexity: O(1)
+
+Reason:
+Rotation is done in place using only a saved last value and loop index.
+'''

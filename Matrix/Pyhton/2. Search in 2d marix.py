@@ -1,4 +1,4 @@
-def searchMatrix(matrix, target):
+def searchMatrixBinary(matrix, target):
     m = len(matrix)          # Number of rows in the matrix
     n = len(matrix[0])       # Number of columns in the matrix
 
@@ -41,7 +41,7 @@ We only use a few variables such as low, high, mid, row, and col.
 No extra data structure is used.
 '''
 
-def searchMatrix(matrix, target):
+def searchMatrixStaircase(matrix, target):
     rows = len(matrix)
     cols = len(matrix[0])
 

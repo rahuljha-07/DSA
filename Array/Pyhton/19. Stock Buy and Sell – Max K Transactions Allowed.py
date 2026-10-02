@@ -133,3 +133,16 @@ if __name__ == "__main__":
 #
 # Other variables use O(1) additional space.
 # No recursion is used.
+
+'''
+Time Complexity: O(k * n)
+
+Reason:
+The DP table has k transaction rows and n day columns. Each cell is filled
+once using the running max_val instead of scanning all previous buy days.
+
+Space Complexity: O(k * n)
+
+Reason:
+The DP table stores a value for every transaction count and day.
+'''

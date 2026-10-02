@@ -40,27 +40,23 @@ def rearrange_with_extra_space(nums):
 # ---------------------------------------------------------------------------
 
 def rearrange_in_place(nums):
-    n = len(nums)
-    positive_count = 0
+    pos = 0  # Start with the even index, expecting positive number here.
+    neg = 1  # Start with the odd index, expecting negative number here.
 
-    # First partition: move all nonnegative numbers to the beginning.
-    for i in range(n):
-        if nums[i] >= 0:
-            nums[i], nums[positive_count] = nums[positive_count], nums[i]
-            positive_count += 1
+    while True:
+        # Find the first misplaced positive position.
+        while pos < len(nums) and nums[pos] >= 0:
+            pos += 2
 
-    # Nonnegative values now occupy indices 0 through positive_count - 1.
-    # Negative values start at index positive_count.
-    pos = 1
-    neg = positive_count
+        # Find the first misplaced negative position.
+        while neg < len(nums) and nums[neg] < 0:
+            neg += 2
 
-    # Put negative numbers into odd positions.
-    # Continue only while pos points into the nonnegative region
-    # and an unused negative number remains.
-    while pos < neg and neg < n:
-        nums[pos], nums[neg] = nums[neg], nums[pos]
-        pos += 2
-        neg += 1
+        # Swap if both misplaced elements exist.
+        if pos < len(nums) and neg < len(nums):
+            nums[pos], nums[neg] = nums[neg], nums[pos]
+        else:
+            break
 
 
 # ---------------------------------------------------------------------------
@@ -175,3 +171,26 @@ if __name__ == "__main__":
 # Extra space: O(1).
 # - Shifting uses one saved value and a few indices.
 # - No slices, extra lists, or recursion are used.
+
+
+'''
+Time Complexity:
+Approach 1: O(n)
+Approach 2: O(n)
+Approach 3: O(n^2) worst case
+
+Reason:
+Approach 1 separates and rebuilds the array with linear scans.
+Approach 2 moves even and odd misplaced pointers forward only.
+Approach 3 may repeatedly search ahead and shift elements, causing
+quadratic work in the worst case.
+
+Space Complexity:
+Approach 1: O(n)
+Approach 2: O(1)
+Approach 3: O(1)
+
+Reason:
+Approach 1 uses extra positive, negative, and result lists.
+Approaches 2 and 3 modify the array in place using fixed variables.
+'''

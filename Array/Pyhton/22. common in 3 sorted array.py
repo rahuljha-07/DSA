@@ -92,3 +92,16 @@ if __name__ == "__main__":
 # Sorting may use O(u) temporary memory.
 #
 # Total: O(u), with O(1) additional pointer variables.
+
+'''
+Time Complexity: O(n1 + n2 + n3 + u log u)
+
+Reason:
+The three pointers only move forward, so scanning costs O(n1 + n2 + n3).
+The unique common values are sorted at the end, costing O(u log u).
+
+Space Complexity: O(u)
+
+Reason:
+The set and returned list store u unique common elements.
+'''

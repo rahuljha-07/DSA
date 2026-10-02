@@ -87,3 +87,17 @@ if __name__ == "__main__":
 #
 # Total additional space, including the output: O(n).
 # Auxiliary space excluding the output: O(n) worst case due to sorting.
+
+'''
+Time Complexity: O(n log n)
+
+Reason:
+Intervals are sorted first, which costs O(n log n). The merge pass then
+visits each interval once, so sorting dominates.
+
+Space Complexity: O(n)
+
+Reason:
+The answer list can store all intervals when none overlap. Python sorting
+may also use temporary memory.
+'''

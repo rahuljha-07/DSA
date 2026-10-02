@@ -68,3 +68,16 @@ if __name__ == "__main__":
 # No extra list or recursion is needed.
 #
 # Extra memory stays constant as n grows, so it is O(1).
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The loop checks every consecutive price pair once and adds only positive
+price differences.
+
+Space Complexity: O(1)
+
+Reason:
+Only the profit variable and loop index are used.
+'''

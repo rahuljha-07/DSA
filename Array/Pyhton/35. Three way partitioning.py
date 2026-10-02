@@ -30,3 +30,16 @@ print(array)  # [1, 2, 3, 4, 3]
 #
 # EXTRA SPACE: O(1)
 # Elements are swapped directly using a fixed number of variables.
+
+'''
+Time Complexity: O(n)
+
+Reason:
+Each iteration either moves mid forward or high backward, shrinking the
+unprocessed region by one.
+
+Space Complexity: O(1)
+
+Reason:
+Partitioning happens in place using only low, mid, and high pointers.
+'''

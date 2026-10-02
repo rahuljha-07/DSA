@@ -96,3 +96,16 @@ if __name__ == "__main__":
 #
 # Python's range does not create a list of all R integers.
 # Therefore, extra space is O(n), not O(R).
+
+'''
+Time Complexity: O(n + R) expected, where R = maximum - minimum + 1
+
+Reason:
+The first loop inserts n elements into a set and finds min/max. The second
+loop scans every integer from minimum to maximum, so the value range matters.
+
+Space Complexity: O(n)
+
+Reason:
+The set stores up to n distinct array values.
+'''

@@ -35,3 +35,16 @@ print(trappingWater(arr, len(arr)))  # 10
 # EXTRA SPACE COMPLEXITY: O(n)
 # maxLeft and maxRight each store n values:
 # O(n) + O(n) = O(n).
+
+'''
+Time Complexity: O(n)
+
+Reason:
+One pass builds maxLeft, one pass builds maxRight, and one pass calculates
+water at every index. The three linear passes add to O(n).
+
+Space Complexity: O(n)
+
+Reason:
+maxLeft and maxRight each store n values.
+'''

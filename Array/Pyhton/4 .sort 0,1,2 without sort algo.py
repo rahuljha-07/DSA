@@ -95,3 +95,16 @@ if __name__ == "__main__":
 # No additional list or recursive calls are needed.
 #
 # The extra memory does not grow with n, so it is O(1).
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The Dutch National Flag pointers shrink the unknown region every iteration.
+Each element is inspected a constant number of times.
+
+Space Complexity: O(1)
+
+Reason:
+Sorting is done in place using only low, mid, and high pointers.
+'''

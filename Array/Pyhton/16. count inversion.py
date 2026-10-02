@@ -133,3 +133,17 @@ if __name__ == "__main__":
 # We do NOT multiply temporary space by the number of recursion levels:
 # child merges finish and release their temporary lists before the
 # parent merge creates its own lists.
+
+'''
+Time Complexity: O(n log n)
+
+Reason:
+Merge sort splits the array into halves for O(log n) levels. At each level,
+all merge work together touches O(n) elements.
+
+Space Complexity: O(n)
+
+Reason:
+During merging, temporary left and right lists store elements from the
+current range. The recursion stack is O(log n), but O(n) temporary lists dominate.
+'''

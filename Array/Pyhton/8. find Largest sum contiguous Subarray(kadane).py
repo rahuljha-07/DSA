@@ -98,3 +98,16 @@ if __name__ == "__main__":
 # No additional array or recursive calls are needed.
 # Therefore, extra space is O(1).
 # The input list is not modified.
+
+'''
+Time Complexity: O(n)
+
+Reason:
+Kadane's algorithm scans the array once. At each element it updates the
+running sum and best answer in constant time.
+
+Space Complexity: O(1)
+
+Reason:
+Only the running sum and maximum sum variables are stored.
+'''

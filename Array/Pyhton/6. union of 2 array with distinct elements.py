@@ -87,3 +87,17 @@ if __name__ == "__main__":
 # Therefore, worst-case extra space is O(n + m).
 #
 # The two index variables use only O(1) additional space.
+
+'''
+Time Complexity: O(n + m) expected
+
+Reason:
+Every element from both arrays is inserted into a set once. Hash-set insert
+is O(1) on average, so the total expected work is linear in both lengths.
+
+Space Complexity: O(n + m)
+
+Reason:
+In the worst case, all values are distinct and the set stores all elements
+from both arrays.
+'''

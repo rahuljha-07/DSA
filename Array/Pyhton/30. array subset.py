@@ -68,3 +68,16 @@ if __name__ == "__main__":
 # Other variables use O(1) space.
 #
 # Therefore, worst-case extra space is O(n).
+
+'''
+Time Complexity: O(n + m) expected
+
+Reason:
+All n elements of arr1 are inserted into a set. Then all m elements of arr2
+are checked with average O(1) membership lookup.
+
+Space Complexity: O(n)
+
+Reason:
+The set stores distinct values from arr1.
+'''

@@ -98,3 +98,16 @@ if __name__ == "__main__":
 # No additional list or recursive calls are needed.
 #
 # Extra memory does not grow with n, so it is O(1).
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The reverse Kadane scan visits every element once and performs constant
+work to update the running minimum subarray sum.
+
+Space Complexity: O(1)
+
+Reason:
+Only a few variables are used; no extra array is created.
+'''

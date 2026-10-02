@@ -99,3 +99,17 @@ if __name__ == "__main__":
 # Python's range also does not store a full list of indices.
 #
 # Therefore, extra memory remains constant: O(1).
+
+'''
+Time Complexity: O(n^2) worst case
+
+Reason:
+The outer loop scans the array once. When a negative element is found,
+positive elements before it may be shifted one position right. Many such
+shifts can happen, giving quadratic work in the worst case.
+
+Space Complexity: O(1)
+
+Reason:
+The rearrangement is done in place using only a few variables.
+'''

@@ -83,3 +83,16 @@ if __name__ == "__main__":
 # Other variables use O(1) space.
 #
 # Therefore, worst-case extra space is O(n).
+
+'''
+Time Complexity: O(n) expected
+
+Reason:
+The array is scanned once while maintaining prefix sums. Set lookup and
+insert are O(1) on average.
+
+Space Complexity: O(n)
+
+Reason:
+In the worst case, all prefix sums are different and the set stores n sums.
+'''

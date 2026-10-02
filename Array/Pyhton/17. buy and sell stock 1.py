@@ -78,3 +78,16 @@ if __name__ == "__main__":
 # No additional list or recursion is needed.
 #
 # Therefore, extra space is O(1).
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The prices are scanned once from right to left. Each day updates the best
+future selling price and profit in constant time.
+
+Space Complexity: O(1)
+
+Reason:
+Only sell_price, profit, and loop variables are used.
+'''

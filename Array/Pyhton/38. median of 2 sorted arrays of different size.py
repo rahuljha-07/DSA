@@ -52,3 +52,17 @@ print("Median:", findMedian(a, b))  # Median: 8
 # EXTRA SPACE: O(1)
 # Only a fixed number of variables are used.
 # The recursive swap happens at most once; no arrays are copied.
+
+'''
+Time Complexity: O(log(min(n1, n2)))
+
+Reason:
+Binary search is done only on the smaller array. Each iteration halves the
+partition search range and does constant work.
+
+Space Complexity: O(1)
+
+Reason:
+Only partition indexes and boundary values are stored. The recursive swap
+of array order happens at most once.
+'''

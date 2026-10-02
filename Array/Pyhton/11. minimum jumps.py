@@ -27,10 +27,6 @@ def recursive_min_jumps(current_index, arr, n):
 
         if next_jumps != float("inf"):
             jumps = min(jumps, 1 + next_jumps)
-            next_jumps = recursive_min_jumps(current_index + step, arr, n)
-
-            if next_jumps != float("inf"):
-                jumps = min(jumps, 1 + next_jumps)
 
     # Save the minimum jumps needed from this position.
     memo[current_index] = jumps
@@ -95,3 +91,19 @@ if __name__ == "__main__":
 #
 # Python limits recursion depth, so very long paths can cause
 # a RecursionError. An iterative approach avoids this limitation.
+
+
+'''
+Time Complexity: O(n^2)
+
+Reason:
+There is one memoized state per index, so each index is solved once.
+From an index, the loop may try many forward jumps. In the worst case,
+the total tried jumps are (n - 1) + (n - 2) + ... + 1.
+
+Space Complexity: O(n)
+
+Reason:
+The memo list stores one value per index. The recursion stack can also
+reach O(n) in a path that moves one index at a time.
+'''

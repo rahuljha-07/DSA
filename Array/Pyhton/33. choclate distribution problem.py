@@ -22,3 +22,16 @@ print(cdp(a, len(a), m))  # 2
 # EXTRA SPACE: O(n) worst case.
 # Python's sort may use O(n) temporary memory.
 # The loop itself uses O(1) extra space.
+
+'''
+Time Complexity: O(n log n)
+
+Reason:
+The packets are sorted first. Then a window of size m is checked across
+the sorted array in O(n), so sorting dominates.
+
+Space Complexity: O(n) worst case in Python
+
+Reason:
+The loop uses O(1), but Python sorting may allocate temporary memory.
+'''

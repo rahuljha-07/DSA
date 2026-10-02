@@ -103,3 +103,16 @@ if __name__ == "__main__":
 #
 # Python integers can grow as the products grow. Exact bit-level time
 # and memory costs depend on the number of digits in those products.
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The array is scanned once while maintaining prefix and suffix products.
+Each iteration performs constant work.
+
+Space Complexity: O(1)
+
+Reason:
+Only prefix, suffix, answer, and index variables are used.
+'''

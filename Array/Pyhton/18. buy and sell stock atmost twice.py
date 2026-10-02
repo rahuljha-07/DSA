@@ -106,3 +106,16 @@ if __name__ == "__main__":
 # All other variables use O(1) space.
 #
 # Total extra space: O(n) + O(1) = O(n).
+
+'''
+Time Complexity: O(n)
+
+Reason:
+One backward pass fills best one-transaction suffix profits. One forward
+pass combines the first transaction with that suffix profit. Both passes are linear.
+
+Space Complexity: O(n)
+
+Reason:
+The profit list stores one value for each day.
+'''

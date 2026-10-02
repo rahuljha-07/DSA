@@ -29,3 +29,16 @@ print(sb(arr, len(arr), x))  # 3
 #
 # EXTRA SPACE: O(1)
 # Only a fixed number of variables are used.
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The sliding window pointers i and j only move forward. Each element is
+added once and removed at most once.
+
+Space Complexity: O(1)
+
+Reason:
+Only pointers, current sum, and answer size are stored.
+'''

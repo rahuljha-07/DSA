@@ -72,3 +72,16 @@ if __name__ == "__main__":
 # a full list of indices.
 #
 # Extra memory does not grow with n, so it is O(1).
+
+'''
+Time Complexity: O(n)
+
+Reason:
+The loop visits each element once and swaps a negative element into the
+next negative position when needed. Each operation is constant time.
+
+Space Complexity: O(1)
+
+Reason:
+The array is modified in place using only indexes and swap storage.
+'''

@@ -123,3 +123,16 @@ if __name__ == "__main__":
 #
 # Python's tuple-style swap uses only constant temporary storage.
 # Therefore, extra space is O(1).
+
+'''
+Time Complexity: O((n + m) log(n + m))
+
+Reason:
+The gap starts near half of the combined length and keeps shrinking by
+half. For each gap, the code scans across the combined logical array.
+
+Space Complexity: O(1)
+
+Reason:
+The two arrays are merged in place using indexes and swaps only.
+'''

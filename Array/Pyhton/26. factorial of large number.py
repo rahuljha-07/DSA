@@ -117,3 +117,16 @@ if __name__ == "__main__":
 #
 # Including the returned digit list: O(D) space.
 # Auxiliary space beyond that list: O(1) in the word-operation model.
+
+'''
+Time Complexity: O(n * d), where d is the number of digits in n!
+
+Reason:
+For every multiplier from 2 to n, the multiply function scans all digits
+currently stored in the result. The digit count grows up to d.
+
+Space Complexity: O(d)
+
+Reason:
+The result list stores every digit of n!. Other variables are constant.
+'''

@@ -35,3 +35,17 @@ print(get_min_diff(arr, k))  # 5
 #
 # EXTRA SPACE: O(n) worst case.
 # Variables use O(1), but Python's sort may use O(n) temporary memory.
+
+'''
+Time Complexity: O(n log n)
+
+Reason:
+The array is sorted first, which takes O(n log n). After sorting, one
+linear scan checks every split point, so sorting dominates.
+
+Space Complexity: O(n) worst case in Python
+
+Reason:
+The algorithm itself uses O(1) variables, but Python sorting may use
+extra temporary memory proportional to n.
+'''

@@ -89,3 +89,16 @@ if __name__ == "__main__":
 # Extra space is O(u), which becomes O(n) when all values are distinct.
 #
 # Other variables use O(1) space.
+
+'''
+Time Complexity: O(n) expected
+
+Reason:
+The first loop counts frequencies. The second loop checks each distinct
+value, and the number of distinct values is at most n.
+
+Space Complexity: O(n)
+
+Reason:
+In the worst case, every array value is distinct and stored in the dictionary.
+'''

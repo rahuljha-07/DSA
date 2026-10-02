@@ -75,3 +75,16 @@ if __name__ == "__main__":
 # Only two pointer variables are used.
 # No additional array, set, or recursion is needed.
 # Extra memory stays constant as the input grows.
+
+'''
+Time Complexity: O(n)
+
+Reason:
+Floyd's cycle detection has two phases. The slow and fast pointers meet
+inside the cycle in O(n), then move to the duplicate entrance in O(n).
+
+Space Complexity: O(1)
+
+Reason:
+Only slow and fast pointers are used. The input array is not modified.
+'''
