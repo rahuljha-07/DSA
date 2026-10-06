@@ -24,6 +24,7 @@ def minSwap(arr, n, k):
         if arr[j] > k:
             bad += 1
 
+        # Update the answer with the minimum "bad" count
         ans = min(ans, bad)
         i += 1
 

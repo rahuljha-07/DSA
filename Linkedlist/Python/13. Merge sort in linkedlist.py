@@ -4,20 +4,26 @@ class Node:
         self.next = None
 
 
+# Function to split the linked list into two halves using a slow and fast pointer approach.
 def findmiddle(cur):
     slow = cur
     # Starting fast one node ahead ensures a two-node list actually splits.
     fast = cur.next
+    # Move fast by 2 steps and slow by 1 step until fast reaches the end of the list.
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
+    # Split the list at the middle point.
     first = cur
     second = slow.next
+    # End the first half.
     slow.next = None
     return first, second
 
 
+# Function to merge two sorted linked lists iteratively.
 def mergeboth(first, second):
+    # Initialize with a dummy value
     dummy = Node(0)
     tail = dummy
     while first and second:
@@ -33,13 +39,17 @@ def mergeboth(first, second):
     return result
 
 
+# Recursive function to perform merge sort on the linked list.
 def mergesorting(head):
     cur = head
     if not cur or not cur.next:
         return head
+    # Step 1: Split the list into two halves using findmiddle.
     first, second = findmiddle(cur)
+    # Step 2: Sort each half.
     first = mergesorting(first)
     second = mergesorting(second)
+    # Step 3: Merge the sorted halves.
     head = mergeboth(first, second)
     return head
 

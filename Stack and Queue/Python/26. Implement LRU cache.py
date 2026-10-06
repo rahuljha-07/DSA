@@ -2,23 +2,32 @@
 
 
 class LRUCache:
+    # Initialize the cache capacity.
     def __init__(self, cap):
+        # Initialize the capacity inside the constructor body
         self.capacity = cap
+        # Keys are stored from least recently used to most recently used.
         self.cache = OrderedDict()
 
+    # Retrieve the value associated with the key
     def get(self, key):
         if key not in self.cache:
+            # Key not found
             return -1
+        # Remove and reinsert the accessed key to make it the most recently used.
         value = self.cache.pop(key)
         self.cache[key] = value
         return value
 
+    # Insert or update the value associated with the key
     def set(self, key, value):
         if self.capacity == 0:
             return
+        # Updating an existing key also refreshes its position in recency order.
         if key in self.cache:
             self.cache.pop(key)
         elif len(self.cache) == self.capacity:
+            # Evict the oldest key at the beginning before inserting a new key.
             self.cache.popitem(last=False)
         self.cache[key] = value
 

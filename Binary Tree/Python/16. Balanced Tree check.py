@@ -8,25 +8,37 @@ class Node:
 isBalancedFlag = 1
 
 
+# Function to calculate the height of a tree while checking if it is balanced
 def height(root):
     global isBalancedFlag
+    # If the node is None, its height is 0
     if not root:
         return 0
+    # Recursively calculate the height of the left and right subtrees
     leftHeight = height(root.left)
     rightHeight = height(root.right)
+    # If the difference between left and right subtree heights is greater than 1, it's not
+    # balanced
     if abs(leftHeight - rightHeight) > 1:
+        # Set the flag to false (0) if the tree is unbalanced
         isBalancedFlag = 0
         return 0
+    # Return the height of the current node
     return max(leftHeight, rightHeight) + 1
 
 
+# Function to check if the binary tree is balanced
 def isBalanced(root):
     global isBalancedFlag
+    # Set the flag to true (1) initially
     isBalancedFlag = 1
+    # Calculate the height and check the balance status
     height(root)
+    # Return the result based on the flag (1 = balanced, 0 = unbalanced)
     return bool(isBalancedFlag)
 
 
+# Helper function to print if the tree is balanced
 def printBalanceStatus(root):
     print("The tree is balanced." if isBalanced(root)
           else "The tree is not balanced.")

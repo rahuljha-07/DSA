@@ -16,21 +16,32 @@ def reverseGroup(head, k):
     count = 0
     # Detach the group boundary before swapping next/prev.
     head.prev = None
+    # Step 1: Reverse the first 'k' nodes using your logic
     while curr is not None and count < k:
+        # Store previous node
         temp = curr.prev
+        # Swap pointers
         curr.prev = curr.next
+        # Complete swap
         curr.next = temp
+        # Update 'prev' (new head for the group)
         prev = curr
+        # Move to next node (using swapped pointer)
         curr = curr.prev
         count += 1
     prev.prev = None
+    # Step 2: Connect with the next group (recursive call)
     if curr is not None:
+        # Recurse for next group
         head.next = reverseGroup(curr, k)
         if head.next is not None:
+            # Maintain doubly link
             head.next.prev = head
+    # 'prev' is the new head of this group
     return prev
 
 
+# Function to print the doubly linked list
 def printList(head):
     while head:
         print(head.data, end=" ")

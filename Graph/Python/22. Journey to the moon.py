@@ -1,3 +1,4 @@
+# Perform DFS to find connected components
 def dfs(node, adj, visited, size):
     visited[node] = True
     size[0] += 1
@@ -7,21 +8,27 @@ def dfs(node, adj, visited, size):
 
 
 def journeyToMoon(n, astronaut):
+    # Step 1: Build the adjacency list
     adj = [[] for _ in range(n)]
     for pair in astronaut:
         adj[pair[0]].append(pair[1])
         adj[pair[1]].append(pair[0])
+    # Step 2: Find connected components using DFS
     visited = [False] * n
+    # Sizes of connected components
     sizes = []
     for i in range(n):
         if not visited[i]:
             size = [0]
             dfs(i, adj, visited, size)
             sizes.append(size[0])
+    # Step 3: Calculate total pairs
     totalPairs = n * (n - 1) // 2
+    # Step 4: Subtract invalid pairs (within the same country)
     invalidPairs = 0
     for size in sizes:
         invalidPairs += size * (size - 1) // 2
+    # Valid pairs are total pairs minus invalid pairs
     return totalPairs - invalidPairs
 
 

@@ -1,13 +1,20 @@
+# Function to check if a number is a palindrome
 def isPalindrome(num):
+    # Store the original number
     original = num
+    # Variable to store the reversed number
     reversed = 0
 
     # Reverse the number.
     while num > 0:
+        # Get the last digit
         digit = num % 10
+        # Build the reversed number
         reversed = reversed * 10 + digit
+        # Remove the last digit
         num //= 10
 
+    # Check if the original number is equal to the reversed number
     return original == reversed
 
 

@@ -5,6 +5,7 @@ class Node:
         self.prev = None
 
 
+# Function to insert a new node at the end of the doubly linked list
 def append(head, data):
     newNode = Node(data)
     if not head:
@@ -18,9 +19,11 @@ def append(head, data):
     return head
 
 
+# Function to print the triplets whose sum is equal to a given value X
 def printTripletsWithSum(head, X):
     if not head:
         return
+    # Find tail node
     tail = head
     while tail.next:
         tail = tail.next
@@ -36,13 +39,17 @@ def printTripletsWithSum(head, X):
             if sum == X:
                 print(f"({first.data}, {left.data}, {right.data})")
                 found = True
+                # Move left pointer to avoid duplicates
                 tempLeft = left
                 while left and left.data == tempLeft.data:
                     left = left.next
+                # Move right pointer to avoid duplicates
                 tempRight = right
                 while right and right.data == tempRight.data:
+                    # Decrease sum
                     right = right.prev
             elif sum < X:
+                # Increase sum
                 left = left.next
             else:
                 right = right.prev
@@ -51,6 +58,7 @@ def printTripletsWithSum(head, X):
         print(f"No triplets found with sum {X}")
 
 
+# Helper function to print the doubly linked list (for testing purposes)
 def printList(head):
     while head is not None:
         print(head.data, end=" <-> ")

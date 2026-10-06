@@ -5,32 +5,44 @@ class Node:
         self.right = None
 
 
+# Function to count the number of nodes in the binary tree
 def size(root):
+    # If the tree is empty, return 0
     if root is None:
         return 0
     leftsize = size(root.left)
     rightsize = size(root.right)
+    # Recursively count nodes in left and right subtrees
     return 1 + leftsize + rightsize
 
 
+# Helper function to check if the tree satisfies the heap property
 def solve(tree, idx, n):
+    # Base case: If the node is None, it's valid
     if tree is None:
         return True
+    # If the current index exceeds the total number of nodes, it's not a valid heap
     if idx >= n:
         return False
     if tree.left and tree.left.data >= tree.data:
         return False
     if tree.right and tree.right.data >= tree.data:
         return False
+    # Recursively check the left and right subtrees
     return (solve(tree.left, 2 * idx + 1, n)
             and solve(tree.right, 2 * idx + 2, n))
 
 
+# Function to check if a binary tree is a max-heap
 def isHeap(tree):
+    # An empty tree is trivially a heap
     if tree is None:
         return True
+    # Get the total number of nodes in the tree
     n = size(tree)
+    # Start from the root with index 0
     idx = 0
+    # Check if the tree satisfies both the complete binary tree and max-heap properties
     return solve(tree, idx, n)
 
 

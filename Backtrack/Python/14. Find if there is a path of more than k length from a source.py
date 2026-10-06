@@ -1,18 +1,28 @@
+# Function to perform DFS and check if there's a path with length >= k
 def dfs(adj, visited, src, k):
+    # If the current distance becomes more than or equal to k, return true
     if k <= 0:
         return True
+    # Mark the current node as visited
     visited[src] = True
+    # Explore all neighbors of the current node
     for neighbor in adj[src]:
         v, weight = neighbor
+        # If the neighbor is not visited, recurse
         if not visited[v]:
+            # Check if there's a path with length >= k from this neighbor
             if dfs(adj, visited, v, k - weight):
                 return True
+    # Backtrack: Unmark the current node
     visited[src] = False
     return False
 
 
+# Function to check if there is a simple path with length >= k
 def pathMoreThanK(V, adj, src, k):
+    # Create a visited array to keep track of visited nodes
     visited = [False] * V
+    # Call the helper function to start the DFS
     return dfs(adj, visited, src, k)
 
 

@@ -1,38 +1,53 @@
 import sys
 
 
+# Function to perform DFS and find bridges using Tarjan's Algorithm
 def dfs(u, timer, disc, low, g, parent, bridges):
+    # Initialize discovery and low values
     disc[u] = low[u] = timer[0]
+    # Increment the timer for the next call
     timer[0] += 1
+    # Explore all the adjacent vertices of u
     for v in g[u]:
         if v == parent:
+            # Ignore the edge to the parent vertex
             continue
+        # If v is not visited
         if disc[v] == -1:
+            # Recur for the child vertex
             dfs(v, timer, disc, low, g, u, bridges)
+            # After recursion, update the low-link value of u
             low[u] = min(low[u], low[v])
+            # Check if the edge u-v is a bridge
             if low[v] > disc[u]:
                 bridges.append((u, v))
         else:
+            # If v is already visited and is not the parent, update low[u]
             low[u] = min(low[u], disc[v])
 
 
+# Function to perform DFS and find articulation points using Tarjan's Algorithm
 def dfsWithArticulation(u, timer, disc, low, g, parent, bridges, articulationPoints):
     disc[u] = low[u] = timer[0]
     timer[0] += 1
+    # Count of children in the DFS tree
     children = 0
     for v in g[u]:
         if v == parent:
             continue
         if disc[v] == -1:
             dfsWithArticulation(v, timer, disc, low, g, u, bridges, articulationPoints)
+            # Increase child count for u
             children += 1
             low[u] = min(low[u], low[v])
             if low[v] > disc[u]:
                 bridges.append((u, v))
+            # Check if u is an articulation point (excluding the root case separately)
             if parent != -1 and low[v] >= disc[u]:
                 articulationPoints.add(u)
         else:
             low[u] = min(low[u], disc[v])
+    # Special case for the root vertex
     if parent == -1 and children > 1:
         articulationPoints.add(u)
 

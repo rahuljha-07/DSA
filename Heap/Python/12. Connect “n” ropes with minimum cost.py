@@ -1,17 +1,23 @@
 import heapq
 
 
+# Function to calculate the minimum cost of combining the elements in the array
 def minCost(arr, n):
     minHeap = []
+    # Variable to store the total cost
     totalCost = 0
+    # Push all elements of the array into the min heap
     for i in range(n):
         heapq.heappush(minHeap, arr[i])
+    # While there is more than one element in the heap, we keep combining the smallest two
     while len(minHeap) > 1:
         firstMin = heapq.heappop(minHeap)
         secondMin = heapq.heappop(minHeap)
+        # Calculate the cost to combine these two elements and add it to the total cost
         cost = firstMin + secondMin
         totalCost += cost
         heapq.heappush(minHeap, cost)
+    # Return the total cost of combining the elements
     return totalCost
 
 

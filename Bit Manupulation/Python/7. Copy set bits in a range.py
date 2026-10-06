@@ -2,10 +2,16 @@ import sys
 
 
 def copySetBitsInRange(a, b, left, right):
+    # Step 1: Create a mask for the range [left, right]
+    # Create a mask with '1' in the range width
     mask = (1 << (right - left + 1)) - 1
+    # Shift mask to align with the range
     mask = mask << (left - 1)
+    # Extract the bits from `a` in the range
     mask = mask & a
+    # Step 2: Copy the extracted bits to `b`
     b = b | mask
+    # Return the updated `b`
     return b
 
 

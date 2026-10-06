@@ -9,17 +9,24 @@ def reverseIterative(head):
     current = head
     next = None
     while current is not None:
+        # Save the next node
         next = current.next
+        # Reverse the link
         current.next = prev
+        # Move prev up
         prev = current
+        # Move current up
         current = next
+    # New head of the reversed list
     return prev
 
 
 def reverseRecursive(head):
     if head is None or head.next is None:
         return head
+    # Reverse the rest of the list
     newHead = reverseRecursive(head.next)
+    # Reverse the link for current node
     head.next.next = head
     head.next = None
     return newHead

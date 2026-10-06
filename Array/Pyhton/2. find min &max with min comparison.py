@@ -5,6 +5,7 @@ def find_min_max(arr):
         print("Array is empty")
         return
 
+    # For an even length, compare the first pair to initialize both extremes.
     if n % 2 == 0:
         if arr[0] > arr[1]:
             maximum = arr[0]
@@ -14,9 +15,12 @@ def find_min_max(arr):
             maximum = arr[1]
         i = 2
     else:
+        # For an odd length, use the first element alone and process the rest in pairs.
         minimum = maximum = arr[0]
         i = 1
 
+    # Compare each pair internally, then test only its larger value against maximum
+    # and its smaller value against minimum: three comparisons per pair.
     while i < n - 1:
         if arr[i] > arr[i + 1]:
             if arr[i] > maximum:

@@ -1,3 +1,4 @@
+# Helper function to calculate the determinant of a matrix
 def determinant(matrix, n):
     if n == 0:
         return 1
@@ -6,10 +7,14 @@ def determinant(matrix, n):
     det = 0
     submatrix = [[0] * n for _ in range(n)]
     for x in range(n):
+        # Row index for submatrix
         subi = 0
+        # Start from 1 (exclude first row)
         for i in range(1, n):
+            # Column index for submatrix
             subj = 0
             for j in range(n):
+                # Exclude current column
                 if j == x:
                     continue
                 submatrix[subi][subj] = matrix[i][j]
@@ -19,23 +24,28 @@ def determinant(matrix, n):
     return det
 
 
+# Function to construct the Laplacian matrix
 def constructLaplacianMatrix(adjMatrix):
     n = len(adjMatrix)
     laplacian = [[0.0] * n for _ in range(n)]
     for i in range(n):
         for j in range(n):
             if i == j:
+                # Diagonal entry: degree of vertex
                 degree = 0
                 for k in range(n):
                     degree += adjMatrix[i][k]
                 laplacian[i][i] = degree
             elif adjMatrix[i][j] == 1:
+                # Off-diagonal entry: -1 if adjacent
                 laplacian[i][j] = -1
             else:
+                # Off-diagonal entry: 0 if not adjacent
                 laplacian[i][j] = 0
     return laplacian
 
 
+# Function to remove the last row and column from the Laplacian matrix
 def reduceMatrix(matrix):
     n = len(matrix)
     reducedMatrix = [[0] * (n - 1) for _ in range(n - 1)]
@@ -45,11 +55,15 @@ def reduceMatrix(matrix):
     return reducedMatrix
 
 
+# Function to compute the number of spanning trees using Kirchhoff's Matrix-Tree Theorem
 def numberOfSpanningTrees(adjMatrix):
     if not adjMatrix:
         return 0
+    # Step 1: Construct the Laplacian matrix
     laplacian = constructLaplacianMatrix(adjMatrix)
+    # Step 2: Remove the last row and last column
     reducedLaplacian = reduceMatrix(laplacian)
+    # Step 3: Compute the determinant of the reduced Laplacian matrix
     return round(determinant(reducedLaplacian, len(reducedLaplacian)))
 
 

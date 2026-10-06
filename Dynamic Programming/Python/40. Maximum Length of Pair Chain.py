@@ -1,4 +1,6 @@
+# Custom comparator to sort pairs based on the second element
 def comp(a, b):
+    # Sort by the second element (ascending order)
     return a[1] < b[1]
 
 
@@ -6,11 +8,17 @@ def maxChainLen(v, n):
     if n == 0:
         return 0
     v.sort(key=lambda a: a[1])
+    # Step 2: Initialize variables for tracking the longest chain
+    # The first pair is always part of the chain
     count = 1
+    # The end of the first pair in the chain
     lastEnd = v[0][1]
+    # Step 3: Greedily check each pair
     for i in range(1, n):
+        # If the current pair can follow the previous one
         if v[i][0] > lastEnd:
             count += 1
+            # Update the end of the chain
             lastEnd = v[i][1]
     return count
 

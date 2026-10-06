@@ -1,45 +1,62 @@
 ﻿class TwoStacks:
     NULL_VALUE = -10**18
 
+    # Constructor to initialize the two stacks
     def __init__(self, size):
+        # Initialize list with NULL_VALUE
         self.arr = [self.NULL_VALUE] * size
+        # Stack 1 starts empty
         self.top1 = -1
+        # Stack 2 starts empty
         self.top2 = size
 
+    # Push operation for Stack 1
     def pushStack1(self, value):
+        # Check if there is no space between stacks
         if self.top1 + 1 == self.top2:
             print("Stack 1 is full, cannot push", str(value) + ".")
             return
         self.top1 += 1
+        # Increment top1 and push value
         self.arr[self.top1] = value
 
+    # Push operation for Stack 2
     def pushStack2(self, value):
         if self.top2 - 1 == self.top1:
             print("Stack 2 is full, cannot push", str(value) + ".")
             return
         self.top2 -= 1
+        # Decrement top2 and push value
         self.arr[self.top2] = value
 
+    # Pop operation for Stack 1
     def popStack1(self):
+        # Check if Stack 1 is empty
         if self.isEmptyStack1():
             print("Stack 1 is empty, cannot pop.")
             return
+        # Pop the top element and set it to NULL_VALUE
         self.arr[self.top1] = self.NULL_VALUE
         self.top1 -= 1
 
+    # Pop operation for Stack 2
     def popStack2(self):
+        # Check if Stack 2 is empty
         if self.isEmptyStack2():
             print("Stack 2 is empty, cannot pop.")
             return
         self.arr[self.top2] = self.NULL_VALUE
         self.top2 += 1
 
+    # Get the top element of Stack 1
     def topStack1(self):
         if self.isEmptyStack1():
             print("Stack 1 is empty.")
+            # or throw an exception
             return self.NULL_VALUE
         return self.arr[self.top1]
 
+    # Get the top element of Stack 2
     def topStack2(self):
         if self.isEmptyStack2():
             print("Stack 2 is empty.")

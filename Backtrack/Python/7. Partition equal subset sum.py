@@ -1,29 +1,43 @@
+# Helper function for the recursive top-down approach
 def subsetSumTopDownHelper(arr, n, sum, t):
+    # Base cases
+    # A sum of 0 is always possible
     if sum == 0:
         return True
+    # No items left to form the subset
     if n == 0:
         return False
+    # If the value is already computed, return it
     if t[n][sum] != -1:
         return t[n][sum]
+    # Recursive case
     if arr[n - 1] <= sum:
         t[n][sum] = (subsetSumTopDownHelper(arr, n - 1, sum - arr[n - 1], t)
                      or subsetSumTopDownHelper(arr, n - 1, sum, t))
     else:
+        # Exclude the current element
         t[n][sum] = subsetSumTopDownHelper(arr, n - 1, sum, t)
     return t[n][sum]
 
 
+# Top-down DP function to check if the array can be partitioned into subsets with equal sum
 def equalSumPartitionTopDown(arr, n):
+    # Calculate the total sum of the array
     totalSum = 0
     for i in range(n):
         totalSum += arr[i]
+    # If the total sum is odd, partitioning is not possible
     if totalSum % 2 != 0:
         return False
+    # Target sum for each subset
     targetSum = totalSum // 2
+    # Create a memoization table initialized to -1
     t = [[-1] * (targetSum + 1) for _ in range(n + 1)]
+    # Call the helper function
     return subsetSumTopDownHelper(arr, n, targetSum, t)
 
 
+# top down
 def equalPartition(n, arr):
     sum = 0
     for i in range(n):

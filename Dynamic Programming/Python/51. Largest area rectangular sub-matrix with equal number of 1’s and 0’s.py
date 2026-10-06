@@ -3,10 +3,13 @@ def maxLengthEqual01(nums):
     prefixSum = 0
     maxLength = 0
     for i in range(len(nums)):
+        # Transform 0 to -1 to balance with 1s
         prefixSum += -1 if nums[i] == 0 else 1
         if prefixSum in prefixSumMap:
+            # Calculate the length of the balanced subarray
             maxLength = max(maxLength, i - prefixSumMap[prefixSum])
         else:
+            # Store the first occurrence of the prefix sum
             prefixSumMap[prefixSum] = i
     return maxLength
 
@@ -26,16 +29,23 @@ def maxZeroSumSubarray(columnSums):
 
 
 def solve(matrix, rowStart):
+    # Number of rows
     n = len(matrix)
+    # Number of columns
     m = len(matrix[0])
     maxArea = 0
+    # Initialize column sums to 0
     columnSums = [0] * m
+    # Extend the submatrix downwards from rowStart
     for rowEnd in range(rowStart, n):
         for col in range(m):
             columnSums[col] += -1 if matrix[rowEnd][col] == 0 else 1
+        # Calculate the maximum zero-sum subarray length in the current column sums
         maxWidth = maxZeroSumSubarray(columnSums)
+        # Calculate the area of the current submatrix
         height = rowEnd - rowStart + 1
         currentArea = maxWidth * height
+        # Update the maximum area found
         maxArea = max(maxArea, currentArea)
     return maxArea
 
@@ -45,7 +55,9 @@ def largestSubmatrixWithEqual01(matrix):
     if n == 0 or not matrix[0]:
         return 0
     maxArea = 0
+    # Iterate over each starting row
     for rowStart in range(n):
+        # Call the solve function for each rowStart
         maxArea = max(maxArea, solve(matrix, rowStart))
     return maxArea
 

@@ -5,19 +5,27 @@ class Node:
         self.right = None
 
 
+# Recursive Preorder Traversal
 def preorderRecursive(root):
     if root is None:
         return
+    # Visit the node
     print(root.data, end=" ")
+    # Traverse left subtree
     preorderRecursive(root.left)
+    # Traverse right subtree
     preorderRecursive(root.right)
 
 
+# Iterative Preorder Traversal
 def preorderIterative(root):
     if root is None:
         return
+    # Push the root to the stack
     st = [root]
     while st:
+        # Get the top node from the stack
+        # Pop the node from the stack
         current = st.pop()
         print(current.data, end=" ")
         if current.right:

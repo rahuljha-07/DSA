@@ -3,6 +3,7 @@ def threeWayPartition(array, a, b):
     high = len(array) - 1
     mid = 0
 
+    # Loop through the array
     while mid <= high:
         if array[mid] < a:
             # Move elements less than a to the left.

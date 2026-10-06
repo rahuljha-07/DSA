@@ -77,16 +77,22 @@ class _OrderedSet:
 
 def replaceWithLeastGreater(arr):
     n = len(arr)
+    # Initialize the result with -1
     result = [-1] * n
     s = _OrderedSet()
+    # Traverse the array from right to left
     for i in range(n - 1, -1, -1):
+        # Find the first element greater than arr[i]
         it = s.upper_bound(arr[i])
         if it is not None:
+            # Assign the least greater element
             result[i] = it
+        # Insert the current element into the set
         s.insert(arr[i])
     return result
 
 
+# Function to insert a node in BST and find the least greater element
 def insert(root, key, successor):
     if root is None:
         return Node(key)

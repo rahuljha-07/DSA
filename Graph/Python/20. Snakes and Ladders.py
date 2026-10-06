@@ -7,23 +7,31 @@ def snakesAndLadders(board):
         return -1
     if n == 1:
         return 0
+    # Ladder map
     lad = {}
+    # Snake map
     sna = {}
+    # Create the snake and ladder maps
+    # Square number
     sq = 1
     leftToRight = True
     for i in range(n - 1, -1, -1):
         columns = range(n) if leftToRight else range(n - 1, -1, -1)
         for j in columns:
             if board[i][j] != -1:
+                # Ladder
                 if board[i][j] > sq:
                     lad[sq] = board[i][j]
                 else:
                     sna[sq] = board[i][j]
             sq += 1
         leftToRight = not leftToRight
+    # BFS to calculate minimum moves
     moves = 0
+    # Begin BFS at square 1 with zero moves made.
     q = deque([1])
     found = False
+    # Visited array
     vis = [False] * (n * n + 1)
     vis[1] = True
     while q and not found:

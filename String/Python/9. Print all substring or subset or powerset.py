@@ -1,6 +1,8 @@
+# Function to solve and store all substrings in a list
 def solve(input, output, ans):
     # Base case: if input string is empty
     if len(input) == 0:
+        # Store the current substring in the list
         if len(output) > 0:
             ans.append(output)
         return
@@ -10,6 +12,7 @@ def solve(input, output, ans):
 
     # Include the first character
     includeFirstChar = output
+    # Append the first character
     includeFirstChar += input[0]
 
     # Remove the first character from input
@@ -18,6 +21,7 @@ def solve(input, output, ans):
     # Recur for both choices
     solve(input, excludeFirstChar, ans)
 
+    # Call with including the character
     solve(input, includeFirstChar, ans)
 
 

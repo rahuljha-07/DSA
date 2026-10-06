@@ -14,21 +14,25 @@ def spirallyTraverse(matrix, rows, cols):
 
     while top <= bottom and left <= right:
 
+        # Traverse left to right
         if dir == 0:  # Traverse left to right
             for i in range(left, right + 1):
                 result.append(matrix[top][i])
             top += 1
 
+        # Traverse top to bottom
         elif dir == 1:  # Traverse top to bottom
             for i in range(top, bottom + 1):
                 result.append(matrix[i][right])
             right -= 1
 
+        # Traverse right to left
         elif dir == 2:  # Traverse right to left
             for i in range(right, left - 1, -1):
                 result.append(matrix[bottom][i])
             bottom -= 1
 
+        # Traverse bottom to top
         elif dir == 3:  # Traverse bottom to top
             for i in range(bottom, top - 1, -1):
                 result.append(matrix[i][left])

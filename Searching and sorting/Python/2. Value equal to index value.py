@@ -1,12 +1,15 @@
 ﻿def valueEqualToIndex(arr, n):
+    # Initialize an empty list to store the result
     ans = []
 
     # Loop through the array to check each element
     for i in range(n):
         # Since it is 1-based indexing, compare arr[i] with i + 1
         if arr[i] == i + 1:
+            # If element matches its index value, add it to the result
             ans.append(arr[i])
 
+    # Return the list containing elements that matched their indices
     return ans
 
 

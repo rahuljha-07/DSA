@@ -1,11 +1,16 @@
-﻿def reverseString(S):
+﻿# Function to reverse a string using a stack
+def reverseString(S):
+    # Stack to store characters temporarily
     st = []
 
+    # Push each character of the string onto the stack
     for c in S:
         st.append(c)
 
+    # Variable to store the reversed string
     reversedStr = ""
 
+    # Pop characters from the stack and append to the result
     while len(st) != 0:
         reversedStr += st[-1]
         st.pop()

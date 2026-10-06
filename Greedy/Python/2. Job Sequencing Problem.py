@@ -5,25 +5,39 @@ class Job:
         self.profit = profit
 
 
+# Comparator function to sort jobs by profit in descending order
 def compare(a, b):
     return a.profit > b.profit
 
 
+# Function to find the maximum profit and the number of jobs done
 def JobScheduling(arr, n):
     arr[:n] = sorted(arr[:n], key=lambda a: a.profit, reverse=True)
+    # Step 2: Find the maximum deadline among all jobs
     maxDeadline = 0
     for i in range(n):
         maxDeadline = max(maxDeadline, arr[i].deadline)
+    # Array to track free slots (initialized to false)
+    # 1-based indexing
     slot = [False] * (maxDeadline + 1)
+    # Variables to store the total profit and count of jobs done
     totalProfit = 0
     jobCount = 0
+    # Step 3: Assign jobs to available slots
     for i in range(n):
+        # Find a slot for the current job, starting from its deadline
         for j in range(arr[i].deadline, 0, -1):
+            # If slot is free
             if not slot[j]:
+                # Mark slot as occupied
                 slot[j] = True
+                # Add profit of the job
                 totalProfit += arr[i].profit
+                # Increment job count
                 jobCount += 1
+                # Job is scheduled, break the loop
                 break
+    # Step 4: Return the number of jobs done and total profit
     return [jobCount, totalProfit]
 
 

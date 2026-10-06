@@ -1,17 +1,22 @@
 import sys
 
 
+# Function to recursively find the maximum number
 def findMaxNumber(str, k, maxNum, index):
     if k <= 0 or index >= len(str):
         return
     maxChar = str[index]
+    # Find the maximum character from index to end
     for i in range(index + 1, len(str)):
         if str[i] > maxChar:
             maxChar = str[i]
+    # If current index already has the max digit, move to next
     if maxChar == str[index]:
         findMaxNumber(str, k, maxNum, index + 1)
         return
+    # Swap will happen, so decrease k
     k -= 1
+    # Swap with every occurrence of maxChar from right to left
     for i in range(index, len(str)):
         if str[i] == maxChar:
             str[index], str[i] = str[i], str[index]
@@ -19,9 +24,11 @@ def findMaxNumber(str, k, maxNum, index):
             if candidate > maxNum[0]:
                 maxNum[0] = candidate
             findMaxNumber(str, k, maxNum, index + 1)
+            # Backtrack
             str[index], str[i] = str[i], str[index]
 
 
+# Function to get the largest number with at most K swaps
 def findMaximumNum(str, k):
     maxNum = [str]
     findMaxNumber(list(str), k, maxNum, 0)

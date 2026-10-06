@@ -1,10 +1,15 @@
 def isCircular(head):
+    # If the list is empty, it's not circular
     if head is None:
         return False
+    # Initialize slow and fast pointers
     slow = head
     fast = head
+    # Traverse the list
     while fast is not None and fast.next is not None:
+        # Move slow pointer one step
         slow = slow.next
+        # Move fast pointer two steps
         fast = fast.next.next
         if slow is fast:
             return True

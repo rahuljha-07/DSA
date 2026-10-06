@@ -1,12 +1,23 @@
+# Function to determine if survival is possible and the minimum days to buy food
 def survival(S, N, M):
     if S <= 0 or M == 0:
         print("Yes 0")
+    # Check if survival is not possible
+    # Condition 1: We can't buy at least 7 days' worth of food in the first 6 days (when S >
+    # 6)
+    # Condition 2: Daily food requirement exceeds the food that can be bought in a day
     elif N <= 0 or ((N * 6 < M * 7 and S > 6) or M > N):
+        # Survival is not possible
         print("No")
     else:
+        # Survival is possible
+        # Calculate the total units of food required
         totalFoodRequired = M * S
+        # Calculate the minimum days to buy food
+        # We need ceil(totalFoodRequired / N), but we use integer math for efficiency
         days = totalFoodRequired // N
         if totalFoodRequired % N != 0:
+            # Add an extra day if there's a remainder
             days += 1
         print("Yes", days)
 

@@ -4,43 +4,62 @@ class Node:
         self.next = None
 
 
+# Partition function to partition the list around the pivot element
 def partition(head, tail):
+    # Set the pivot as the head node
     pivot = head
+    # Tracks the end of the "smaller than pivot" section
     prev = head
+    # Starts just after the pivot
     cur = head.next
+    # Traverse the list from head to tail to arrange elements around the pivot
     while cur is not tail.next:
         if cur.data < pivot.data:
+            # Move the node to the "smaller" section by swapping
+            # Move prev one step forward
             prev = prev.next
             prev.data, cur.data = cur.data, prev.data
+        # Move to the next node
         cur = cur.next
+    # Move pivot to its final sorted position by swapping with prev
     pivot.data, prev.data = prev.data, pivot.data
+    # Return the final position of the pivot
     return prev
 
 
+# Recursive QuickSort function to sort the linked list
 def quickSortRec(head, tail):
     if head is tail or head is None or tail is None:
         return
+    # Partition the list and get the pivot node
     pivot = partition(head, tail)
     # Exclude the pivot so the left recursive range always gets smaller.
     if pivot is not head:
         prev = head
         while prev.next is not pivot:
             prev = prev.next
+        # Recursively sort the left and right parts around the pivot
+        # Left of pivot
         quickSortRec(head, prev)
     if pivot is not tail:
+        # Right of pivot
         quickSortRec(pivot.next, tail)
 
 
+# Function to start QuickSort on the list by finding the tail node
 def quickSort(headRef):
     tail = headRef
     if tail is None:
         return headRef
+    # Traverse to the end of the list to find the tail node
     while tail.next is not None:
         tail = tail.next
+    # Begin recursive quicksort from head to tail
     quickSortRec(headRef, tail)
     return headRef
 
 
+# Helper function to print the linked list
 def printList(head):
     while head is not None:
         print(head.data, end=" ")
@@ -48,6 +67,7 @@ def printList(head):
     print()
 
 
+# Helper function to add a node to the end of the list
 def appendNode(head, value):
     if head is None:
         head = Node(value)

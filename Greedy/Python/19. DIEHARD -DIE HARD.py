@@ -1,12 +1,17 @@
 import sys
 
 
+# Recursive function to find the maximum time you can survive
 def maxSurvivalTime(health, armor, currentPlace):
+    # Base case: If health or armor becomes <= 0, return 0
     if health <= 0 or armor <= 0:
         return 0
+    # Recursive cases
+    # Current place: Fire
     if currentPlace == 0:
         return 1 + max(
             maxSurvivalTime(health + 3, armor + 2, 1),
+            # Move to Water
             maxSurvivalTime(health - 5, armor - 10, 2),
         )
     if currentPlace == 1:
@@ -16,14 +21,18 @@ def maxSurvivalTime(health, armor, currentPlace):
         )
     return 1 + max(
         maxSurvivalTime(health - 20, armor + 5, 0),
+        # Move to Air
         maxSurvivalTime(health + 3, armor + 2, 1),
     )
 
 
+# Function to handle each test case
 def solve(health, armor):
     return max(
         maxSurvivalTime(health - 20, armor + 5, 0),
+        # Start from Air
         maxSurvivalTime(health + 3, armor + 2, 1),
+        # Start from Water
         maxSurvivalTime(health - 5, armor - 10, 2),
     )
 

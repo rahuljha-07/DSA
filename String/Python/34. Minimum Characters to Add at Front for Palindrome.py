@@ -14,11 +14,16 @@
 
 
 def minInsertionsToMakePalindrome(str):
+    # Reverse the input string
     rev = str[::-1]
     lenStr = len(str)
 
+    # Call the LCS function (assumed to be defined elsewhere)
+    # calling the LPS actually in LPS we reverse the 2nd string and everything is same as
+    # LCS
     lcsLength = LCS(str, rev)
 
+    # Calculate the number of insertions needed
     numInsertions = lenStr - lcsLength
 
     return numInsertions

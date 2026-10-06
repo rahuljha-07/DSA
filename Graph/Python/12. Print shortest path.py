@@ -2,17 +2,20 @@ import heapq
 import sys
 
 
+# Function to initialize the graph as an adjacency list
 def initializeGraph(n, m, tokens):
     adj = [[] for _ in range(n + 1)]
     for i in range(m):
         u = int(next(tokens))
         v = int(next(tokens))
         wt = int(next(tokens))
+        # For undirected graph
         adj[u].append((v, wt))
         adj[v].append((u, wt))
     return adj
 
 
+# Dijkstra's algorithm to find the shortest paths from the source
 def dijkstra(n, source, adj):
     distTo = [float("inf")] * (n + 1)
     parent = [-1] * (n + 1)
@@ -33,8 +36,10 @@ def dijkstra(n, source, adj):
     return distTo, parent
 
 
+# Function to get the shortest path from source to a destination using the parent array
 def getPath(destination, parent):
     if parent[destination] == -1:
+        # Destination is unreachable
         return [-1]
     path = []
     node = destination

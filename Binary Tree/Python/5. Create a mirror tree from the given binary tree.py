@@ -5,9 +5,12 @@ class Node:
         self.right = None
 
 
+# Helper function to mirror a single node (swap its left and right children)
+# top down approach
 def mirror(root):
     if root is None:
         return None
+    # Use swap to swap the left and right children
     root.left, root.right = root.right, root.left
     if root.left:
         mirror(root.left)
@@ -16,21 +19,28 @@ def mirror(root):
     return root
 
 
+# bottom up
 def mirrorBottomUp(root):
     if root is None:
         return None
+    # Recursively mirror the left and right subtrees
     leftMirror = mirrorBottomUp(root.left)
     rightMirror = mirrorBottomUp(root.right)
+    # Swap the mirrored subtrees
     root.left = rightMirror
     root.right = leftMirror
     return root
 
 
+# Function to create a mirror of the binary tree
 def createMirror(root):
+    # Call the helper function to mirror the tree
     mirrorBinaryTree = mirror(root)
+    # Return the root of the mirrored tree
     return mirrorBinaryTree
 
 
+# Function to print inorder traversal of the tree (to check the result)
 def inorder(root):
     if root is None:
         return

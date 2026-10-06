@@ -1,9 +1,13 @@
 def maxSubarraySum(arr):
     # Assumes arr is nonempty.
     maxi = float("-inf")
+    # Current subarray sum
     sum = 0
+    # Start index of the max subarray
     ansStart = -1
+    # End index of the max subarray
     ansEnd = -1
+    # Temporary start index for the current subarray
     start = 0
 
     for i in range(len(arr)):
@@ -11,6 +15,7 @@ def maxSubarraySum(arr):
         if sum == 0:
             start = i
 
+        # Add the current element to the sum
         sum += arr[i]
 
         # Update the maximum sum and its indices.
@@ -23,6 +28,7 @@ def maxSubarraySum(arr):
         if sum < 0:
             sum = 0
 
+    # Optionally, print the indices of the maximum sum subarray
     print("Maximum subarray sum is from index", ansStart, "to", ansEnd)
     return maxi
 

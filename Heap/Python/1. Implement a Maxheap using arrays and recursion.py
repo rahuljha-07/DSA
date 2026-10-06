@@ -1,18 +1,24 @@
 class MaxHeap:
     def __init__(self, arr):
+        # Copy the array into the heap
         self.heap = list(arr)
         n = len(self.heap)
+        # Perform bottom-up heap construction
         for i in range(n // 2 - 1, -1, -1):
             self.maxHeapify(i)
 
+    # Recursive function to heapify a subtree rooted at index i
     def maxHeapify(self, i):
         largest = i
         left = 2 * i + 1
         right = 2 * i + 2
+        # Compare with left child
         if left < len(self.heap) and self.heap[left] > self.heap[largest]:
             largest = left
+        # Compare with right child
         if right < len(self.heap) and self.heap[right] > self.heap[largest]:
             largest = right
+        # If root is not largest, swap with largest and continue heapifying
         if largest != i:
             self.heap[i], self.heap[largest] = self.heap[largest], self.heap[i]
             self.maxHeapify(largest)
@@ -20,6 +26,7 @@ class MaxHeap:
     def insert(self, val):
         self.heap.append(val)
         i = len(self.heap) - 1
+        # Up-heapify (bubble up)
         while i != 0 and self.heap[(i - 1) // 2] < self.heap[i]:
             self.heap[i], self.heap[(i - 1) // 2] = self.heap[(i - 1) // 2], self.heap[i]
             i = (i - 1) // 2
@@ -34,6 +41,7 @@ class MaxHeap:
     def getMax(self):
         if self.heap:
             return self.heap[0]
+        # Indicate heap is empty
         return -1
 
     def printHeap(self):

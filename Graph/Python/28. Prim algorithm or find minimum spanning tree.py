@@ -1,20 +1,28 @@
 import heapq
 
 
+# Function to implement Prim's algorithm and print MST
 def primMST(N, adj):
     pq = [(0, (0, -1))] if N else []
+    # To track visited nodes
     visited = [False] * N
     print("Edges in the MST:")
     while pq:
+        # Extract the element with the smallest weight
         weight, nodePair = heapq.heappop(pq)
         node, parent = nodePair
+        # If the node is already visited, skip it
         if visited[node]:
             continue
+        # Mark the node as visited
         visited[node] = True
+        # Print the edge if parent is not -1 (skip the initial push)
         if parent != -1:
             print(f"{parent} - {node} with weight {weight}")
+        # Traverse all adjacent nodes
         for adjNode, adjWeight in adj[node]:
             if not visited[adjNode]:
+                # Push {weight, {node, parent}} into the priority queue
                 heapq.heappush(pq, (adjWeight, (adjNode, node)))
 
 

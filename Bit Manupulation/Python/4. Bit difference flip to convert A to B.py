@@ -1,9 +1,16 @@
+# Function to count the number of bits to flip
 def countBitsFlip(A, B):
+    # XOR A and B
     xorResult = A ^ B
+    # Initialize the count of bits to flip
     count = 0
+    # Count the number of set bits in xorResult
     while xorResult > 0:
+        # Check if the least significant bit is set
         count += xorResult & 1
+        # Right shift the result by 1
         xorResult = xorResult >> 1
+    # Return the total count
     return count
 
 

@@ -10,21 +10,26 @@ flag = 1
 
 def isSumTreeUtil(root):
     global flag
+    # Base case: if the node is None, return 0 as sum
     if not root:
         return 0
     if not root.left and not root.right:
         return root.data
+    # If flag is set to 0, return immediately to break recursion
     if flag == 0:
         return 0
+    # Recursive calls to get the sum of left and right subtrees
     leftSum = isSumTreeUtil(root.left)
     rightSum = isSumTreeUtil(root.right)
     if leftSum + rightSum != root.data:
         flag = 0
+    # Return the sum of the current node and its subtrees
     return leftSum + rightSum + root.data
 
 
 def isSumTree(root):
     global flag
+    # Initialize flag as true (1)
     flag = 1
     isSumTreeUtil(root)
     return bool(flag)

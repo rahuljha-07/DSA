@@ -1,3 +1,4 @@
+# Perform topological sort using DFS
 def topologicalSort(node, adj, visited, st):
     visited[node] = True
     for neighbor in adj[node]:
@@ -6,22 +7,29 @@ def topologicalSort(node, adj, visited, st):
     st.append(node)
 
 
+# Longest Path in a DAG using your approach
 def findLongestPath(V, adj, source):
+    # Step 1: Perform topological sort
     st = []
     visited = [False] * V
     for i in range(V):
         if not visited[i]:
             topologicalSort(i, adj, visited, st)
+    # Step 2: Reverse the topological order
     topoOrder = []
     while st:
         topoOrder.append(st.pop())
+    # Step 3: Initialize distances
     dist = [float("-inf")] * V
     dist[source] = 0
+    # Step 4: BFS using topological order
     for u in topoOrder:
+        # Process only reachable nodes
         if dist[u] != float("-inf"):
             for neighbor in adj[u]:
                 v, weight = neighbor
                 dist[v] = max(dist[v], dist[u] + weight)
+    # Step 5: Output the longest distances
     print(f"Longest distances from source {source}:")
     for i in range(V):
         print(f"Node {i}: No path" if dist[i] == float("-inf")

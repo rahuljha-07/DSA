@@ -1,18 +1,24 @@
 class MinHeap:
     def __init__(self, arr):
+        # Copy the array into the heap
         self.heap = list(arr)
         n = len(self.heap)
+        # Perform bottom-up heap construction
         for i in range(n // 2 - 1, -1, -1):
             self.minHeapify(i)
 
+    # Recursive function to heapify a subtree rooted at index i
     def minHeapify(self, i):
         smallest = i
         left = 2 * i + 1
         right = 2 * i + 2
+        # Compare with left child
         if left < len(self.heap) and self.heap[left] < self.heap[smallest]:
             smallest = left
+        # Compare with right child
         if right < len(self.heap) and self.heap[right] < self.heap[smallest]:
             smallest = right
+        # If root is not smallest, swap with smallest and continue heapifying
         if smallest != i:
             self.heap[i], self.heap[smallest] = self.heap[smallest], self.heap[i]
             self.minHeapify(smallest)
@@ -20,6 +26,7 @@ class MinHeap:
     def insert(self, val):
         self.heap.append(val)
         i = len(self.heap) - 1
+        # Up-heapify (bubble up)
         while i != 0 and self.heap[(i - 1) // 2] > self.heap[i]:
             self.heap[i], self.heap[(i - 1) // 2] = self.heap[(i - 1) // 2], self.heap[i]
             i = (i - 1) // 2
@@ -34,6 +41,7 @@ class MinHeap:
     def getMin(self):
         if self.heap:
             return self.heap[0]
+        # Indicate heap is empty
         return -1
 
     def printHeap(self):

@@ -2,22 +2,35 @@ INT_MAX = (1 << 31) - 1
 
 
 def coinChangeMinCoins(coins, n, sum):
+    # Create a DP table `t` with dimensions (n+1) x (sum+1)
     t = [[INT_MAX - 1] * (sum + 1) for _ in range(n + 1)]
+    # If the sum is 0, we need 0 coins
     for i in range(n + 1):
         t[i][0] = 0
     if n == 0:
         return 0 if sum == 0 else -1
+    # Initialize the table
+    # If the array size is 0 and sum is greater than 0, we need "infinite" coins (a large
+    # initial value)
+    # Special initialization for the second row (only one coin type)
     for j in range(1, sum + 1):
         if j % coins[0] == 0:
+            # If divisible, calculate the number of coins
             t[1][j] = j // coins[0]
         else:
+            # Otherwise, set to "infinite"
             t[1][j] = INT_MAX - 1
+    # Fill the DP table iteratively
+    # Loop through coin types
     for i in range(2, n + 1):
+        # Loop through sums
         for j in range(1, sum + 1):
             if coins[i - 1] <= j:
                 t[i][j] = min(1 + t[i][j - coins[i - 1]], t[i - 1][j])
             else:
+                # Exclude the coin
                 t[i][j] = t[i - 1][j]
+    # If no solution exists, return -1
     return -1 if t[n][sum] == INT_MAX - 1 else t[n][sum]
 
 

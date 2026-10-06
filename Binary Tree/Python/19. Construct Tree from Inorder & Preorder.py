@@ -8,14 +8,19 @@ class Node:
 preorderIndex = 0
 
 
+# Function to build the binary tree from preorder and inorder traversals
 def buildTreeFromPreorderInorder(preorder, leftBound, rightBound, inorderMap):
     global preorderIndex
+    # Base case: if the current range is invalid (left > right), return None
     if leftBound > rightBound:
         return None
+    # Create a new node with the current value from preorder and increment preorder index
     currentNode = Node(preorder[preorderIndex])
     preorderIndex += 1
+    # If there's only one element in the range, it must be a leaf node
     if leftBound == rightBound:
         return currentNode
+    # Find the index of the current node in inorder traversal
     inorderIndex = inorderMap[currentNode.data]
     currentNode.left = buildTreeFromPreorderInorder(
         preorder, leftBound, inorderIndex - 1, inorderMap)
@@ -26,10 +31,13 @@ def buildTreeFromPreorderInorder(preorder, leftBound, rightBound, inorderMap):
 
 def buildTree(inorder, preorder, n):
     global preorderIndex
+    # Reset the preorder index
     preorderIndex = 0
     inorderMap = {}
+    # Create a map of inorder values to their indices for quick lookup
     for i in range(n):
         inorderMap[inorder[i]] = i
+    # Start building the tree
     return buildTreeFromPreorderInorder(preorder, 0, n - 1, inorderMap)
 
 

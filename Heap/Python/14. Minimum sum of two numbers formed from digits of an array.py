@@ -1,12 +1,16 @@
+# Function to find the minimum possible sum
 def minimumSum(arr):
+    # Sort the array in ascending order
     arr.sort()
     num1 = ""
     num2 = ""
+    # Distribute digits between num1 and num2 alternately
     for i in range(len(arr)):
         if i % 2 == 0:
             num1 += str(arr[i])
         else:
             num2 += str(arr[i])
+    # Convert the two numbers into integers and return the sum as a string
     sum = int(num1 or "0") + int(num2 or "0")
     return str(sum)
 

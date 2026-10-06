@@ -1,16 +1,21 @@
+# Function to find the maximum sum increasing subsequence using LCS-like approach
 def maxSumIncreasingSubsequence(arr):
     n = len(arr)
+    # Create a sorted array with distinct elements
     sortedArr = list(arr)
     sortedArr.sort()
     sortedArr = list(dict.fromkeys(sortedArr))
     m = len(sortedArr)
+    # Create a dp table
     dp = [[0] * (m + 1) for _ in range(n + 1)]
+    # Fill the dp table
     for i in range(1, n + 1):
         for j in range(1, m + 1):
             if arr[i - 1] == sortedArr[j - 1]:
                 dp[i][j] = dp[i - 1][j - 1] + arr[i - 1]
             else:
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+    # The result is in the last cell of the dp table
     return dp[n][m]
 
 

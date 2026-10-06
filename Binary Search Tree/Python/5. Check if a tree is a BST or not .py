@@ -11,31 +11,42 @@ isBSTFlag = 1
 
 def inOrderTraverse(root):
     global isBSTFlag
+    # Base case and early exit if tree is not BST
     if root is None or isBSTFlag == 0:
         return
+    # Traverse the left subtree
     inOrderTraverse(root.left)
     if isBSTFlag == 0:
         return
     # Check the newly visited value too, including the final pair.
     if values and values[-1] >= root.data:
+        # Not a BST
         isBSTFlag = 0
         return
+    # Check current node
     if len(values) < 2:
+        # Add the first two values
         values.append(root.data)
     else:
+        # Shift values to the left
         values[0] = values[1]
+        # Update with the current node's data
         values[1] = root.data
+    # Traverse the right subtree
     inOrderTraverse(root.right)
 
 
 def isBST(root):
     global isBSTFlag
+    # Assume tree is a BST initially
     isBSTFlag = 1
+    # Clear values before starting
     values.clear()
     inOrderTraverse(root)
     return bool(isBSTFlag)
 
 
+# Helper function to insert nodes in the BST
 def insert(root, key):
     if not root:
         return Node(key)

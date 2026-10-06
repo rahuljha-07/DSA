@@ -16,6 +16,7 @@ def dfs(src, par, g):
     inTime[src] = timer
     timer += 1
     for x in g[src]:
+        # Avoid going back to the parent
         if x != par:
             dfs(x, src, g)
     outTime[src] = timer

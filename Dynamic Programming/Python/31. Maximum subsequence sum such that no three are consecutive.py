@@ -1,13 +1,21 @@
+# Helper function to compute the maximum sum using recursion and memoization
 def maxSumNoThreeConsecutiveHelper(arr, n, dp):
+    # Base cases
+    # No elements
     if n == 0:
         return 0
+    # Only one element
     if n == 1:
         return arr[0]
+    # Two elements
     if n == 2:
         return arr[0] + arr[1]
+    # If already computed, return the stored value
     if dp[n] != -1:
         return dp[n]
+    # Recursive relation with memoization
     dp[n] = max(
+        # Exclude current element
         maxSumNoThreeConsecutiveHelper(arr, n - 1, dp),
         arr[n - 1] + maxSumNoThreeConsecutiveHelper(arr, n - 2, dp),
         arr[n - 1] + arr[n - 2] + maxSumNoThreeConsecutiveHelper(arr, n - 3, dp),
@@ -17,6 +25,7 @@ def maxSumNoThreeConsecutiveHelper(arr, n, dp):
 
 def maxSumNoThreeConsecutive(arr):
     n = len(arr)
+    # Initialize memoization table with -1
     dp = [-1] * (n + 1)
     return maxSumNoThreeConsecutiveHelper(arr, n, dp)
 

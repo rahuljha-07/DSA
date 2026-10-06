@@ -8,19 +8,29 @@ class Node:
         self.right = None
 
 
+# Function to perform Reverse Level Order Traversal
 def reverseLevelOrderTraversal(root):
+    # To store the final result of reverse level-order traversal
     result = []
+    # If the tree is empty, return an empty result
     if not root:
         return result
+    # Start with the root node
     nodeQueue = deque([root])
+    # Process nodes level by level
     while nodeQueue:
+        # Get the node at the front of the queue
+        # Remove the node from the queue
         currentNode = nodeQueue.popleft()
+        # Add current node's data to the result
         result.append(currentNode.data)
         if currentNode.right:
             nodeQueue.append(currentNode.right)
         if currentNode.left:
             nodeQueue.append(currentNode.left)
+    # Reverse the result list to get reverse level-order traversal
     result.reverse()
+    # Return the reversed level-order traversal result
     return result
 
 

@@ -1,4 +1,5 @@
-﻿def printStack(s):
+﻿# Function to print the elements of the stack (for demonstration)
+def printStack(s):
     temp = s.copy()
     while len(temp) != 0:
         print(temp[-1], end=" ")
@@ -6,28 +7,39 @@
     print()
 
 
+# Recursive function to insert an element in sorted order into a stack
 def sortedInsert(s, element):
+    # Base case: If the stack is empty or the top element is less than or equal to the
+    # element
     if len(s) == 0 or s[-1] <= element:
         s.append(element)
         return
 
+    # Recursive case: Pop the top element and store it
     topElement = s[-1]
     s.pop()
 
+    # Recursive call to insert the element in the remaining stack
     sortedInsert(s, element)
 
+    # Push the popped element back onto the stack
     s.append(topElement)
 
 
+# Recursive function to sort the stack
 def sortStack(s):
+    # Base case: If the stack is empty, return
     if len(s) == 0:
         return
 
+    # Recursive case: Pop the top element
     topElement = s[-1]
     s.pop()
 
+    # Recursive call to sort the remaining stack
     sortStack(s)
 
+    # Insert the popped element in sorted order
     sortedInsert(s, topElement)
 
 

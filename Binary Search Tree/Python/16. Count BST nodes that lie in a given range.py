@@ -5,18 +5,27 @@ class Node:
         self.right = None
 
 
+# Helper function to perform inorder traversal and count nodes within the given range [l, h]
 def inorder(root, l, h, count):
+    # Base case: if the current node is None, return
     if not root:
         return
+    # Traverse the left subtree
     inorder(root.left, l, h, count)
     if l <= root.data <= h:
+        # Increment the count if the value is within the range
         count[0] += 1
+    # Traverse the right subtree
     inorder(root.right, l, h, count)
 
 
+# Function to count nodes in the BST whose values are within the range [l, h]
 def getCount(root, l, h):
+    # Initialize count to 0
     count = [0]
+    # Call inorder traversal to count nodes in the range
     inorder(root, l, h, count)
+    # Return the total count
     return count[0]
 
 

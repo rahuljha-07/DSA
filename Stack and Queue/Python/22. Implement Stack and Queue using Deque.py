@@ -5,21 +5,27 @@ class Stack:
     def __init__(self):
         self.dq = deque()
 
+    # Push an element onto the stack
     def push(self, value):
+        # Insert at the back
         self.dq.append(value)
 
+    # Pop the top element from the stack
     def pop(self):
         if len(self.dq) == 0:
             print("Stack Underflow")
             return
         self.dq.pop()
 
+    # Get the top element of the stack
     def top(self):
         if len(self.dq) == 0:
             print("Stack is empty")
             return -1
+        # Return the last element
         return self.dq[-1]
 
+    # Check if the stack is empty
     def empty(self):
         return len(self.dq) == 0
 
@@ -28,21 +34,27 @@ class Queue:
     def __init__(self):
         self.dq = deque()
 
+    # Enqueue an element into the queue
     def enqueue(self, value):
         self.dq.append(value)
 
+    # Dequeue the front element from the queue
     def dequeue(self):
         if len(self.dq) == 0:
             print("Queue Underflow")
             return
+        # Remove from the front
         self.dq.popleft()
 
+    # Get the front element of the queue
     def front(self):
         if len(self.dq) == 0:
             print("Queue is empty")
             return -1
+        # Return the first element
         return self.dq[0]
 
+    # Check if the queue is empty
     def empty(self):
         return len(self.dq) == 0
 

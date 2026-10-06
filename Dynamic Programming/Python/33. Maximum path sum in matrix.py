@@ -1,16 +1,21 @@
 INT_MIN = float("-inf")
 
 
+# Helper function for recursion with memoization
 def maxPathSumHelper(mat, r, c, n, dp):
     if c < 0 or c >= len(mat[0]):
         return INT_MIN
+    # Base case: last row, return the value of the current cell
     if r == n - 1:
         return mat[r][c]
+    # If already computed, return the stored result
     if dp[r][c] is not None:
         return dp[r][c]
+    # Recursive calls for the three possible moves
     down = maxPathSumHelper(mat, r + 1, c, n, dp)
     downLeft = maxPathSumHelper(mat, r + 1, c - 1, n, dp)
     downRight = maxPathSumHelper(mat, r + 1, c + 1, n, dp)
+    # Store the result in dp and return it
     dp[r][c] = mat[r][c] + max(down, downLeft, downRight)
     return dp[r][c]
 
@@ -21,17 +26,20 @@ def maxPathSum(mat):
         return 0
     m = len(mat[0])
     maxSum = INT_MIN
+    # Keep a state for every row and column; None is distinct from negative path sums.
     dp = [[None] * m for _ in range(n)]
     for c in range(m):
         maxSum = max(maxSum, maxPathSumHelper(mat, 0, c, n, dp))
     return maxSum
 
 
+# bottom up
 def maxPathSumBottomUp(mat):
     n = len(mat)
     if n == 0 or not mat[0]:
         return 0
     m = len(mat[0])
+    # Copy initial values
     dp = [row[:] for row in mat]
     for row in range(n - 2, -1, -1):
         for col in range(m):

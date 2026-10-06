@@ -8,22 +8,32 @@ class Node:
 ans = -1
 
 
+# Helper function for finding the k-th largest element in BST
 def findKthLargestHelper(root, k, count):
     global ans
+    # Base case: if the node is None, return
     if not root:
         return
+    # Traverse the right subtree first (reverse in-order traversal)
     findKthLargestHelper(root.right, k, count)
+    # Increment the count as we visit each node
     count[0] += 1
+    # If count matches k, store the result in 'ans'
     if count[0] == k:
         ans = root.data
+    # Traverse the left subtree (still part of reverse in-order traversal)
     findKthLargestHelper(root.left, k, count)
 
 
+# Public function to find the k-th largest element in the BST
 def kthLargest(root, k):
     global ans
+    # Initialize the count to track how many nodes we've processed
     count = [0]
+    # Initialize the answer as -1 (indicating not found yet)
     ans = -1
     findKthLargestHelper(root, k, count)
+    # Return the k-th largest element (or -1 if not found)
     return ans
 
 

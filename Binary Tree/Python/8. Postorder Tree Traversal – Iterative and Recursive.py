@@ -5,27 +5,36 @@ class Node:
         self.right = None
 
 
+# Recursive Postorder Traversal (Left, Right, Root)
 def postorderRecursive(root):
     if root is None:
         return
+    # Recursively visit left subtree
     postorderRecursive(root.left)
+    # Recursively visit right subtree
     postorderRecursive(root.right)
+    # Visit the root node
     print(root.data, end=" ")
 
 
+# Iterative Postorder Traversal (using one stack and a list)
 def postorderIterative(root):
     if root is None:
         return
     st1 = [root]
+    # To store the postorder traversal
     result = []
     while st1:
         current = st1.pop()
+        # Store the node data in the list
         result.append(current.data)
         if current.left:
             st1.append(current.left)
         if current.right:
             st1.append(current.right)
+    # Reverse the list to get the correct postorder sequence
     result.reverse()
+    # Print the postorder traversal
     for data in result:
         print(data, end=" ")
 

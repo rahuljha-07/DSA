@@ -2,6 +2,7 @@ from collections import deque
 
 
 def checkMirrorTree(n, e, A, B):
+    # Create stacks and queues for each node
     stacks = [[] for _ in range(n + 1)]
     queues = [deque() for _ in range(n + 1)]
     for i in range(0, 2 * e, 2):
@@ -12,14 +13,19 @@ def checkMirrorTree(n, e, A, B):
         u = B[i]
         v = B[i + 1]
         queues[u].append(v)
+    # Compare the stack and queue for each node
     for i in range(1, n + 1):
+        # While both stack and queue have elements
         while stacks[i] and queues[i]:
+            # Check if the top of the stack matches the front of the queue
             if stacks[i][-1] != queues[i][0]:
                 return 0
             stacks[i].pop()
             queues[i].popleft()
+        # If one of them still has elements, they aren't mirrors
         if stacks[i] or queues[i]:
             return 0
+    # If all nodes matched in reverse order, the trees are mirrors
     return 1
 
 

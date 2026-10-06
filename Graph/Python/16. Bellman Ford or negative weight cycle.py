@@ -1,18 +1,25 @@
 import sys
 
 
+# Function to implement Bellman-Ford Algorithm
 def bellmanFord(n, edges, source, dist):
     dist[:] = [float("inf")] * n
+    # Distance to the source is 0
     dist[source] = 0
+    # Relax all edges (n-1) times
     for count in range(1, n):
         for edge in edges:
             src, dest, weight = edge
+            # Relax the edge if a shorter path is found
             if dist[src] != float("inf") and dist[src] + weight < dist[dest]:
                 dist[dest] = dist[src] + weight
+    # Check for negative weight cycles by trying to relax the edges again
     for edge in edges:
         src, dest, weight = edge
         if dist[src] != float("inf") and dist[src] + weight < dist[dest]:
+            # Negative weight cycle detected
             return False
+    # No negative weight cycles
     return True
 
 

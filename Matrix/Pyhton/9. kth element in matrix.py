@@ -9,6 +9,7 @@ import heapq
 # =========================================================
 
 def kthSmallest(A, n, k):
+    # Your code here
     m = n
 
     mini = A[0][0]

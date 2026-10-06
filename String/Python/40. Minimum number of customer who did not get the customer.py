@@ -1,4 +1,5 @@
 ﻿def runCustomerSimulation(n, seq):
+    # whether customer has a computer
     inUse = {}
     inCafe = set()
     occupied = 0
@@ -6,16 +7,21 @@
 
     for customer in seq:
         if customer not in inCafe:
+            # Customer arrives
             inCafe.add(customer)
             if occupied < n:
+                # got a computer
                 inUse[customer] = True
                 occupied += 1
             else:
+                # couldn't get a computer
                 inUse[customer] = False
         else:
+            # Customer leaves
             if inUse[customer]:
                 occupied -= 1
             else:
+                # they never got a computer
                 result += 1
             inCafe.remove(customer)
             del inUse[customer]

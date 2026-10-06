@@ -1,12 +1,16 @@
-﻿def countSquares(n):
+﻿# Function to count the number of perfect squares less than a given number 'n'
+def countSquares(n):
+    # Initialize count of squares to 0
     count = 0
 
     # Count perfect squares less than n
     i = 1
     while i * i < n:
+        # Increment count for each perfect square found
         count += 1
         i += 1
 
+    # Return the final count of perfect squares
     return count
 
 

@@ -1,6 +1,7 @@
 ﻿memo = []
 
 
+# Helper function to perform recursive pattern matching with wildcards
 def matchPatternUtil(patternIdx, strIdx, patternLen, strLen, pattern, str):
     if patternIdx == patternLen and strIdx == strLen:
         return True
@@ -34,6 +35,7 @@ def isPatternMatch(pattern, str):
     global memo
     patternLen = len(pattern)
     strLen = len(str)
+    # Resize and initialize memo table
     memo = [[-1 for j in range(strLen + 1)] for i in range(patternLen + 1)]
     return matchPatternUtil(0, 0, patternLen, strLen, pattern, str)
 

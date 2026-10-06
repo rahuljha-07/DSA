@@ -8,22 +8,31 @@ class Node:
 subtreeMap = {}
 
 
+# Helper function to serialize subtrees and check for duplicates
 def serializeSubtree(root):
+    # Base case: if the node is None, return a unique symbol to represent it
     if not root:
         return "$"
+    # Serialize the left and right subtrees separately
     leftString = serializeSubtree(root.left)
     rightString = serializeSubtree(root.right)
+    # Create the subtree representation
     subtree = leftString + "," + str(root.data) + "," + rightString
     subtreeMap[subtree] = subtreeMap.get(subtree, 0) + 1
     return subtree
 
 
 def hasDuplicateSubtree(root):
+    # Clear the map before starting
     subtreeMap.clear()
+    # Serialize the entire tree
     serializeSubtree(root)
+    # Check if any subtree appears more than once
     for entry in subtreeMap.values():
+        # Duplicate subtree found
         if entry >= 2:
             return True
+    # No duplicate subtrees
     return False
 
 

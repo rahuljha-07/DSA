@@ -8,22 +8,32 @@ class Node:
 ans = -1
 
 
+# Helper function for finding the k-th smallest element in BST
 def findKthSmallestHelper(root, k, count):
     global ans
+    # Base case: if the node is None, return
     if not root:
         return
+    # Traverse the left subtree first (in-order traversal)
     findKthSmallestHelper(root.left, k, count)
+    # Increment the count as we visit each node
     count[0] += 1
+    # If count matches k, store the result in 'ans'
     if count[0] == k:
         ans = root.data
+    # Traverse the right subtree (still part of in-order traversal)
     findKthSmallestHelper(root.right, k, count)
 
 
+# Public function to find the k-th smallest element in the BST
 def kthSmallest(root, k):
     global ans
+    # Initialize the count to track how many nodes we've processed
     count = [0]
+    # Initialize the answer as -1 (indicating not found yet)
     ans = -1
     findKthSmallestHelper(root, k, count)
+    # Return the k-th smallest element (or -1 if not found)
     return ans
 
 

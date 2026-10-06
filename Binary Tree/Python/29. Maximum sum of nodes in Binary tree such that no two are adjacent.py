@@ -8,7 +8,9 @@ class Node:
 memo = {}
 
 
+# Recursive function to find the maximum sum of non-adjacent nodes
 def getMaxSum(root):
+    # Base case: If the current node is None, return 0 as there's no value to add
     if not root:
         return 0
     if root in memo:
@@ -20,7 +22,10 @@ def getMaxSum(root):
     if root.right:
         includeCurrent += getMaxSum(root.right.left)
         includeCurrent += getMaxSum(root.right.right)
+    # Exclude the current node's value, and instead take the maximum sum of its left and
+    # right subtrees
     excludeCurrent = getMaxSum(root.left) + getMaxSum(root.right)
+    # Return the maximum sum for the current node
     memo[root] = max(includeCurrent, excludeCurrent)
     return memo[root]
 

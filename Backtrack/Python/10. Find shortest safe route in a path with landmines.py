@@ -2,36 +2,48 @@ import sys
 
 
 def findShortestSafeRoute(rows, cols, unsafeCells, visited, currentRow, currentCol, steps):
+    # Base case: Check if the current cell is out of bounds, unsafe, or already visited
     if (currentRow < 0 or currentRow >= rows or currentCol < 0 or currentCol >= cols
             or (currentRow, currentCol) in unsafeCells or visited[currentRow][currentCol]):
         return float("inf")
+    # If the destination (last column) is reached, return the steps taken
     if currentCol == cols - 1:
         return steps
+    # Mark the current cell as visited
     visited[currentRow][currentCol] = True
+    # Explore all four possible directions
     moveDown = findShortestSafeRoute(rows, cols, unsafeCells, visited, currentRow + 1, currentCol, steps + 1)
     moveUp = findShortestSafeRoute(rows, cols, unsafeCells, visited, currentRow - 1, currentCol, steps + 1)
     moveRight = findShortestSafeRoute(rows, cols, unsafeCells, visited, currentRow, currentCol + 1, steps + 1)
     moveLeft = findShortestSafeRoute(rows, cols, unsafeCells, visited, currentRow, currentCol - 1, steps + 1)
+    # Unmark the current cell for backtracking
     visited[currentRow][currentCol] = False
+    # Return the minimum steps from all possible directions
     return min(moveDown, moveUp, moveRight, moveLeft)
 
 
 def shortestPath(grid, rows, cols):
     if rows == 0 or cols == 0:
         return -1
+    # Create a set to store unsafe cells
     unsafeCells = set()
+    # Mark landmine cells and their adjacent cells as unsafe
     for i in range(rows):
         for j in range(cols):
+            # Landmine cell
             if grid[i][j] == 0:
                 unsafeCells.add((i, j))
+                # Down
                 if i + 1 < rows:
                     unsafeCells.add((i + 1, j))
                 if i - 1 >= 0:
                     unsafeCells.add((i - 1, j))
+                # Right
                 if j + 1 < cols:
                     unsafeCells.add((i, j + 1))
                 if j - 1 >= 0:
                     unsafeCells.add((i, j - 1))
+    # Initialize visited matrix
     visited = [[False] * cols for _ in range(rows)]
     shortestRoute = float("inf")
     for i in range(rows):

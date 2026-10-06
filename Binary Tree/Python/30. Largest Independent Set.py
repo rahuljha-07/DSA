@@ -8,21 +8,30 @@ class Node:
 dp = {}
 
 
+# Function to calculate LIS for the binary tree
 def LIS(root):
+    # Base Case: If the node is None, LIS is 0
     if root is None:
         return 0
     if root in dp:
         return dp[root]
+    # Case 1: Include the current node in LIS
     include = 1
     if root.left:
+        # Add LIS of left-left and left-right (grandchildren)
+        # Add LIS of right-left and right-right (grandchildren)
         include += LIS(root.left.left) + LIS(root.left.right)
     if root.right:
         include += LIS(root.right.left) + LIS(root.right.right)
+    # Case 2: Exclude the current node from LIS
+    # Add LIS of immediate children (left and right)
     exclude = LIS(root.left) + LIS(root.right)
+    # Return the computed value of Store the maximum of include and exclude in dp
     dp[root] = max(include, exclude)
     return dp[root]
 
 
+# Helper function to free the dynamically allocated memory
 def deleteTree(root):
     if root is None:
         return

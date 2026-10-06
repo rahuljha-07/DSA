@@ -6,27 +6,47 @@ class MedianFinder:
         self.r = []
         self.l = []
 
+    # Function to insert a new number into the heaps
     def insertHeap(self, x):
+        # If the new number is larger than the top of the right half (min-heap), it belongs
+        # to the right half
         if self.r and x > self.r[0]:
             heapq.heappush(self.r, x)
         else:
+            # Store negated values so heapq's min-heap behaves as a max-heap.
             heapq.heappush(self.l, -x)
+        # Balance the heaps if their sizes differ by more than 1
         self.balanceHeaps()
 
+    # Function to balance the two heaps (left max-heap and right min-heap)
     def balanceHeaps(self):
+        # If the left heap has more than 1 extra element, move the top element to the right
+        # heap
         if len(self.l) - len(self.r) == 2:
+            # Store negated values so heapq's min-heap behaves as a max-heap.
             heapq.heappush(self.r, -heapq.heappop(self.l))
+        # If the right heap has more than 1 extra element, move the top element to the left
+        # heap
         elif len(self.r) - len(self.l) == 2:
             heapq.heappush(self.l, -heapq.heappop(self.r))
 
+    # Function to return the median of the current numbers
     def getMedian(self):
+        # If both heaps are empty, return -1 (this should not happen in normal usage)
         if not self.l and not self.r:
             return -1
+        # If the left heap has more elements, the median is the top of the left heap
+        # (max-heap)
         if len(self.l) > len(self.r):
             return -self.l[0]
+        # If the right heap has more elements, the median is the top of the right heap
+        # (min-heap)
         elif len(self.r) > len(self.l):
             return self.r[0]
+        # If both heaps are of the same size, the median is the average of the tops of both
+        # heaps
         else:
+            # Return as float/double
             return (-self.l[0] + self.r[0]) / 2.0
 
 

@@ -1,7 +1,10 @@
+# Function to calculate the minimum sum of absolute differences
 def minimumSumOfDifferences(a, b):
     n = len(a)
+    # Step 1: Sort both arrays
     a.sort()
     b.sort()
+    # Step 2: Calculate the sum of absolute differences
     minSum = 0
     for i in range(n):
         minSum += abs(a[i] - b[i])

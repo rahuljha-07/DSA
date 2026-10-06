@@ -1,18 +1,24 @@
 from collections import deque
 
 
+# function is same for both directed and unidrected graph
 def bfsOfGraph(adj):
+    # Number of vertices
     V = len(adj)
+    # To store BFS traversal
     bfs = []
+    # To track visited nodes
     visited = [False] * V
     q = deque()
     if V == 0:
         return bfs
+    # Start BFS from node 0
     q.append(0)
     visited[0] = True
     while q:
         node = q.popleft()
         bfs.append(node)
+        # Visit all unvisited neighbors
         for neighbor in adj[node]:
             if not visited[neighbor]:
                 visited[neighbor] = True

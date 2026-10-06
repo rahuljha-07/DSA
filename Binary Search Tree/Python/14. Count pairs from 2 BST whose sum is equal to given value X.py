@@ -6,15 +6,19 @@ class Node:
 
 
 class Solution:
+    # Function to count pairs from two BSTs whose sum is equal to given value X
     def countPairs(self, root1, root2, X):
+        # Handle edge case when either BST is empty
         if not root1 or not root2:
             return 0
         elements = set()
         self.storeElementsInSet(root1, elements)
+        # Step 2: Traverse the second BST and count pairs that sum to X
         count = [0]
         self.countPairsWithSet(root2, elements, X, count)
         return count[0]
 
+    # Helper function to traverse the first BST and store elements in a hash set
     def storeElementsInSet(self, root, elements):
         if not root:
             return
@@ -22,6 +26,7 @@ class Solution:
         elements.add(root.data)
         self.storeElementsInSet(root.right, elements)
 
+    # Helper function to traverse the second BST and find pairs that sum to X
     def countPairsWithSet(self, root, elements, X, count):
         if not root:
             return
@@ -31,6 +36,7 @@ class Solution:
         self.countPairsWithSet(root.right, elements, X, count)
 
 
+# Helper function to create a simple BST (for testing)
 def insertBST(root, key):
     if not root:
         return Node(key)

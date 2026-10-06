@@ -1,31 +1,42 @@
-﻿def solve(row, ans, matrix):
+﻿# Recursive function to form sentences from the word lists
+def solve(row, ans, matrix):
+    # Base case: If all rows are processed, print the sentence
     if row == len(matrix):
         print(ans)
         return
 
+    # Dynamically get size for the current row
     colSize = len(matrix[row])
 
+    # Loop through each word in the current row
     for i in range(colSize):
         word = matrix[row][i]
+        # Add space only if ans is not empty
         solve(row + 1, ans + ("" if ans == "" else " ") + word, matrix)
 
 
+# Wrapper function to initiate the recursive process
 def generateSentences(matrix):
     if len(matrix) == 0:
         return
     solve(0, "", matrix)
 
 
+# with backtrack because we passed ans as reference
 def solveBacktrack(row, col, ans, matrix):
+    # Base case: If we've processed all rows (word lists), print the sentence
     if row == len(matrix):
+        # Print the formed sentence
         print(ans[0])
         return
 
     for i in range(col):
+        # Select the word from the current row
         word = matrix[row][i]
 
         oldAns = ans[0]
         ans[0] += ("" if ans[0] == "" else " ") + word
+        # Recur to process the next row
         solveBacktrack(row + 1, col, ans, matrix)
         ans[0] = oldAns
 

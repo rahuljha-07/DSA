@@ -41,15 +41,20 @@ class Trie:
     def deleteHelper(self, node, word, depth):
         if not node:
             return False
+        # Base case: if end of word is reached
         if depth == len(word):
             if not node.isEnd:
                 return False
+            # Unmark the end of the word
             node.isEnd = False
+            # Check if node has any children
             return self.isEmpty(node)
         index = ord(word[depth]) - ord('a')
         if not self.deleteHelper(node.children[index], word, depth + 1):
             return False
+        # If child node can be deleted, remove it
         node.children[index] = None
+        # Return true if current node has no children and is not end of another word
         return not node.isEnd and self.isEmpty(node)
 
     def isEmpty(self, node):

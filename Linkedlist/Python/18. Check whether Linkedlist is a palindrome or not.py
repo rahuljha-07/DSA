@@ -12,19 +12,25 @@ def reverse(head):
 def isPalindrome(head):
     if not head or not head.next:
         return True
+    # Step 1: Find the middle using slow & fast pointers
     slow = head
     # End the first half at the first middle for even-length lists.
     fast = head.next
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
+    # Step 2: Split the list into two halves
     newHead = slow.next
+    # Break the list into two
     slow.next = None
+    # Step 3: Reverse the second half
     revHead = reverse(newHead)
+    # Step 4: Compare both halves
     firstHalf = head
     secondHalf = revHead
     while secondHalf:
         if firstHalf.data != secondHalf.data:
+            # Not a palindrome
             return False
         firstHalf = firstHalf.next
         secondHalf = secondHalf.next

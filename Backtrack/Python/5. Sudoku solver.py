@@ -1,13 +1,17 @@
 N = 9
 
 
+# Function to check if placing a number in the grid is safe
 def isSafe(grid, row, col, num):
+    # Check if the number is not repeated in the row
     for x in range(N):
         if grid[row][x] == num:
             return False
+    # Check if the number is not repeated in the column
     for x in range(N):
         if grid[x][col] == num:
             return False
+    # Check if the number is not repeated in the 3x3 subgrid
     startRow = row - row % 3
     startCol = col - col % 3
     for i in range(3):
@@ -17,27 +21,38 @@ def isSafe(grid, row, col, num):
     return True
 
 
+# Backtracking function to solve Sudoku
 def solve(grid, row, col):
+    # If we have filled all the rows, return true (solved)
     if row == N - 1 and col == N:
         return True
+    # If we reach the end of the column, move to the next row and reset column
     if col == N:
         row += 1
         col = 0
+    # Skip cells that are already filled
     if grid[row][col] != 0:
         return solve(grid, row, col + 1)
+    # Try placing digits 1 to 9
     for num in range(1, N + 1):
         if isSafe(grid, row, col, num):
+            # Place the number
             grid[row][col] = num
+            # Recur to place next number in the next cell
             if solve(grid, row, col + 1):
                 return True
+            # If placing the current number doesn't lead to a solution, backtrack
             grid[row][col] = 0
+    # Trigger backtracking
     return False
 
 
+# Function to solve the Sudoku puzzle
 def SolveSudoku(grid):
     return solve(grid, 0, 0)
 
 
+# Function to print the Sudoku grid
 def printGrid(grid):
     for i in range(N):
         for j in range(N):

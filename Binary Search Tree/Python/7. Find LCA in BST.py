@@ -5,16 +5,23 @@ class Node:
         self.right = None
 
 
+# Helper function to find LCA in a BST using recursive approach
 def findLCAHelper(root, n1, n2):
+    # Base case: if root is None, return None
     if not root:
         return None
+    # If both n1 and n2 are smaller than root's data, LCA lies in the left subtree
     if root.data > n1 and root.data > n2:
         return findLCAHelper(root.left, n1, n2)
+    # If both n1 and n2 are greater than root's data, LCA lies in the right subtree
     elif root.data < n1 and root.data < n2:
         return findLCAHelper(root.right, n1, n2)
+    # If one of n1 or n2 is on one side and the other is on the other side,
+    # or if we find one of the nodes, then root is the LCA
     return root
 
 
+# Public function to find the LCA by calling the helper function
 def findLCA(root, n1, n2):
     return findLCAHelper(root, n1, n2)
 

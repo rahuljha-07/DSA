@@ -1,26 +1,34 @@
 def findMinOps(arr):
     # Assumes positive integers. Merge a copy, as in C++ pass-by-value.
     arr = list(arr)
+    # Count of merge operations
     ans = 0
+    # Size of the array
     n = len(arr)
     i = 0
     j = n - 1
 
+    # Use two pointers to process the array
     while i <= j:
         # Equal ends: move both pointers inward.
         if arr[i] == arr[j]:
             i += 1
+            # Move the right pointer inward
             j -= 1
 
         # Left is greater: merge two elements on the right.
         elif arr[i] > arr[j]:
             j -= 1
+            # Merge arr[j] and arr[j+1]
             arr[j] += arr[j + 1]
+            # Increment the operation count
             ans += 1
 
         # Right is greater: merge two elements on the left.
         else:
+            # Move the left pointer inward
             i += 1
+            # Merge arr[i] and arr[i-1]
             arr[i] += arr[i - 1]
             ans += 1
 

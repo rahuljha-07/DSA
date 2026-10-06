@@ -6,14 +6,19 @@ class Node:
 
 
 class Solution:
+    # Function to merge two balanced BSTs
     def mergeTrees(self, root1, root2):
+        # Step 1: Get the sorted arrays from both BSTs
         tree1Nodes = []
         tree2Nodes = []
         self.inorderTraversal(root1, tree1Nodes)
         self.inorderTraversal(root2, tree2Nodes)
+        # Step 2: Merge the two sorted arrays
         mergedNodes = self.mergeSortedArrays(tree1Nodes, tree2Nodes)
+        # Step 3: Build a balanced BST from the merged sorted array
         return self.buildBalancedBST(mergedNodes, 0, len(mergedNodes) - 1)
 
+    # Helper function to perform inorder traversal and store nodes in a sorted list
     def inorderTraversal(self, root, sortedNodes):
         if not root:
             return
@@ -21,6 +26,7 @@ class Solution:
         sortedNodes.append(root.data)
         self.inorderTraversal(root.right, sortedNodes)
 
+    # Helper function to merge two sorted arrays
     def mergeSortedArrays(self, arr1, arr2):
         merged = []
         i = 0
@@ -40,6 +46,7 @@ class Solution:
             j += 1
         return merged
 
+    # Helper function to build a balanced BST from a sorted list of nodes
     def buildBalancedBST(self, sortedNodes, start, end):
         if start > end:
             return None
@@ -50,6 +57,7 @@ class Solution:
         return root
 
 
+# Helper function to print the inorder traversal of the tree (for verification)
 def inorderPrint(root):
     if not root:
         return

@@ -5,17 +5,23 @@ class Node:
         self.right = None
 
 
+# Recursive function to check if two trees are isomorphic
 def isIsomorphic(T1, T2):
+    # Base cases
+    # Both nodes are None
     if not T1 and not T2:
         return True
+    # One node is None, the other is not
     if not T1 or not T2:
         return False
     if T1.data != T2.data:
         return False
+    # Check isomorphism without flipping or with flipping children
     withoutFlip = (isIsomorphic(T1.left, T2.left)
                    and isIsomorphic(T1.right, T2.right))
     withFlip = (isIsomorphic(T1.left, T2.right)
                 and isIsomorphic(T1.right, T2.left))
+    # Return true if either configuration is isomorphic
     return withoutFlip or withFlip
 
 

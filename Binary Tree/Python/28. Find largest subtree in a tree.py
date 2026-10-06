@@ -5,18 +5,24 @@ class Node:
         self.right = None
 
 
+# Helper function to find the maximum subtree sum
 def findLargestSubtreeSumUtil(root, maxSum):
+    # Base case: if the current node is None, return 0 as sum
     if not root:
         return 0
+    # Calculate the sum of nodes in the left and right subtrees
     leftSubtreeSum = findLargestSubtreeSumUtil(root.left, maxSum)
     rightSubtreeSum = findLargestSubtreeSumUtil(root.right, maxSum)
+    # Sum of the current subtree rooted at this node
     currentSubtreeSum = root.data + leftSubtreeSum + rightSubtreeSum
     maxSum[0] = max(maxSum[0], currentSubtreeSum)
+    # Return the current subtree sum to the parent call
     return currentSubtreeSum
 
 
 def findLargestSubtreeSum(root):
     maxSum = [float("-inf")]
+    # Recursively calculate subtree sums
     findLargestSubtreeSumUtil(root, maxSum)
     return maxSum[0]
 

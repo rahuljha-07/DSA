@@ -1,3 +1,4 @@
+# exaclty same as subset sum partiion just check this condition
 def equalPartition(n, arr):
     sum = 0
     for i in range(n):

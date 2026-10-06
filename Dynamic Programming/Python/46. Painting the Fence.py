@@ -4,23 +4,34 @@ class Solution:
         self.dp = []
 
     def solve(self, idx, str, n, k, lastColor, count):
+        # Base case: If all posts are painted
         if idx == n:
+            # Print the valid pattern
             print(str)
+            # Valid pattern found
             return 1
+        # Check if the result is already computed
         if self.dp[idx][lastColor][count] != -1:
             return self.dp[idx][lastColor][count]
+        # To accumulate valid ways from this state
         ways = 0
+        # Iterate through all possible colors
         for i in range(1, k + 1):
             if i == lastColor:
+                # If the same color as last, ensure not more than 2 consecutively
                 if count < 2:
                     ways += self.solve(idx + 1, str + f"{i}", n, k, i, count + 1)
             else:
+                # Different color, reset consecutive count
                 ways += self.solve(idx + 1, str + f"{i}", n, k, i, 1)
+        # Store the result in the memoization table and return
         self.dp[idx][lastColor][count] = ways
         return ways
 
     def countWays(self, n, k):
+        # Initialize the memoization table with -1
         self.dp = [[[-1] * 3 for _ in range(k + 1)] for _ in range(n)]
+        # Start the recursive process
         return self.solve(0, "", n, k, 0, 0)
 
 

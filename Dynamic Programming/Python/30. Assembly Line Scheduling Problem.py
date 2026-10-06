@@ -1,18 +1,26 @@
+# Returns the minimum total time to assemble the car.
 def carAssembly(stationTime, transferTime, entryTime, exitTime):
+    # number of stations per line
     N = 4
+    # DP arrays: best time to finish station i on line 1 / line 2
     bestLine1 = [0] * N
     bestLine2 = [0] * N
+    # Base case: first station includes entry time
     bestLine1[0] = entryTime[0] + stationTime[0][0]
     bestLine2[0] = entryTime[1] + stationTime[1][0]
+    # Fill DP for remaining stations
     for i in range(1, N):
+        # To be at station i on line 1: either stay on line 1, or switch from line 2
         bestLine1[i] = min(
             bestLine1[i - 1] + stationTime[0][i],
             bestLine2[i - 1] + transferTime[1][i] + stationTime[0][i],
         )
+        # To be at station i on line 2: either stay on line 2, or switch from line 1
         bestLine2[i] = min(
             bestLine2[i - 1] + stationTime[1][i],
             bestLine1[i - 1] + transferTime[0][i] + stationTime[1][i],
         )
+    # Add exit time at the last station and take the minimum
     return min(bestLine1[N - 1] + exitTime[0], bestLine2[N - 1] + exitTime[1])
 
 

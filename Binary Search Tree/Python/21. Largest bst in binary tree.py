@@ -13,6 +13,7 @@ class Node:
         self.right = None
 
 
+# Helper function to find the largest BST subtree in the binary tree
 def largestBSTSubtree(root):
     if not root:
         return BSTInfo(True, 0, float("inf"), float("-inf"))
@@ -20,15 +21,21 @@ def largestBSTSubtree(root):
     rightInfo = largestBSTSubtree(root.right)
     if (leftInfo.isBST and rightInfo.isBST
             and leftInfo.maxi < root.data and rightInfo.mini > root.data):
+        # Add current node
         return BSTInfo(True, leftInfo.size + rightInfo.size + 1,
+                       # Update minimum value
                        min(root.data, leftInfo.mini),
+                       # Update maximum value
                        max(root.data, rightInfo.maxi))
     else:
+        # Take the maximum of left or right subtree BST sizes
         return BSTInfo(False, max(leftInfo.size, rightInfo.size), -1, -1)
 
 
+# Function to get the size of the largest BST subtree
 def largestBST(root):
     result = largestBSTSubtree(root)
+    # Return the size of the largest BST
     return result.size
 
 

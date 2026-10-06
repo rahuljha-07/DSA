@@ -1,21 +1,28 @@
 ﻿def Anagrams(inputStrings):
+    # Map to store sorted strings as keys and their corresponding anagrams as values
     anagramMap = {}
 
+    # Iterate through each string in the input list
     for i in range(len(inputStrings)):
+        # Get the current string
         currentString = inputStrings[i]
         currentString = "".join(sorted(currentString))
         if currentString not in anagramMap:
             anagramMap[currentString] = []
+        # Add original string to the corresponding anagram group
         anagramMap[currentString].append(inputStrings[i])
 
     anagramGroups = []
 
+    # Iterate through the map and populate the output list with anagram groups
     for pair in sorted(anagramMap):
         anagrams = anagramMap[pair]
         anagramGroups.append([])
         for j in range(len(anagrams)):
+            # Add each anagram to the output
             anagramGroups[-1].append(anagrams[j])
 
+    # Return the final list of anagram groups
     return anagramGroups
 
 

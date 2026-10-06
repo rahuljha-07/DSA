@@ -1,4 +1,5 @@
 ﻿def find(arr, n, x):
+    # Initialize result list with -1 for both positions
     result = [-1, -1]
 
     # Binary search for the first occurrence of x
@@ -14,6 +15,7 @@
             if mid == 0 or arr[mid - 1] != x:
                 result[0] = mid
                 break
+            # Continue to search in the left part
             high = mid - 1
 
     # Binary search for the last occurrence of x
@@ -29,6 +31,7 @@
             if mid == n - 1 or arr[mid + 1] != x:
                 result[1] = mid
                 break
+            # Continue to search in the right part
             low = mid + 1
 
     return result

@@ -12,9 +12,11 @@ def reverse(head):
 
 
 def compute(head):
+    # Step 1: Reverse the list
     head = reverse(head)
     if head is None:
         return None
+    # Step 2: Traverse the reversed list and remove nodes with smaller values
     cur = head
     max = head.data
     prev = head
@@ -25,19 +27,24 @@ def compute(head):
             prev = cur
             cur = cur.next
         else:
+            # Remove the current node
             prev.next = cur.next
             cur = prev.next
+    # Step 3: Reverse the list back to restore the original order
     head = reverse(head)
     return head
 
 
 def deleteNodesUtil(head, maxi):
+    # Base case: If the list is empty, return None
     if head is None:
         maxi[0] = float("-inf")
         return None
     if head.next is None:
         maxi[0] = head.data
+        # Keep the last node
         return head
+    # Recursive call: Process the rest of the list
     newHead = deleteNodesUtil(head.next, maxi)
     if head.data < maxi[0]:
         return newHead
@@ -46,6 +53,7 @@ def deleteNodesUtil(head, maxi):
     return head
 
 
+# Wrapper function
 def deleteNodes(head):
     maxi = [float("-inf")]
     return deleteNodesUtil(head, maxi)

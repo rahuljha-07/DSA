@@ -8,24 +8,35 @@ class Node:
 ans = 1
 
 
+# Helper function to check if all leaves are at the same level
 def checkLeavesAtSameLevel(root, currentHeight, leafLevel):
     global ans
+    # If the current node is None, return
+    # If the answer is already false, no need to proceed further
     if not root or ans == 0:
         return
+    # First recursively check the left and right subtrees
     checkLeavesAtSameLevel(root.left, currentHeight + 1, leafLevel)
     checkLeavesAtSameLevel(root.right, currentHeight + 1, leafLevel)
     if not root.left and not root.right:
+        # If it's the first leaf found, record its level
         if leafLevel[0] == -1:
             leafLevel[0] = currentHeight
+        # If it's not the first leaf, compare level with the first leaf's level
         elif leafLevel[0] != currentHeight:
+            # Set answer to false if leaf levels don't match
             ans = 0
 
 
 def check(root):
     global ans
+    # Initialize answer flag to true
     ans = 1
+    # Leaf level initially not set
     leafLevel = [-1]
+    # Start from height 0
     checkLeavesAtSameLevel(root, 0, leafLevel)
+    # Return the final result
     return bool(ans)
 
 

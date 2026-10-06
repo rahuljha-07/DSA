@@ -1,11 +1,15 @@
 from collections import deque
 
 
+# DFS
 def dfsCycleUtil(node, parent, adj, visited):
     visited[node] = True
+    # Explore neighbors
     for neighbor in adj[node]:
         if not visited[neighbor]:
+            # Recurse for unvisited neighbors
             if dfsCycleUtil(neighbor, node, adj, visited):
+                # Cycle detected
                 return True
         elif neighbor != parent:
             return True
@@ -13,11 +17,14 @@ def dfsCycleUtil(node, parent, adj, visited):
 
 
 def dfsCycleDetection(V, adj):
+    # To track visited nodes
     visited = [False] * V
+    # Loop to handle disconnected components
     for i in range(V):
         if not visited[i]:
             if dfsCycleUtil(i, -1, adj, visited):
                 return True
+    # No cycle found
     return False
 
 

@@ -70,6 +70,7 @@ def buildPrefixTable(pattern):
 def kmpSearch(text, pattern):
     lps = buildPrefixTable(pattern)
 
+    # for pattern
     j = 0  # Pointer for pattern
 
     for i in range(len(text)):
@@ -81,8 +82,10 @@ def kmpSearch(text, pattern):
             j += 1
 
         if j == len(pattern):
+            # Found
             return True
 
+    # Not found
     return False
 
 

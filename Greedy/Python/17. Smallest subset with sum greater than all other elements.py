@@ -1,8 +1,11 @@
+# Function to find the smallest subset with a sum greater than the rest
 def smallestSubset(arr):
     arr.sort(reverse=True)
+    # Step 2: Calculate the total sum of the array
     totalSum = 0
     for num in arr:
         totalSum += num
+    # Step 3: Find the smallest subset
     subsetSum = 0
     count = 0
     for num in arr:

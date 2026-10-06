@@ -2,24 +2,34 @@ class Solution:
     def __init__(self):
         self.index = 0
 
+    # Recursive helper function to verify BST preorder condition
     def solve(self, arr, N, minVal, maxVal):
+        # If all elements are processed, return
         if self.index >= N:
             return
+        # Check if the current element falls within the allowed range
         if arr[self.index] < minVal or arr[self.index] > maxVal:
             return
+        # Set current element as root for this subtree
         curr = arr[self.index]
+        # Move to the next element
         self.index += 1
+        # Recursively check left subtree with updated max bound
         self.solve(arr, N, minVal, curr)
+        # Recursively check right subtree with updated min bound
         self.solve(arr, N, curr, maxVal)
 
     def canRepresentBST(self, arr, N):
         self.index = 0
         minVal = float("-inf")
         maxVal = float("inf")
+        # Begin recursive validation of BST conditions
         self.solve(arr, N, minVal, maxVal)
+        # Check if all elements in the array were processed correctly
         return int(self.index == N)
 
 
+# gpt
 def canRepresentBSTUsingBranches(arr, n):
     s = []
     parent = float("-inf")
@@ -29,21 +39,35 @@ def canRepresentBSTUsingBranches(arr, n):
                 return 0
             s.append(arr[i])
         else:
+            # Step 2: Pop smaller ancestors -> we're entering the right subtree
             while s and s[-1] < arr[i]:
                 parent = s.pop()
+            # Step 3: Push current node onto stack (left or right child of last node)
             s.append(arr[i])
+    # All values respected BST preorder rules
     return 1
 
 
+# kashish mahendatta video
 def canRepresentBST(arr, n):
+    # Stack to track nodes while constructing BST
     s = []
+    # Keeps track of the last removed node (lower bound for the right subtree)
     parent = float("-inf")
+    # Iterate through the given preorder array
     for i in range(n):
         if arr[i] < parent:
+            # Invalid BST Preorder
             return 0
+        # If current element is greater than stack top, we are in the right subtree
         while s and arr[i] > s[-1]:
+            # Update parent (last popped element)
+            # Remove elements that are smaller than the current element
             parent = s.pop()
+        # Push the element into the stack (part of left subtree)
+        # Push the current element as a new node
         s.append(arr[i])
+    # If all elements are processed without issue, it's a valid BST preorder
     return 1
 
 

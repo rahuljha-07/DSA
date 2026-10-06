@@ -5,6 +5,7 @@ class Edge:
         self.weight = weight
 
 
+# Comparator to sort edges by weight (ascending order)
 def compare(a, b):
     return a.weight < b.weight
 
@@ -16,6 +17,7 @@ class DSU:
 
     def find(self, x):
         if x != self.parent[x]:
+            # Path compression
             self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
 
@@ -32,21 +34,32 @@ class DSU:
                 self.rank[rootX] += 1
 
 
+# Function to find the MST with wells and pipes
 def waterConnectionProblem(n, p, a, b, d, wellCost):
+    # List of all edges
     edges = []
+    # Add the pipes as edges
     for i in range(p):
         edges.append(Edge(a[i], b[i], d[i]))
+    # Add edges for wells (connect all nodes to node 0)
     for i in range(1, n + 1):
         edges.append(Edge(0, i, wellCost[i - 1]))
     edges.sort(key=lambda a: a.weight)
+    # Initialize DSU for Kruskal's algorithm
     dsu = DSU(n)
     totalCost = 0
+    # To store the edges of the MST
     mstEdges = []
+    # Process edges in ascending order of weight
     for edge in edges:
         u, v, weight = edge.u, edge.v, edge.weight
+        # Check if adding this edge creates a cycle
         if dsu.find(u) != dsu.find(v):
+            # Merge the sets
             dsu.unite(u, v)
+            # Add the edge weight to total cost
             totalCost += weight
+            # Add the edge to MST
             mstEdges.append(edge)
     print("Total cost of water connections:", totalCost)
     print("MST edges (Tank, Tap, Diameter/Cost):")

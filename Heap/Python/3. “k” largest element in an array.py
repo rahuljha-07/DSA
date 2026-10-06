@@ -5,12 +5,17 @@ def findKthLargest(nums, k):
     if not 1 <= k <= len(nums):
         raise ValueError("k must be between 1 and the array length")
     minHeap = []
+    # Counter to track the number of elements added to the heap
     counter = 0
+    # Iterate through all elements in the array
     for num in nums:
         heapq.heappush(minHeap, num)
+        # Increment counter after adding an element
         counter += 1
+        # Once we have more than k elements, remove the smallest element
         if counter > k:
             heapq.heappop(minHeap)
+    # The root of the heap now contains the k-th largest element
     return minHeap[0]
 
 

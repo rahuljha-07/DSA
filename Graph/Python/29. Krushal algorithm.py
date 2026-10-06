@@ -2,6 +2,7 @@ import heapq
 import sys
 
 
+# using loop
 def findparent(element, ds):
     while element != ds[element]:
         ds[element] = ds[ds[element]]
@@ -9,6 +10,7 @@ def findparent(element, ds):
     return element
 
 
+# Function to find the parent of a node using path compression
 def findparentRecursive(element, ds):
     if element == ds[element]:
         return element
@@ -16,31 +18,50 @@ def findparentRecursive(element, ds):
     return ds[element]
 
 
+# Function to execute Kruskal's Algorithm and return the total weight of the MST
 def kruskal_mst(V, adj):
+    # Disjoint set for union-find
     ds = list(range(V))
+    # Rank array for union by rank
     rank = [1] * V
     pq = []
+    # Input graph edges from the adjacency list into the priority queue
     for u in range(V):
         for edge in adj[u]:
             v, weight = edge
             heapq.heappush(pq, (weight, (u, v)))
+    # Count of edges in the MST
     count = 0
+    # Sum of weights of edges in the MST
     sum = 0
+    # While MST does not contain V-1 edges
     while count < V - 1 and pq:
         dist, (u, v) = heapq.heappop(pq)
+        # Find the parent of u
         p1 = findparent(u, ds)
+        # Find the parent of v
         p2 = findparent(v, ds)
+        # If u and v belong to different sets, add the edge to MST
+        # parents are different, so they are not in the same set i.e no cycle
         if p1 != p2:
+            # Union by rank
             if rank[p1] < rank[p2]:
+                # Make p2 the parent of p1
                 ds[p1] = p2
             elif rank[p2] < rank[p1]:
+                # Make p1 the parent of p2
                 ds[p2] = p1
             else:
                 ds[p1] = p2
+                # Increase rank of p2 as both were same rank
                 rank[p2] += 1
+            # Add edge weight to the total sum
             sum += dist
+            # Increase the edge count for MST
             count += 1
+            # Output the edge added to the MST
             print(f"Edge included in MST: {u} -> {v} with weight {dist}")
+    # Return the total weight of the MST
     return sum
 
 
@@ -83,6 +104,7 @@ class DisjointSet:
 
 
 class Solution:
+    # Function to find sum of weights of edges of the Minimum Spanning Tree.
     def spanningTree(self, V, adj):
         edges = []
         for i in range(V):

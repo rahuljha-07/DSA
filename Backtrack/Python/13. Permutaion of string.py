@@ -1,20 +1,30 @@
 import sys
 
 
+# Helper function to generate permutations
 def generatePermutations(str, startIndex, result):
+    # Base case: If startIndex is at the end of the string, store the permutation
     if startIndex == len(str) - 1:
         result.append("".join(str))
         return
+    # Iterate through the string and swap characters to generate permutations
     for i in range(startIndex, len(str)):
+        # Swap the current character with the character at startIndex
         str[startIndex], str[i] = str[i], str[startIndex]
+        # Recursively generate permutations for the remaining string
         generatePermutations(str, startIndex + 1, result)
+        # Backtrack: Restore the original order of the string
         str[startIndex], str[i] = str[i], str[startIndex]
 
 
+# Function to print all permutations of a given string
 def printPermutations(str):
     result = []
+    # Generate all permutations
     generatePermutations(list(str), 0, result)
+    # Sort the permutations to ensure they are printed in lexicographical order
     result.sort()
+    # Print the permutations
     for perm in result:
         print(perm)
 

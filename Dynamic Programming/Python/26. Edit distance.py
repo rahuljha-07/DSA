@@ -1,15 +1,25 @@
+# Helper function for recursion + memoization
 def editDistanceMemoHelper(s1, s2, i, j, dp):
     if i == len(s1):
         return len(s2) - j
     if j == len(s2):
         return len(s1) - i
+    # If already computed, return the stored result
     if dp[i][j] != -1:
         return dp[i][j]
+    # Base cases
+    # Insert remaining characters of s2
+    # Remove remaining characters of s1
+    # If characters are the same, no operation is needed
     if s1[i] == s2[j]:
         dp[i][j] = editDistanceMemoHelper(s1, s2, i + 1, j + 1, dp)
         return dp[i][j]
+    # Try all three operations and take the minimum
+    # Insert
     insertOp = 1 + editDistanceMemoHelper(s1, s2, i, j + 1, dp)
+    # Remove
     removeOp = 1 + editDistanceMemoHelper(s1, s2, i + 1, j, dp)
+    # Replace
     replaceOp = 1 + editDistanceMemoHelper(s1, s2, i + 1, j + 1, dp)
     dp[i][j] = min(insertOp, removeOp, replaceOp)
     return dp[i][j]
@@ -18,6 +28,7 @@ def editDistanceMemoHelper(s1, s2, i, j, dp):
 def editDistanceMemo(s1, s2):
     m = len(s1)
     n = len(s2)
+    # Initialize DP table with -1
     dp = [[-1] * n for _ in range(m)]
     return editDistanceMemoHelper(s1, s2, 0, 0, dp)
 

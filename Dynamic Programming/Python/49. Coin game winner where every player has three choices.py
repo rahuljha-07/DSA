@@ -1,24 +1,35 @@
 def willAWinHelper(n, x, y, memo):
+    # Base cases
+    # A loses if no coins left
     if n == 0:
         return False
+    # A wins if 1 coin is left (can pick the last coin)
     if n == 1:
         return True
     if n in memo:
         return memo[n]
+    # Check all possible moves for A
+    # Option 1: Pick 1 coin
     if n - 1 >= 0 and not willAWinHelper(n - 1, x, y, memo):
+        # A wins
         memo[n] = True
         return True
+    # Option 2: Pick x coins
     if n - x >= 0 and not willAWinHelper(n - x, x, y, memo):
         memo[n] = True
         return True
+    # Option 3: Pick y coins
     if n - y >= 0 and not willAWinHelper(n - y, x, y, memo):
         memo[n] = True
         return True
+    # If none of the moves lead to a win for A, A loses
     memo[n] = False
     return False
 
 
+# Wrapper function to initialize memoization and call the recursive helper
 def willAWin(n, x, y):
+    # Memoization table
     memo = {}
     return willAWinHelper(n, x, y, memo)
 

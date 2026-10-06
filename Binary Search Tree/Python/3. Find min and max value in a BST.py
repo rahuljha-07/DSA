@@ -5,17 +5,21 @@ class Node:
         self.right = None
 
 
+# Function to find the minimum value in a BST
 def findMin(root):
     if root is None:
         raise ValueError("Tree is empty")
+    # Traverse left until you reach the leftmost node
     while root.left is not None:
         root = root.left
     return root.data
 
 
+# Function to find the maximum value in a BST
 def findMax(root):
     if root is None:
         raise ValueError("Tree is empty")
+    # Traverse right until you reach the rightmost node
     while root.right is not None:
         root = root.right
     return root.data

@@ -2,19 +2,29 @@ D = 1000
 t = [[-1.0] * D for _ in range(D)]
 
 
+# Function to solve the fractional knapsack problem
 def Knapsack(wt, val, W, n):
+    # Base case: No items left or knapsack capacity is zero
     if n == 0 or W == 0:
         return 0.0
+    # If already calculated, return the cached value
     if t[n][W] != -1:
         return t[n][W]
+    # Else calculate
     else:
+        # If the current item can fully fit in the knapsack
         if wt[n - 1] <= W:
+            # Option 1: Include the entire item
             includeFull = val[n - 1] + Knapsack(wt, val, W - wt[n - 1], n - 1)
+            # Option 2: Exclude the current item
             excludeItem = Knapsack(wt, val, W, n - 1)
+            # Store the maximum of including the item or excluding it
             t[n][W] = max(includeFull, excludeItem)
         else:
+            # Option 3: Include a fractional part of the item
             includeFraction = val[n - 1] * (W / wt[n - 1])
             exclude = Knapsack(wt, val, W, n - 1)
+            # Store the maximum value when taking the fraction
             t[n][W] = max(includeFraction, exclude)
         return t[n][W]
 

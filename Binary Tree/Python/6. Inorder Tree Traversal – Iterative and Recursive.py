@@ -5,23 +5,32 @@ class Node:
         self.right = None
 
 
+# Recursive Inorder Traversal
 def inorderRecursive(root):
     if root is None:
         return
+    # Traverse left subtree
     inorderRecursive(root.left)
+    # Visit node
     print(root.data, end=" ")
+    # Traverse right subtree
     inorderRecursive(root.right)
 
 
+# Iterative Inorder Traversal
 def inorderIterative(root):
     st = []
     current = root
     while current is not None or st:
+        # Reach the leftmost node of the current node
         while current is not None:
             st.append(current)
             current = current.left
+        # Current must be None, so pop from the stack
         current = st.pop()
+        # Visit the node
         print(current.data, end=" ")
+        # Visit the right subtree
         current = current.right
 
 

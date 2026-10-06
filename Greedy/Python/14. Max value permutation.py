@@ -1,10 +1,14 @@
 MOD = 1000000007
 
 
+# Function to calculate the maximum value of arr[i]*i
 def maximizeValuePermutation(arr):
+    # Step 1: Sort the array in ascending order
     arr.sort()
+    # Step 2: Calculate the sum of arr[i] * i
     result = 0
     for i in range(len(arr)):
+        # Add product modulo MOD
         result = (result + arr[i] * i) % MOD
     return result
 

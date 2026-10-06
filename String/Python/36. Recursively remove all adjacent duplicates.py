@@ -1,20 +1,31 @@
-﻿def removeAdjacentDuplicates(S):
+﻿# Function to remove adjacent duplicates recursively
+def removeAdjacentDuplicates(S):
+    # Base case: if the string is empty or has one character, return it
     if len(S) == 0 or len(S) == 1:
         return S
 
+    # To store the result after removing duplicates
     result = ""
+    # Flag to check if duplicates were found
     hasAdjacentDuplicates = False
 
     i = 0
+    # Iterate through the string to find adjacent duplicates
     while i < len(S):
+        # Check if the current character is the same as the next one
         if i < len(S) - 1 and S[i] == S[i + 1]:
+            # Set the flag to true
             hasAdjacentDuplicates = True
+            # Skip all adjacent duplicates
             while i < len(S) - 1 and S[i] == S[i + 1]:
+                # Move the index forward to skip duplicates
                 i += 1
         else:
+            # Add non-duplicate characters to result
             result += S[i]
         i += 1
 
+    # If adjacent duplicates were found, call the function recursively
     return removeAdjacentDuplicates(result) if hasAdjacentDuplicates else result
 
 

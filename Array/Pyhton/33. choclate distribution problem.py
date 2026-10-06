@@ -1,8 +1,10 @@
 def cdp(a, n, m):
     # Assumes 1 <= m <= n and n == len(a).
+    # Sort packets so any candidate group of m packets is a consecutive window.
     a.sort()
     mdiff = float("inf")
 
+    # Try every group of m packets; the endpoints give its maximum-minus-minimum difference.
     for i in range(n - m + 1):
         diff = a[i + m - 1] - a[i]
         if diff < mdiff:

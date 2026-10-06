@@ -5,9 +5,12 @@ class Node:
         self.right = None
 
 
+# Helper function to find the maximum sum on the longest path
 def findMaxSumPath(root, currentLength, maxLength, currentSum, maxSum):
+    # Base case: if the current node is None, return 0
     if not root:
         return 0
+    # Recursively calculate for left and right subtrees
     leftSum = findMaxSumPath(root.left, currentLength + 1, maxLength,
                              currentSum + root.data, maxSum)
     rightSum = findMaxSumPath(root.right, currentLength + 1, maxLength,
@@ -18,10 +21,12 @@ def findMaxSumPath(root, currentLength, maxLength, currentSum, maxSum):
             maxSum[0] = currentSum + root.data
         elif currentLength == maxLength[0]:
             maxSum[0] = max(maxSum[0], currentSum + root.data)
+    # Return the maximum sum for this path
     return max(leftSum, rightSum)
 
 
 def sumOfLongRootToLeafPath(root):
+    # Handle empty tree
     if not root:
         return 0
     maxLength = [0]

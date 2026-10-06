@@ -1,17 +1,23 @@
 import sys
 
 
+# Helper function to check if interleaving is possible
 def isInterleave_helper(s1, s2, s3, i, j, k, m):
+    # If we have reached the end of both s1 and s2 and s3, return true
     if i == len(s1) and j == len(s2) and k == len(s3):
         return True
+    # If we have already computed this state, return the result
     if m[i][j] != -1:
         return m[i][j]
     x = False
     y = False
+    # If we have not reached the end of s1, check if we can take a character from s1
     if i < len(s1) and s1[i] == s3[k]:
         x = isInterleave_helper(s1, s2, s3, i + 1, j, k + 1, m)
+    # If we have not reached the end of s2, check if we can take a character from s2
     if j < len(s2) and s2[j] == s3[k]:
         y = isInterleave_helper(s1, s2, s3, i, j + 1, k + 1, m)
+    # Save the result of the current state and return it (Memoization)
     m[i][j] = x or y
     return m[i][j]
 
@@ -21,7 +27,9 @@ def isInterleave(s1, s2, s3):
     b = len(s2)
     if a + b != len(s3):
         return False
+    # Create a memoization table initialized to -1 (indicating not yet computed)
     m = [[-1] * (b + 1) for _ in range(a + 1)]
+    # Start from the beginning of both strings and s3
     return isInterleave_helper(s1, s2, s3, 0, 0, 0, m)
 
 

@@ -9,34 +9,47 @@ class Node:
 prevNode = None
 
 
+# Function to populate the next pointer (in-order successor) for all nodes
 def populateInorderSuccessor(currentNode):
     global prevNode
+    # Base case: If current node is None, return
     if not currentNode:
         return
+    # Traverse the left subtree first (in-order)
     populateInorderSuccessor(currentNode.left)
+    # If prevNode is not None, set the next pointer of prevNode to currentNode
     if prevNode is not None:
         prevNode.next = currentNode
+    # Update prevNode to current node
     prevNode = currentNode
+    # Traverse the right subtree
     populateInorderSuccessor(currentNode.right)
 
 
+# Helper function to insert nodes into the binary search tree
 def insert(root, key):
+    # If the tree is empty, create a new node
     if not root:
         return Node(key)
     if key < root.data:
+        # Insert into the left subtree
         root.left = insert(root.left, key)
     elif key > root.data:
+        # Insert into the right subtree
         root.right = insert(root.right, key)
     return root
 
 
+# Helper function to print the in-order successor of each node
 def printInorderSuccessors(root):
     if root:
+        # Print the left subtree first
         printInorderSuccessors(root.left)
         if root.next:
             print(f"In-order successor of {root.data} is {root.next.data}")
         else:
             print(f"In-order successor of {root.data} is NULL")
+        # Print the right subtree
         printInorderSuccessors(root.right)
 
 

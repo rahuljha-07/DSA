@@ -2,27 +2,37 @@ import heapq
 
 
 def findCheapestPrice(n, flights, src, dst, K):
+    # Step 1: Build the adjacency list
     graph = [[] for _ in range(n)]
     for flight in flights:
         u, v, w = flight
+        # Store each directed flight together with its price.
         graph[u].append((v, w))
+    # Push initial state (0 cost, src, 0 stops)
     pq = [(0, src, 0)]
     # Different flight counts must remain separate states.
     dist = [[float("inf")] * (K + 2) for _ in range(n)]
     dist[src][0] = 0
+    # Explore states in increasing total cost using the priority queue.
     while pq:
         cost, node, stops = heapq.heappop(pq)
+        # Ignore a queued state superseded by a cheaper path with the same flight count.
         if cost != dist[node][stops]:
             continue
+        # If we reach the destination, return the cost
         if node == dst:
             return cost
+        # If stops exceed K, continue to the next iteration
         if stops > K:
             continue
+        # Explore neighbors
         for neighbor in graph[node]:
             nextNode, price = neighbor
+            # Only proceed if this path offers a cheaper cost
             if cost + price < dist[nextNode][stops + 1]:
                 dist[nextNode][stops + 1] = cost + price
                 heapq.heappush(pq, (cost + price, nextNode, stops + 1))
+    # If no route is found, return -1
     return -1
 
 

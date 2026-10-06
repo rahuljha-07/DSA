@@ -1,21 +1,26 @@
 ﻿def buildPrefixTable(str):
     n = len(str)
     prefixTable = [0] * n
+    # Length of the previous longest prefix suffix
     j = 0
 
     for i in range(1, n):
         while j > 0 and str[i] != str[j]:
+            # Fallback
             j = prefixTable[j - 1]
         if str[i] == str[j]:
             j += 1
+        # Update table
         prefixTable[i] = j
 
+    # Return full table instead of last value
     return prefixTable
 
 
 def longestPrefixSuffix(str):
     prefixTable = buildPrefixTable(str)
 
+    # Find the max value in the prefix table
     maxLPS = 0
     for i in range(len(prefixTable)):
         maxLPS = max(maxLPS, prefixTable[i])

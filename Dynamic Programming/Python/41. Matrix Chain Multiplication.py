@@ -1,15 +1,22 @@
 t = []
 
 
+# Recursive function to solve MCM
 def solve(arr, i, j):
+    # Base case: If the chain has less than two matrices, no cost
     if i >= j:
         return 0
+    # Check if the result is already computed in the memoization table
     if t[i][j] != -1:
         return t[i][j]
     ans = float("inf")
+    # Try placing the parenthesis at every possible split point `k`
     for k in range(i, j):
+        # Cost of multiplying matrices from i to k and k+1 to j
         temp = solve(arr, i, k) + solve(arr, k + 1, j) + arr[i - 1] * arr[k] * arr[j]
+        # Update the minimum cost
         ans = min(ans, temp)
+    # Store the result in the memoization table and return it
     t[i][j] = ans
     return ans
 

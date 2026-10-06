@@ -1,6 +1,10 @@
+# Function to calculate the Maximum Area Histogram (MAH) for a given array
 def MAH(arr, n):
+    # stores indices of nearest smaller elements to the left
     left = []          # Stores indices of nearest smaller elements to the left
+    # stores indices of nearest smaller elements to the right
     right = []         # Stores indices of nearest smaller elements to the right
+    # stack to help find nearest smaller elements
     s = []             # Stack storing (value, index)
 
     area = float('-inf')

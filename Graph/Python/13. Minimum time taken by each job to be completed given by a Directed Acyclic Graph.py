@@ -2,21 +2,28 @@ from collections import deque
 import sys
 
 
+# Function to initialize the graph and indegree array
 def initializeGraph(v, e, adj, indegree, tokens):
     for i in range(e):
         x = int(next(tokens))
         y = int(next(tokens))
+        # Edge from x to y
         adj[x].append(y)
         indegree[y] += 1
 
 
+# Function to perform topological sorting and calculate job times
 def calculateJobTimes(v, adj, indegree):
+    # Stores the minimum time to start each job
     jobTime = [0] * (v + 1)
     q = deque()
+    # Push all nodes with 0 indegree to the queue
     for i in range(1, v + 1):
         if indegree[i] == 0:
             q.append(i)
+            # Jobs with no dependencies can start immediately
             jobTime[i] = 1
+    # Perform topological sorting and calculate job completion times
     while q:
         currentNode = q.popleft()
         for neighbor in adj[currentNode]:
@@ -27,6 +34,7 @@ def calculateJobTimes(v, adj, indegree):
     return jobTime
 
 
+# Function to display job completion times
 def displayJobTimes(jobTime):
     for i in range(1, len(jobTime)):
         print(jobTime[i], end=" ")

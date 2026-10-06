@@ -1,11 +1,15 @@
 import sys
 
 
+# Function to check if a move is valid (i.e., within bounds of the keypad matrix)
 def isValid(row, col):
+    # Skip * and #
     return 0 <= row < 4 and 0 <= col < 3 and not (row == 3 and col in (0, 2))
 
 
+# Recursive function to generate all possible sequences
 def generateSequences(row, col, n, current, keypad, result):
+    # Base case: If length of the current sequence is n, add it to result
     if n == 0:
         result.append("".join(current))
         return
@@ -13,8 +17,11 @@ def generateSequences(row, col, n, current, keypad, result):
     for i in range(5):
         newRow = row + moves[i][0]
         newCol = col + moves[i][1]
+        # Ensure the move is valid
         if isValid(newRow, newCol):
+            # Append the new digit to the sequence
             current.append(chr(ord('0') + keypad[newRow][newCol]))
+            # Recurse for the next digit
             generateSequences(newRow, newCol, n - 1, current, keypad, result)
             current.pop()
 

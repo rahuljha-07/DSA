@@ -1,16 +1,22 @@
+# another O(n)
 def AlternatingMaxLength(a):
     n = len(a)
     if n == 0:
         return 0
     if n == 1:
         return 1
+    # Length of increasing subsequence
     inc = 1
+    # Length of decreasing subsequence
     dec = 1
     for i in range(1, n):
         if a[i] > a[i - 1]:
+            # Current element is greater, so extend the decreasing sequence
             inc = dec + 1
         elif a[i] < a[i - 1]:
+            # Current element is smaller, so extend the increasing sequence
             dec = inc + 1
+    # The result is the maximum length of either an increasing or decreasing sequence
     return max(inc, dec)
 
 

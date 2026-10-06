@@ -1,17 +1,29 @@
+# Function to get the maximum amount of gold
 def getMaxGold(mine):
+    # Number of rows
     n = len(mine)
     if n == 0 or not mine[0]:
         return 0
+    # Number of columns
     m = len(mine[0])
+    # Create a table to store the maximum gold collected up to each cell
     dp = [[0] * m for _ in range(n)]
+    # Copy the last column as the base case
     for i in range(n):
         dp[i][m - 1] = mine[i][m - 1]
+    # Fill the DP table column by column from right to left
     for col in range(m - 2, -1, -1):
         for row in range(n):
+            # Check the three possible directions from the current cell
+            # Right
             right = dp[row][col + 1]
+            # Diagonally up-right
             right_up = dp[row - 1][col + 1] if row - 1 >= 0 else 0
+            # Diagonally down-right
             right_down = dp[row + 1][col + 1] if row + 1 < n else 0
+            # Update the DP table with the maximum gold collected
             dp[row][col] = mine[row][col] + max(right, right_up, right_down)
+    # Find the maximum gold in the first column
     maxGold = 0
     for i in range(n):
         maxGold = max(maxGold, dp[i][0])

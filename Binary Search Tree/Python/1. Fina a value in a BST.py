@@ -6,12 +6,14 @@ class TreeNode:
 
 
 def findValue(root, target):
+    # Base case: if root is None, target is not in the tree
     if root is None:
         return False
     if root.val == target:
         return True
     if target < root.val:
         return findValue(root.left, target)
+    # Otherwise, search the right subtree
     else:
         return findValue(root.right, target)
 

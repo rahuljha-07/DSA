@@ -1,15 +1,21 @@
 def findNonRepeatingNumbers(arr):
     xxory = 0
+    # Step 1: XOR all numbers in the array
     for val in arr:
         xxory ^= val
+    # Step 2: Find the rightmost set bit (RMSB)
     rsbm = xxory & -xxory
     x = 0
     y = 0
+    # Step 3: Split numbers into two groups and XOR within each group
     for val in arr:
         if (val & rsbm) == 0:
+            # Group 1: Numbers where RMSB is 0
             x ^= val
         else:
+            # Group 2: Numbers where RMSB is 1
             y ^= val
+    # Step 4: Sort the results to ensure the output is in increasing order
     result = [x, y]
     result.sort()
     return result

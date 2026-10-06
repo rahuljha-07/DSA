@@ -1,10 +1,14 @@
+# Helper function for recursive backtracking
 def countSubsequences(idx, product, k, arr, count):
+    # Base case: If product exceeds k, stop recursion
     if product > k:
         return
+    # Count the current subsequence (valid since product <= k)
     if idx == len(arr):
         count[0] += 1
         return
     countSubsequences(idx + 1, product * arr[idx], k, arr, count)
+    # Exclude the current element
     countSubsequences(idx + 1, product, k, arr, count)
 
 
@@ -13,6 +17,7 @@ def countSubsequencesWithProductLessThanK(arr, k):
         return 0
     count = [0]
     countSubsequences(0, 1, k, arr, count)
+    # Subtract 1 to exclude the empty subsequence
     return count[0] - 1
 
 

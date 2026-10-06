@@ -1,21 +1,30 @@
+# Function to check if the graph is directed or undirected
 def isDirectedGraph(graph, V):
     for i in range(V):
         for j in range(V):
+            # In an undirected graph, graph[i][j] == graph[j][i]
             if graph[i][j] != graph[j][i]:
+                # Directed graph
                 return True
+    # Undirected graph
     return False
 
 
+# Function to count the number of triangles in a graph
 def countTriangles(graph, V, isDirected):
     count_Triangle = 0
+    # Iterate through all possible triplets of vertices (i, j, k)
     for i in range(V):
         for j in range(V):
             for k in range(V):
                 if graph[i][j] and graph[j][k] and graph[k][i]:
                     count_Triangle += 1
+    # Adjust the count based on whether the graph is directed or undirected
     if isDirected:
+        # Each triangle is counted 3 times
         count_Triangle //= 3
     else:
+        # Each triangle is counted 6 times
         count_Triangle //= 6
     return count_Triangle
 

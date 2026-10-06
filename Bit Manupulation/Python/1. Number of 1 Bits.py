@@ -1,10 +1,19 @@
+# Function to count the number of set bits in an integer `n`
 def countSetBits(n):
+    # Variable to store the count of set bits
     result = 0
+    # Helper variable initialized to 1 (binary: 0001)
     helper = 1
+    # Loop through all 32 bits (for 32-bit integers)
     for i in range(1, 33):
+        # Check if the bit at the current position is set
+        # Perform bitwise AND between `helper` and `n`
         if (helper & n) != 0:
+            # Increment the result if the bit is set
             result += 1
+        # Left shift `helper` by 1 to check the next bit in the next iteration
         helper = helper << 1
+    # Return the total count of set bits
     return result
 
 

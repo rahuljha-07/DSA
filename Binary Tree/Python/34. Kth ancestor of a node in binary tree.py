@@ -8,27 +8,39 @@ class Node:
 ancestor = -1
 
 
+# Helper function to find Kth ancestor
 def findKthAncestor(root, node, K):
     global ancestor
+    # Base case: If the node is None, return false
     if root is None:
         return False
     if root.data == node:
         return True
+    # Check both left and right subtrees
     foundInLeft = findKthAncestor(root.left, node, K)
     foundInRight = findKthAncestor(root.right, node, K)
+    # If either left or right subtree contains the node
     if foundInLeft or foundInRight:
+        # Decrease K because we are going back up the tree
         K[0] -= 1
+        # If K becomes 0, we found the Kth ancestor
         if K[0] == 0:
             ancestor = root.data
+            # stop further recursion
             return False
+        # Continue looking for the Kth ancestor
         return True
+    # Node is not found in either subtree
     return False
 
 
+# Function to find Kth ancestor of a given node
 def kthAncestor(root, node, K):
     global ancestor
+    # Reset the global ancestor variable
     ancestor = -1
     findKthAncestor(root, node, [K])
+    # Return the ancestor
     return ancestor
 
 

@@ -1,3 +1,4 @@
+# function to reverse an array
 def reverse_array(arr):
     n = len(arr)
 

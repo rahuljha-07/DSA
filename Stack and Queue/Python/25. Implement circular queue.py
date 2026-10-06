@@ -1,43 +1,52 @@
 ﻿class CircularQueueArray:
     def __init__(self, size):
         self.data = [0] * size
+        # -1 marks an empty array queue; modulo capacity makes indexes wrap around.
         self.front = -1
         self.rear = -1
         self.capacity = size
 
+    # Check if the queue is empty
     def isEmpty(self):
         return self.front == -1
 
+    # Check if the queue is full
     def isFull(self):
         return (self.rear + 1) % self.capacity == self.front
 
+    # Enqueue an element into the circular queue
     def enqueue(self, value):
         if self.isFull():
             print("Queue Overflow")
             return False
         if self.isEmpty():
             self.front = 0
+        # Advance the rear circularly, reusing the free slots at the array's beginning.
         self.rear = (self.rear + 1) % self.capacity
         self.data[self.rear] = value
         return True
 
+    # Dequeue an element from the circular queue
     def dequeue(self):
         if self.isEmpty():
             print("Queue Underflow")
             return False
         if self.front == self.rear:
+            # Queue becomes empty after this dequeue
             self.front = -1
             self.rear = -1
         else:
             self.front = (self.front + 1) % self.capacity
         return True
 
+    # Get the front element of the queue
     def getFront(self):
         if self.isEmpty():
             print("Queue is empty")
             return -1
         return self.data[self.front]
 
+    # Get the rear element of the queue
     def getRear(self):
         if self.isEmpty():
             print("Queue is empty")
@@ -54,6 +63,7 @@ class Node:
 
 class CircularQueueLinkedList:
     def __init__(self):
+        # The linked-list variant uses None for an empty queue.
         self.front = None
         self.rear = None
 
@@ -65,15 +75,23 @@ class CircularQueueLinkedList:
         if self.isEmpty():
             self.front = newNode
             self.rear = newNode
+            # Point front to rear
             self.front.next = self.rear
+            # The front's previous link points to the rear.
             self.front.prev = self.rear
+            # Make it circular
             self.rear.next = self.front
             self.rear.prev = self.front
         else:
+            # Link the new rear to both the old rear and the front, preserving the circle.
             self.rear.next = newNode
+            # Link back to rear
             newNode.prev = self.rear
+            # Circular link to front
             newNode.next = self.front
+            # Circular link from front
             self.front.prev = newNode
+            # Move rear to the new node
             self.rear = newNode
 
     def dequeue(self):
@@ -82,10 +100,13 @@ class CircularQueueLinkedList:
             return
 
         if self.front == self.rear:
+            # Only one element in the queue
             self.front = None
             self.rear = None
         else:
+            # After removing the front, reconnect the rear and new front in both directions.
             self.front = self.front.next
+            # Maintain circularity
             self.rear.next = self.front
             self.front.prev = self.rear
 
@@ -101,6 +122,7 @@ class CircularQueueLinkedList:
             return -1
         return self.rear.data
 
+    # Print the elements of the queue (for demonstration)
     def printQueue(self):
         if self.isEmpty():
             print("Queue is empty")

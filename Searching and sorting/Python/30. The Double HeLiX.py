@@ -1,34 +1,48 @@
-﻿def maxSumOfSequences(first, second):
+﻿# Function to find the maximum sum from two increasing integer sequences
+def maxSumOfSequences(first, second):
+    # Sum of the current path in the first sequence
     sum1 = 0
+    # Sum of the current path in the second sequence
     sum2 = 0
+    # Maximum sum found
     maxSum = 0
 
     i = 0
     j = 0
     while i < len(first) and j < len(second):
         if first[i] < second[j]:
+            # Add to sum1 if current element in first is smaller
             sum1 += first[i]
             i += 1
         elif first[i] > second[j]:
+            # Add to sum2 if current element in second is smaller
             sum2 += second[j]
             j += 1
         else:
+            # Found an intersection point
+            # Add the maximum of both sums plus the intersection value
             maxSum += max(sum1, sum2) + first[i]
+            # Reset sum1 for the next segment
             sum1 = 0
+            # Reset sum2 for the next segment
             sum2 = 0
             i += 1
             j += 1
 
+    # Add remaining elements in first sequence
     while i < len(first):
         sum1 += first[i]
         i += 1
 
+    # Add remaining elements in second sequence
     while j < len(second):
         sum2 += second[j]
         j += 1
 
+    # Add the maximum of the last sums to the total
     maxSum += max(sum1, sum2)
 
+    # Return the maximum sum
     return maxSum
 
 

@@ -2,6 +2,7 @@
 dy = [-1, 0, 1, -1, 1, -1, 0, 1]
 
 
+# Helper function to check if the word exists starting at (x, y) in direction (dx, dy)
 def searchInDirection(grid, word, x, y, dir):
     n = len(grid)
     m = len(grid[0])
@@ -11,8 +12,10 @@ def searchInDirection(grid, word, x, y, dir):
         newX = x + i * dx[dir]
         newY = y + i * dy[dir]
 
+        # Out of bounds or character mismatch
         if newX < 0 or newY < 0 or newX >= n or newY >= m or grid[newX][newY] != word[i]:
             return False
+    # Word matched in this direction
     return True
 
 
@@ -23,19 +26,25 @@ def searchWord(grid, word):
 
     for i in range(n):
         for j in range(m):
+            # Start searching if the first character matches
             if grid[i][j] == word[0]:
                 for dir in range(8):
                     if searchInDirection(grid, word, i, j, dir):
                         result.append((i, j))
+                        # Avoid duplicates from different directions
                         break
 
+    # Sort result to ensure lexicographical order
     result.sort()
     return result
 
 
+# KMP
+# Function to build the prefix table for KMP algorithm
 def buildPrefixTable(pattern):
     m = len(pattern)
     prefixTable = [0] * m
+    # Length of the previous longest prefix suffix
     j = 0
 
     for i in range(1, m):
@@ -47,9 +56,11 @@ def buildPrefixTable(pattern):
     return prefixTable
 
 
+# KMP search algorithm to find occurrences and their starting coordinates
 def kmpSearch(text, pattern, row, col):
     prefixTable = buildPrefixTable(pattern)
     coordinates = []
+    # Index for pattern
     j = 0
 
     for i in range(len(text)):
@@ -58,17 +69,21 @@ def kmpSearch(text, pattern, row, col):
         if text[i] == pattern[j]:
             j += 1
         if j == len(pattern):
+            # Store the starting coordinate
             coordinates.append((row, col + i - j + 1))
+            # Reset j for the next potential match
             j = prefixTable[j - 1]
     return coordinates
 
 
+# Function to search for the pattern in all directions in the 2D array
 def findOccurrences(grid, str):
     rows = len(grid)
     cols = len(grid[0])
     pattern = str
     result = []
 
+    # Search horizontally (left to right and right to left)
     for i in range(rows):
         rowText = ""
         for j in range(cols):
@@ -78,6 +93,7 @@ def findOccurrences(grid, str):
         rowText = rowText[::-1]
         result.extend(kmpSearch(rowText, pattern, i, cols - 1))
 
+    # Search vertically (top to down and down to top)
     for j in range(cols):
         colText = ""
         for i in range(rows):
@@ -87,6 +103,8 @@ def findOccurrences(grid, str):
         colText = colText[::-1]
         result.extend(kmpSearch(colText, pattern, rows - 1, j))
 
+    # Search diagonally (down-right, down-left, up-right, up-left)
+    # Down-right diagonal
     for i in range(rows):
         for j in range(cols):
             diagText = ""
@@ -97,6 +115,7 @@ def findOccurrences(grid, str):
                 y += 1
             result.extend(kmpSearch(diagText, pattern, i, j))
 
+    # Down-left diagonal
     for i in range(rows):
         for j in range(cols - 1, -1, -1):
             diagText = ""
@@ -107,6 +126,7 @@ def findOccurrences(grid, str):
                 y -= 1
             result.extend(kmpSearch(diagText, pattern, i, j))
 
+    # Up-right diagonal
     for i in range(rows - 1, -1, -1):
         for j in range(cols):
             diagText = ""
@@ -117,6 +137,7 @@ def findOccurrences(grid, str):
                 y += 1
             result.extend(kmpSearch(diagText, pattern, i, j))
 
+    # Up-left diagonal
     for i in range(rows - 1, -1, -1):
         for j in range(cols - 1, -1, -1):
             diagText = ""

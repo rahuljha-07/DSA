@@ -1,17 +1,28 @@
+# Comparator function to sort trains by departure time
 def comp(a, b):
+    # Sort by departure time
     return a[1] < b[1]
 
 
+# Function to find the maximum number of trains that can be stopped
 def maxStops(trains, n, m):
     trains.sort(key=lambda a: a[1])
+    # Step 2: Track the last departure time for each platform
+    # Platforms are 1-based
     lastDeparture = [-1] * (n + 1)
+    # To count the number of accommodated trains
     count = 0
+    # Step 3: Process each train
     for i in range(m):
+        # Platform number
         platform = trains[i][2]
         arrival = trains[i][0]
         departure = trains[i][1]
+        # If platform is empty or the train can fit after the last train
         if lastDeparture[platform] == -1 or lastDeparture[platform] <= arrival:
+            # Train is accommodated
             count += 1
+            # Update the last departure time for the platform
             lastDeparture[platform] = departure
     print("Maximum Stopped Trains =", count)
 

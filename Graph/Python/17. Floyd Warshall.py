@@ -1,13 +1,21 @@
 import sys
 
 
+# Floyd-Warshall Algorithm
 def floydWarshall(n, graph):
+    # Distance matrix
     dist = [row[:] for row in graph]
+    # Perform the algorithm
+    # Intermediate node
     for k in range(n):
+        # Source node
         for i in range(n):
+            # Destination node
             for j in range(n):
+                # Update the distance between i and j via k
                 if dist[i][k] != float("inf") and dist[k][j] != float("inf"):
                     dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+    # Print the final distance matrix
     print("Shortest distances between every pair of vertices:")
     for i in range(n):
         for j in range(n):

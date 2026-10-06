@@ -5,14 +5,18 @@
 def commonElements_count(matrix):
     result = []
 
+    # Return if the matrix is empty
     if not matrix:
         return result
 
+    # Map to store the count of each element
     elementCount = {}
+    # Number of rows
     n = len(matrix)
 
     # Initialize dictionary with elements from first row
     for num in matrix[0]:
+        # Set count to 1 for elements in the first row
         elementCount[num] = 1
 
     # Iterate through remaining rows
@@ -22,6 +26,7 @@ def commonElements_count(matrix):
 
             # If this element has appeared in every row before current row
             if elementCount.get(num, 0) == i:
+                # Increment count for this row
                 elementCount[num] += 1
 
     # Collect elements appearing in all rows
@@ -30,6 +35,7 @@ def commonElements_count(matrix):
         if value == n:
             result.append(key)
 
+    # Return the list of common elements
     return result
 
 
@@ -78,22 +84,27 @@ def commonElements_map(matrix):
 
     # Initialize dictionary using first row
     for num in matrix[0]:
+        # Initialize count for elements in the first row
         elementCount[num] = 1
 
     # Iterate through remaining rows
     for i in range(1, n):
 
+        # Map to track seen elements in the current row
         seenInCurrentRow = {}
 
         for j in range(len(matrix[i])):
 
+            # Get the current element
             num = matrix[i][j]
 
             # Check if element exists in elementCount
             # and has not already been counted in this row
             if num in elementCount and not seenInCurrentRow.get(num, False):
 
+                # Increment count in the map
                 elementCount[num] += 1
+                # Mark this element as seen in the current row
                 seenInCurrentRow[num] = True
 
     # Find elements appearing in every row
@@ -143,6 +154,7 @@ O(m)
 def commonElements_set(matrix):
     result = []
 
+    # Return empty if the matrix is empty
     if not matrix:
         return result
 
@@ -159,6 +171,7 @@ def commonElements_set(matrix):
         for num in commonElementsSet:
 
             if num in currentRowElements:
+                # Insert common elements
                 intersection.add(num)
 
         # Update common set

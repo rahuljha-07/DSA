@@ -8,6 +8,7 @@ class Node:
         self.prev = None
 
 
+# Function to sort a nearly sorted doubly linked list
 def sortNearlySortedDLL(head, k):
     if not head:
         return None
@@ -17,10 +18,13 @@ def sortNearlySortedDLL(head, k):
     newHead = None
     lastSorted = None
     curr = head
+    # Traverse the list and maintain the min-heap with a max size of `k+1`
     while curr:
         heapq.heappush(minHeap, curr.data)
+        # If heap size exceeds `k`, pop the minimum element and add it to the sorted list
         if len(minHeap) > k:
             minData = heapq.heappop(minHeap)
+            # Create new node and add to sorted list
             newNode = Node(minData)
             if not newHead:
                 newHead = newNode
@@ -30,6 +34,7 @@ def sortNearlySortedDLL(head, k):
                 newNode.prev = lastSorted
                 lastSorted = newNode
         curr = curr.next
+    # Empty the remaining elements in the heap
     while minHeap:
         minData = heapq.heappop(minHeap)
         newNode = Node(minData)

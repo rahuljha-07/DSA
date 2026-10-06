@@ -1,13 +1,18 @@
 ﻿def maxSteal(houses, index, memo):
+    # Base case: if no houses are left, return 0
     if index >= len(houses):
         return 0
 
+    # Check if we've already computed the result for this index
     if memo[index] != -1:
         return memo[index]
 
+    # Option 1: Steal from the current house and skip the next one
     steal = houses[index] + maxSteal(houses, index + 2, memo)
+    # Option 2: Skip the current house and move to the next one
     skip = maxSteal(houses, index + 1, memo)
 
+    # Store the result in memo and return the maximum of both choices
     memo[index] = max(steal, skip)
     return memo[index]
 

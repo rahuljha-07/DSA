@@ -5,6 +5,7 @@ class Node:
         self.right = None
 
 
+# Helper function to find the LCA of two nodes
 def findLCA(root, n1, n2):
     if not root:
         return None
@@ -17,28 +18,40 @@ def findLCA(root, n1, n2):
     return leftLCA if leftLCA else rightLCA
 
 
+# Function to find the distance from the root to a given node
 def findDistanceFromRoot(root, target, distance):
+    # If the root is None, return -1
     if not root:
         return -1
     if root.data == target:
         return distance
+    # Search in the left subtree
     leftDistance = findDistanceFromRoot(root.left, target, distance + 1)
+    # If the target is found in the left subtree, return the left distance
     if leftDistance != -1:
         return leftDistance
+    # Search in the right subtree
     rightDistance = findDistanceFromRoot(root.right, target, distance + 1)
+    # If the target is found in the right subtree, return the right distance
     if rightDistance != -1:
         return rightDistance
+    # If the target is not found in either subtree, return -1
     return -1
 
 
+# Function to find the minimum distance between two nodes
 def findMinDistance(root, a, b):
+    # Step 1: Find the LCA of the two nodes
     lca = findLCA(root, a, b)
+    # If LCA is not found, nodes are not in the same tree
     if not lca:
         return -1
+    # Step 2: Calculate the distance from the LCA to each of the two nodes
     distanceA = findDistanceFromRoot(lca, a, 0)
     distanceB = findDistanceFromRoot(lca, b, 0)
     if distanceA == -1 or distanceB == -1:
         return -1
+    # Step 3: The minimum distance is the sum of the distances from LCA to each node
     return distanceA + distanceB
 
 

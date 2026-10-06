@@ -8,6 +8,7 @@ class Node:
 start = 0
 
 
+# Function to construct a binary tree from a string
 def constructTree(s):
     global start
     start = 0
@@ -16,6 +17,7 @@ def constructTree(s):
     return stringToTree(s)
 
 
+# Helper function to recursively build the tree
 def stringToTree(s):
     global start
     if start >= len(s):
@@ -30,27 +32,35 @@ def stringToTree(s):
     num = 0
     while start < len(s) and s[start].isdigit():
         num = num * 10 + (ord(s[start]) - ord('0'))
+        # Skip '('
         start += 1
+    # If the number is negative
     if neg:
         num = -num
     root = Node(num)
+    # If the string has no more characters, return the root end node
     if start >= len(s):
         return root
+    # If the next character is '(', it indicates a left child
+    # If the next character is ')', it indicates the end of left child
     if start < len(s) and s[start] == '(':
         start += 1
         root.left = stringToTree(s)
+    # If the next character is '(', it indicates a right child
     if start < len(s) and s[start] == ')':
         start += 1
         return root
     if start < len(s) and s[start] == '(':
         start += 1
         root.right = stringToTree(s)
+    # If the next character is ')', it indicates the end of right child
     if start < len(s) and s[start] == ')':
         start += 1
         return root
     return root
 
 
+# Function to print the tree (in-order traversal)
 def inorder(root):
     if not root:
         return

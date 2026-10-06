@@ -2,10 +2,12 @@ directions = [(-1, 0), (1, 0), (0, -1), (0, 1),
               (-1, -1), (-1, 1), (1, -1), (1, 1)]
 
 
+# Helper function to perform DFS
 def dfs(row, col, grid, visited):
     n = len(grid)
     m = len(grid[0])
     visited[row][col] = True
+    # Explore all 8 possible directions
     for dir in directions:
         newRow = row + dir[0]
         newCol = col + dir[1]
@@ -14,17 +16,23 @@ def dfs(row, col, grid, visited):
             dfs(newRow, newCol, grid, visited)
 
 
+# Function to count the number of islands
 def numIslands(grid):
     if not grid or not grid[0]:
         return 0
     n = len(grid)
     m = len(grid[0])
+    # Visited array
     visited = [[False] * m for _ in range(n)]
     count = 0
+    # Traverse the entire grid
     for i in range(n):
         for j in range(m):
+            # If it's land ('1') and not visited, it's a new island
             if grid[i][j] == '1' and not visited[i][j]:
+                # Increment the island count
                 count += 1
+                # Perform DFS to mark the whole island
                 dfs(i, j, grid, visited)
     return count
 

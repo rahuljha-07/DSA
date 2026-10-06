@@ -2,23 +2,29 @@ rowDir = [-1, 1, 0, 0]
 colDir = [0, 0, -1, 1]
 
 
+# Function to check if the cell is within bounds and not a hurdle
 def isSafe(x, y, matrix, visited):
     rows = len(matrix)
     cols = len(matrix[0])
     return 0 <= x < rows and 0 <= y < cols and matrix[x][y] == 1 and not visited[x][y]
 
 
+# Function to find the longest path from (srcX, srcY) to (destX, destY)
 def findLongestPath(matrix, visited, srcX, srcY, destX, destY, pathLen, maxPathLen):
+    # If the destination is reached, update the maximum path length
     if srcX == destX and srcY == destY:
         maxPathLen[0] = max(maxPathLen[0], pathLen)
         return
+    # Mark the current cell as visited
     visited[srcX][srcY] = True
+    # Explore all four directions
     for i in range(4):
         newX = srcX + rowDir[i]
         newY = srcY + colDir[i]
         if isSafe(newX, newY, matrix, visited):
             findLongestPath(matrix, visited, newX, newY, destX, destY,
                             pathLen + 1, maxPathLen)
+    # Backtrack: Unmark the current cell
     visited[srcX][srcY] = False
 
 

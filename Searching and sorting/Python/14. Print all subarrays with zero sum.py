@@ -1,18 +1,26 @@
-﻿def printAllSubarraysWithZeroSum(arr, n):
+﻿# Function to find and print all subarrays with sum zero
+def printAllSubarraysWithZeroSum(arr, n):
+    # Map to store the cumulative sum and the indices where it appears
     sumMap = {}
 
+    # Initialize the cumulative sum and add a base case for sum = 0
     sum = 0
+    # For subarrays starting from index 0
     sumMap[0] = [-1]
 
+    # Iterate over the array
     for i in range(n):
+        # Add the current element to the cumulative sum
         sum += arr[i]
 
         if sum in sumMap:
+            # If found, it means there's a subarray with a sum of zero
             for startIdx in sumMap[sum]:
                 print("Subarray with zero sum found from index", startIdx + 1, "to", i)
 
         if sum not in sumMap:
             sumMap[sum] = []
+        # Store the current index in the sum map
         sumMap[sum].append(i)
 
 

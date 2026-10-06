@@ -8,11 +8,16 @@ class Node:
         self.right = None
 
 
+# Function to get the top view of a binary tree
 def getTopView(root):
+    # list to store the top view nodes
     topViewNodes = []
+    # If the root is None, return an empty list
     if not root:
         return topViewNodes
+    # Map to store the first node's data at each horizontal distance (HD)
     topViewMap = {}
+    # Start with the root at horizontal distance 0
     nodeQueue = deque([(root, 0)])
     while nodeQueue:
         currentNode, horizontalDistance = nodeQueue.popleft()
@@ -22,6 +27,7 @@ def getTopView(root):
             nodeQueue.append((currentNode.left, horizontalDistance - 1))
         if currentNode.right:
             nodeQueue.append((currentNode.right, horizontalDistance + 1))
+    # Traverse the map and add the nodes in order of HD to the result
     for entry in sorted(topViewMap):
         topViewNodes.append(topViewMap[entry])
     return topViewNodes

@@ -1,16 +1,24 @@
 ﻿def majorityElement(arr):
+    # Variable to count occurrences and hold the candidate for majority element
+    # Counter for occurrences
     count = 0
+    # Potential majority element
     candidate = 0
 
+    # Edge case: if the array contains only one element
     if len(arr) == 1:
         return arr[0]
 
     # First pass: Find the candidate for majority element
     for i in range(len(arr)):
+        # If count is zero, select the current element as the candidate
         if count == 0:
             candidate = arr[i]
 
+        # Increment or decrement the count based on the candidate
         if candidate == arr[i]:
+            # Increase count if the current element is the candidate
+            # Decrease count if the current element is not the candidate
             count += 1
         else:
             count -= 1
@@ -19,8 +27,11 @@
     count = 0
     for i in range(len(arr)):
         if candidate == arr[i]:
+            # Count the occurrences of the candidate
             count += 1
 
+    # Check if the count of the candidate is greater than n/2
+    # Return candidate if it is the majority, else -1
     return candidate if count > len(arr) // 2 else -1
 
 

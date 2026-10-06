@@ -5,6 +5,7 @@ class Node:
         self.right = None
 
 
+# Function to collect the left boundary (excluding leaf nodes)
 def getLeftBoundary(root, boundary):
     curr = root
     while curr:
@@ -16,16 +17,21 @@ def getLeftBoundary(root, boundary):
             curr = curr.right
 
 
+# Function to collect leaf nodes (in-order traversal)
 def getLeafNodes(root, boundary):
     if not root:
         return
+    # Traverse left subtree
     getLeafNodes(root.left, boundary)
     if not root.left and not root.right:
         boundary.append(root.data)
+    # Traverse right subtree
     getLeafNodes(root.right, boundary)
 
 
+# Function to collect the right boundary (excluding leaf nodes, in reverse order)
 def getRightBoundary(root, boundary):
+    # Temporary list to store right boundary
     temp = []
     curr = root
     while curr:
@@ -35,6 +41,7 @@ def getRightBoundary(root, boundary):
             curr = curr.right
         else:
             curr = curr.left
+    # Add right boundary in reverse order
     for i in range(len(temp) - 1, -1, -1):
         boundary.append(temp[i])
 
@@ -43,17 +50,20 @@ def boundaryTraversal(root):
     boundary = []
     if not root:
         return boundary
+    # Step 1: Add the root node
     boundary.append(root.data)
     if not root.left and not root.right:
         return boundary
     if root.left:
         getLeftBoundary(root.left, boundary)
+    # Step 3: Collect all leaf nodes (in-order traversal)
     getLeafNodes(root, boundary)
     if root.right:
         getRightBoundary(root.right, boundary)
     return boundary
 
 
+# Function to print the boundary traversal
 def printBoundary(boundary):
     for val in boundary:
         print(val, end=" ")

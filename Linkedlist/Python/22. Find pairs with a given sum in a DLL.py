@@ -5,33 +5,43 @@ class Node:
         self.prev = None
 
 
+# Function to find pairs with a given sum and return them in a list
 def findPairsWithSum(head, target):
+    # list to store pairs
     result = []
     if not head:
         return result
+    # Initialize pointers for the two-pointer approach
     left = head
     right = head
+    # Move `right` to the last node
     while right.next is not None:
         right = right.next
     # Adjacent nodes are still a valid pair; stop only after crossing.
     while left is not right and right.next is not left:
         sum = left.data + right.data
         if sum == target:
+            # Store the pair
             result.append((left.data, right.data))
+            # Move left pointer forward to increase sum
             left = left.next
+            # Move right pointer backward to decrease sum
             right = right.prev
         elif sum < target:
             left = left.next
         else:
             right = right.prev
+    # Return the list of pairs
     return result
 
 
+# Function to print the list of pairs
 def printPairs(pairs):
     for p in pairs:
         print(f"({p[0]}, {p[1]})")
 
 
+# Helper function to print the doubly linked list (for testing purposes)
 def printList(head):
     while head is not None:
         print(head.data, end=" <-> ")
@@ -39,6 +49,7 @@ def printList(head):
     print("NULL")
 
 
+# Function to insert a new node at the end of the doubly linked list
 def append(head, data):
     newNode = Node(data)
     if not head:

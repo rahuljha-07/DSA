@@ -6,6 +6,8 @@ def maxSumOfPairsWithDiffLessThanK(a, K):
     while i > 0:
         if a[i] - a[i - 1] < K:
             ans += a[i] + a[i - 1]
+            # use both
+            # skip the larger one
             i -= 2
         else:
             i -= 1

@@ -1,12 +1,20 @@
 ﻿def minFlipsToAlternating(s):
+    # Flips needed for the pattern "010101..."
     countFlipsToPattern1 = 0
+    # Flips needed for the pattern "101010..."
     countFlipsToPattern2 = 0
 
     for i in range(len(s)):
+        # Checking for even index
         if i % 2 == 0:
             if s[i] == '1':
+                # Pattern 1 needs to increment for '1' at even
+                # Pattern 1 needs to increment for '0' at odd
                 countFlipsToPattern1 += 1
+            # i % 2 != 0, checking for odd index
             else:
+                # Pattern 2 needs to increment for '0' at even
+                # Pattern 2 needs to increment for '1' at odd
                 countFlipsToPattern2 += 1
         else:
             if s[i] == '0':
@@ -14,6 +22,7 @@
             else:
                 countFlipsToPattern2 += 1
 
+    # Return the minimum flips required to convert to either pattern
     return min(countFlipsToPattern1, countFlipsToPattern2)
 
 

@@ -5,18 +5,24 @@ class Node:
         self.right = None
 
 
+# Internal helper function to find the LCA of two nodes
 def findLCAHelper(root, n1, n2):
+    # Base case: if root is None, return None
     if not root:
         return None
     if root.data == n1 or root.data == n2:
         return root
+    # Recursively find LCA in the left and right subtrees
     leftLCA = findLCAHelper(root.left, n1, n2)
     rightLCA = findLCAHelper(root.right, n1, n2)
+    # If both sides return non-None, this node is the LCA
     if leftLCA and rightLCA:
         return root
+    # Otherwise, return the non-None side (either leftLCA or rightLCA)
     return leftLCA if leftLCA else rightLCA
 
 
+# Public function to find the LCA by calling the helper function
 def findLCA(root, n1, n2):
     return findLCAHelper(root, n1, n2)
 

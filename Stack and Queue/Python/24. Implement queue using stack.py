@@ -3,6 +3,7 @@
         self.input = []
         self.output = []
 
+    # Enqueue an element into the queue
     def enqueue(self, value):
         self.input.append(value)
 
@@ -11,6 +12,7 @@
             self.output.append(self.input[-1])
             self.input.pop()
 
+    # Dequeue an element from the queue
     def dequeue(self):
         if len(self.output) == 0:
             if len(self.input) == 0:
@@ -18,10 +20,12 @@
                 return -1
             self._transfer()
 
+        # Pop from output stack, which represents the front of the queue
         front = self.output[-1]
         self.output.pop()
         return front
 
+    # Get the front element of the queue
     def front(self):
         if len(self.output) == 0:
             if len(self.input) == 0:
@@ -29,8 +33,10 @@
                 return -1
             self._transfer()
 
+        # Front of the queue is the top of output stack
         return self.output[-1]
 
+    # Check if the queue is empty
     def empty(self):
         return len(self.input) == 0 and len(self.output) == 0
 

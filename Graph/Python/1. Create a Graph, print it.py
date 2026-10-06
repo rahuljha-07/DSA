@@ -1,12 +1,16 @@
 class AdjacencyList:
+    # Constructor to initialize the list
     def __init__(self, v):
         self.vertices = v
         self.list = [[] for _ in range(v)]
 
+    # Add an edge between two vertices
     def addEdge(self, u, v):
+        # Assuming an undirected graph
         self.list[u].append(v)
         self.list[v].append(u)
 
+    # Print the adjacency list
     def printList(self):
         print("Adjacency List:")
         for i in range(self.vertices):
@@ -17,6 +21,7 @@ class AdjacencyList:
 
 
 class AdjacencyMatrix:
+    # Constructor to initialize the matrix
     def __init__(self, v):
         self.vertices = v
         self.matrix = [[0] * v for _ in range(v)]
@@ -25,6 +30,7 @@ class AdjacencyMatrix:
         self.matrix[u][v] = 1
         self.matrix[v][u] = 1
 
+    # Print the adjacency matrix
     def printMatrix(self):
         print("Adjacency Matrix:")
         for i in range(self.vertices):

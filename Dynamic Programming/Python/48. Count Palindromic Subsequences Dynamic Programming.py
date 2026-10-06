@@ -13,6 +13,7 @@ class Solution:
         return True
 
     def solve(self, idx, current, s):
+        # Base case: When we reach the end of the string
         if idx == len(s):
             if current and self.isPalindrome(current):
                 print("Palindrome Subsequence:", current)
@@ -20,12 +21,16 @@ class Solution:
             return 0
         if idx in self.dp and self.dp[idx][0] == current:
             return self.dp[idx][1]
+        # Choice 1: Include the current character
         pick = self.solve(idx + 1, current + s[idx], s)
+        # Choice 2: Exclude the current character
         notPick = self.solve(idx + 1, current, s)
+        # Store the result in the memoization table
         self.dp[idx] = (current, pick + notPick)
         return self.dp[idx][1]
 
     def countPalindromicSubsequences(self, s):
+        # Clear the memoization table
         self.dp.clear()
         return self.solve(0, "", s)
 

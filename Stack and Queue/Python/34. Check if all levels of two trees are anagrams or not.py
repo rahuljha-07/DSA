@@ -8,9 +8,12 @@ class TreeNode:
         self.right = None
 
 
+# Function to check if all levels of two trees are anagrams
 def areAnagrams(root1, root2):
+    # Both trees are empty
     if not root1 and not root2:
         return True
+    # Only one of the trees is empty
     if not root1 or not root2:
         return False
 
@@ -19,16 +22,19 @@ def areAnagrams(root1, root2):
     q1.append(root1)
     q2.append(root2)
 
+    # Perform level-order traversal for both trees simultaneously
     while len(q1) != 0 and len(q2) != 0:
         size1 = len(q1)
         size2 = len(q2)
 
+        # If the number of nodes at current level are different
         if size1 != size2:
             return False
 
         level1 = []
         level2 = []
 
+        # Process all nodes at the current level for tree 1
         for i in range(size1):
             node1 = q1[0]
             q1.popleft()
@@ -39,6 +45,7 @@ def areAnagrams(root1, root2):
             if node1.right:
                 q1.append(node1.right)
 
+        # Process all nodes at the current level for tree 2
         for i in range(size2):
             node2 = q2[0]
             q2.popleft()
@@ -49,15 +56,18 @@ def areAnagrams(root1, root2):
             if node2.right:
                 q2.append(node2.right)
 
+        # Sort and compare both levels
         level1.sort()
         level2.sort()
 
         if level1 != level2:
             return False
 
+    # Check if both queues are empty (same structure)
     return len(q1) == 0 and len(q2) == 0
 
 
+# Helper function to create a new tree node
 def newNode(data):
     return TreeNode(data)
 

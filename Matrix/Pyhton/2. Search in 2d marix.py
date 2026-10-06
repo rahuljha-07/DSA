@@ -1,5 +1,7 @@
 def searchMatrixBinary(matrix, target):
+    # Number of rows in the matrix
     m = len(matrix)          # Number of rows in the matrix
+    # Number of columns in the matrix
     n = len(matrix[0])       # Number of columns in the matrix
 
     low = 0
@@ -7,20 +9,27 @@ def searchMatrixBinary(matrix, target):
 
     # Binary search on the virtual 1D array
     while low <= high:
+        # Middle index in the virtual 1D array
         mid = (low + high) // 2
 
+        # Row index in the 2D matrix
         row = mid // n       # Row index in the 2D matrix
+        # Column index in the 2D matrix
         col = mid % n        # Column index in the 2D matrix
 
         if matrix[row][col] == target:
+            # Target found
             return True
 
         elif matrix[row][col] < target:
+            # Move to the right half
             low = mid + 1
 
         else:
+            # Move to the left half
             high = mid - 1
 
+    # Target not found
     return False
 
 
@@ -55,9 +64,11 @@ def searchMatrixStaircase(matrix, target):
             return True
 
         elif matrix[row][col] > target:
+            # Move left
             col -= 1         # Move left
 
         else:
+            # Move down
             row += 1         # Move down
 
     return False

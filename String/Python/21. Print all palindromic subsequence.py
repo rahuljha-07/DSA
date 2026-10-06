@@ -20,6 +20,7 @@ def countPalindromicSubsequences(str, start, end):
         for subseq in innerSubseqs:
             result.add(str[start] + subseq + str[end])
         result.add(str[start])
+        # Merge all results
         result.add(str[end])
 
     leftSubseqs = countPalindromicSubsequences(str, start + 1, end)

@@ -2,6 +2,7 @@ from collections import deque
 from math import gcd
 
 
+# BFS approach
 def waterJugBFS(m, n, d):
     if d == 0:
         return 0
@@ -17,15 +18,22 @@ def waterJugBFS(m, n, d):
         if (jug1, jug2) in visited:
             continue
         visited.add((jug1, jug2))
+        # Possible operations
+        # Fill jug1
         q.append(((m, jug2), steps + 1))
+        # Fill jug2
         q.append(((jug1, n), steps + 1))
+        # Initially both jugs are empty
+        # Empty jug1
         q.append(((0, jug2), steps + 1))
+        # Empty jug2
         q.append(((jug1, 0), steps + 1))
         q.append(((min(jug1 + jug2, m), max(jug1 + jug2 - m, 0)), steps + 1))
         q.append(((max(jug1 + jug2 - n, 0), min(jug1 + jug2, n)), steps + 1))
     return -1
 
 
+# DFS approach
 def dfsHelper(jug1, jug2, m, n, d, visited, steps):
     if jug1 == d or jug2 == d:
         return True
@@ -37,6 +45,7 @@ def dfsHelper(jug1, jug2, m, n, d, visited, steps):
         return True
     if dfsHelper(jug1, n, m, n, d, visited, steps):
         return True
+    # Perform all operations and recurse
     if dfsHelper(0, jug2, m, n, d, visited, steps):
         return True
     if dfsHelper(jug1, 0, m, n, d, visited, steps):

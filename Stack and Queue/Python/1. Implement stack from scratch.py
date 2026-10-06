@@ -2,25 +2,31 @@
     def __init__(self):
         self.data = []
 
+    # Push an element onto the stack
     def push(self, value):
         self.data.append(value)
 
+    # Remove the top element from the stack
     def pop(self):
         if not self.isEmpty():
             self.data.pop()
         else:
             print("Stack is empty, cannot pop.")
 
+    # Get the top element of the stack
     def top(self):
         if not self.isEmpty():
             return self.data[-1]
         else:
             print("Stack is empty, cannot access top.")
+            # or throw an exception
             return -1
 
+    # Check if the stack is empty
     def isEmpty(self):
         return len(self.data) == 0
 
+    # Get the current size of the stack
     def size(self):
         return len(self.data)
 

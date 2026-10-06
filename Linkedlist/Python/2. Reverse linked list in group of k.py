@@ -7,14 +7,17 @@ def reverseGroupRecursive(head, k):
     prev = None
     next = None
     count = 0
+    # Reverse first k nodes
     while current and count < k:
         next = current.next
         current.next = prev
         prev = current
         current = next
         count += 1
+    # Recursively call for the rest of the list
     if next:
         head.next = reverseGroupRecursive(next, k)
+    # prev is now the head of the reversed group
     return prev
 
 

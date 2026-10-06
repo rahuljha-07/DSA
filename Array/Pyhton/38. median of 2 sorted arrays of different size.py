@@ -12,30 +12,41 @@ def findMedian(a, b):
 
     low = 0
     high = n1
+    # Total elements in the left partition
     total = (n1 + n2 + 1) // 2
 
     while low <= high:
+        # Partition index for `a`
         mid1 = (low + high) // 2
+        # Partition index for `b` (remaining elements)
         mid2 = total - mid1
 
         # Handle partitions at the start or end of either array.
         leftA = float("-inf") if mid1 == 0 else a[mid1 - 1]
+        # Last element in left half of `b`
         leftB = float("-inf") if mid2 == 0 else b[mid2 - 1]
+        # First element in right half of `a`
         rightA = float("inf") if mid1 == n1 else a[mid1]
+        # First element in right half of `b`
         rightB = float("inf") if mid2 == n2 else b[mid2]
 
         # Correct partition: every left-side value <= every right-side value.
         if leftA <= rightB and leftB <= rightA:
+            # If total size is odd, median is the max of the left partition
             if (n1 + n2) % 2 == 1:
                 return max(leftA, leftB)
 
+            # If total size is even, median is the average of max left and min right
             return (max(leftA, leftB) + min(rightA, rightB)) / 2.0
 
+        # If leftA is greater, move left in `a`
         elif leftA > rightB:
             high = mid1 - 1
+        # If leftB is greater, move right in `a`
         else:
             low = mid1 + 1
 
+    # Should never reach here
     return 0.0  # Unreachable for valid sorted inputs.
 
 

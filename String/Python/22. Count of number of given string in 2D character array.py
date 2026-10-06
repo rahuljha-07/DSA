@@ -1,6 +1,8 @@
-﻿def buildPrefixTable(pattern):
+﻿# Function to build the prefix table for KMP algorithm
+def buildPrefixTable(pattern):
     m = len(pattern)
     prefixTable = [0] * m
+    # Length of the previous longest prefix suffix
     j = 0
 
     for i in range(1, m):
@@ -12,9 +14,11 @@
     return prefixTable
 
 
+# KMP search algorithm
 def kmpSearch(text, pattern):
     prefixTable = buildPrefixTable(pattern)
     count = 0
+    # Index for pattern
     j = 0
 
     for i in range(len(text)):
@@ -23,29 +27,38 @@ def kmpSearch(text, pattern):
         if text[i] == pattern[j]:
             j += 1
         if j == len(pattern):
+            # Found an occurrence
             count += 1
+            # Reset j for the next potential match
             j = prefixTable[j - 1]
     return count
 
 
+# Function to search for the pattern in all directions in the 2D array
 def countOccurrences(grid, str):
     rows = len(grid)
     cols = len(grid[0])
     pattern = str
     totalCount = 0
 
+    # Search horizontally (left to right and right to left)
     for i in range(rows):
         rowText = ""
         for j in range(cols):
             rowText += grid[i][j]
+        # Left to right
+        # Right to left
         totalCount += kmpSearch(rowText, pattern)
         rowText = rowText[::-1]
         totalCount += kmpSearch(rowText, pattern)
 
+    # Search vertically (top to down and down to top)
     for j in range(cols):
         colText = ""
         for i in range(rows):
             colText += grid[i][j]
+        # Top to down
+        # Down to top
         totalCount += kmpSearch(colText, pattern)
         colText = colText[::-1]
         totalCount += kmpSearch(colText, pattern)
@@ -57,24 +70,31 @@ dx = [0, 0, -1, 1]
 dy = [-1, 1, 0, 0]
 
 
+# Helper function for recursive search
 def searchFromCell(grid, pattern, x, y, index):
     rows = len(grid)
     cols = len(grid[0])
 
+    # Base cases
+    # Found the pattern
     if index == len(pattern):
         return 1
     if x < 0 or y < 0 or x >= rows or y >= cols or grid[x][y] != pattern[index]:
         return 0
 
+    # Mark the current cell as visited to prevent revisiting
     temp = grid[x][y]
+    # Temporarily mark as visited
     grid[x][y] = '#'
 
     count = 0
+    # Explore all 4 directions
     for dir in range(4):
         newX = x + dx[dir]
         newY = y + dy[dir]
         count += searchFromCell(grid, pattern, newX, newY, index + 1)
 
+    # Restore the original value of the cell
     grid[x][y] = temp
 
     return count
@@ -85,8 +105,10 @@ def countOccurrencesInGrid(grid, pattern):
     cols = len(grid[0])
     totalCount = 0
 
+    # Iterate through every cell in the matrix
     for i in range(rows):
         for j in range(cols):
+            # Start recursion if the first character matches
             if grid[i][j] == pattern[0]:
                 totalCount += searchFromCell(grid, pattern, i, j, 0)
 

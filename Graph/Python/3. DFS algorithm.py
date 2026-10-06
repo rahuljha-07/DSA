@@ -1,16 +1,24 @@
+# same function works for both directed and undirected graph
 def dfsUtil(node, adj, visited, dfs):
+    # Mark the node as visited
     visited[node] = True
+    # Add the node to the DFS traversal
     dfs.append(node)
+    # Explore all neighbors
     for neighbor in adj[node]:
         if not visited[neighbor]:
             dfsUtil(neighbor, adj, visited, dfs)
 
 
 def dfsOfGraph(adj):
+    # Number of vertices
     V = len(adj)
+    # To store DFS traversal
     dfs = []
+    # To track visited nodes
     visited = [False] * V
     if V:
+        # Start DFS from node 0 (assuming graph is connected)
         dfsUtil(0, adj, visited, dfs)
     return dfs
 

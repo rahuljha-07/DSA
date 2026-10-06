@@ -1,12 +1,18 @@
+# Recursive function to find all paths
 def findPaths(matrix, i, j, path, result):
     rows = len(matrix)
     cols = len(matrix[0])
+    # Return if the current cell is out of bounds
     if i >= rows or j >= cols:
         return
+    # Add the current cell to the path
     path.append(matrix[i][j])
+    # If we have reached the bottom-right corner, store the path
     if i == rows - 1 and j == cols - 1:
         result.append(list(path))
     else:
+        # Call the function for moving down
+        # Call the function for moving right
         findPaths(matrix, i + 1, j, path, result)
         findPaths(matrix, i, j + 1, path, result)
     path.pop()

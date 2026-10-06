@@ -1,3 +1,4 @@
+# Function to find the maximum possible sum of three stacks
 def maxSum(stack1, stack2, stack3, n1, n2, n3):
     sum1 = 0
     sum2 = 0
@@ -11,11 +12,15 @@ def maxSum(stack1, stack2, stack3, n1, n2, n3):
     top1 = 0
     top2 = 0
     top3 = 0
+    # Loop until we find the maximum possible equal sum
     while True:
+        # If any stack becomes empty, return 0
         if top1 == n1 or top2 == n2 or top3 == n3:
             return 0
+        # If the sums of all three stacks are equal, return the sum
         if sum1 == sum2 == sum3:
             return sum1
+        # Remove the top element from the stack with the largest sum
         if sum1 >= sum2 and sum1 >= sum3:
             sum1 -= stack1[top1]
             top1 += 1

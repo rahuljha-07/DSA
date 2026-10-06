@@ -8,14 +8,20 @@ class Node:
         self.right = None
 
 
+# Function to get the right view of a binary tree
 def getRightView(root):
+    # list to store the right view nodes
     rightViewNodes = []
+    # If root is None, return an empty list
     if not root:
         return rightViewNodes
     nodeQueue = deque([root])
     while nodeQueue:
+        # Number of nodes at the current level
         levelSize = len(nodeQueue)
+        # The first node in each level is part of the right view
         rightViewNodes.append(nodeQueue[0].data)
+        # Traverse all nodes at the current level
         while levelSize:
             currentNode = nodeQueue.popleft()
             if currentNode.right:

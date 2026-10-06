@@ -5,6 +5,7 @@
 def permute(s, start, end, ans):
     # Base case: permutation is complete
     if start == end:
+        # Store the current permutation in the list
         ans.append("".join(s))
 
     else:
@@ -21,22 +22,28 @@ def permute(s, start, end, ans):
             s[i], s[start] = s[start], s[i]
 
 
+# Function to find all permutations of a string
 def find_permutation_swap(s):
+    # list to store all permutations
     ans = []
 
+    # Get the length of the string
     n = len(s)
 
+    # Return an empty list if the string is empty
     if n == 0:
         return ans
 
     # Convert string to list because Python strings are immutable
     s = list(s)
 
+    # Call the permute function to generate permutations
     permute(s, 0, n - 1, ans)
 
     # Sort in lexicographical order
     ans.sort()
 
+    # Return the list containing all permutations
     return ans
 
 
@@ -108,11 +115,14 @@ def solve(input, output, ans):
         )
 
 
+# Function to find all unique permutations of a given string
 def find_permutation_ip_op(S):
+    # Initialize a list to store the permutations
     ans = []
 
     solve(S, "", ans)
 
+    # Return the list containing all unique permutations
     return ans
 
 

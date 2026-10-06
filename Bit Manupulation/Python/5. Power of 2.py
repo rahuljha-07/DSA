@@ -1,6 +1,8 @@
 def isPowerOfTwoUsingBitwise(n):
+    # Negative numbers and 0 are not powers of 2
     if n <= 0:
         return False
+    # Check if n has only one set bit
     return (n & (n - 1)) == 0
 
 
@@ -9,8 +11,11 @@ def isPowerOfTwoUsingCount(n):
         return False
     count = 0
     while n > 0:
+        # Check if the least significant bit is set
         count += n & 1
+        # Right shift to process the next bit
         n = n >> 1
+    # A number is a power of 2 if it has exactly 1 set bit
     return count == 1
 
 

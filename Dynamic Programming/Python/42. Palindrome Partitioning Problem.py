@@ -1,6 +1,8 @@
 t = []
 
 
+# Helper function to check if a substring str[i..j] is a palindrome.
+# Time Complexity: O(j - i) for each call (linear check of the substring).
 def isPalindrome(str, i, j):
     while i < j:
         if str[i] != str[j]:
@@ -11,18 +13,26 @@ def isPalindrome(str, i, j):
 
 
 def solve(str, i, j):
+    # Base case: If the substring length is 1 or less, no cuts are needed
     if i >= j:
         return 0
+    # If the substring is already a palindrome, no cuts are needed
     if isPalindrome(str, i, j):
         return 0
+    # Check if the result is already computed
     if t[i][j] != -1:
         return t[i][j]
     ans = float("inf")
+    # Try all possible partitions
     for k in range(i, j):
+        # Avoid redundant recursive calls by checking the memoization table
         left = t[i][k] if t[i][k] != -1 else solve(str, i, k)
         right = t[k + 1][j] if t[k + 1][j] != -1 else solve(str, k + 1, j)
+        # Calculate the number of cuts recursively
         temp = left + right + 1
+        # Update the minimum cuts
         ans = min(ans, temp)
+    # Store the result in the memoization table
     t[i][j] = ans
     return ans
 

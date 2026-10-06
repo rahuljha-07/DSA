@@ -1,22 +1,32 @@
+# Function to find the lexicographically smallest string
 def chooseAndSwap(str):
+    # Set to store remaining characters
     remainingChars = set()
     n = len(str)
+    # Step 1: Add all characters of the string to the set
     for i in range(n):
         remainingChars.add(str[i])
     str = list(str)
+    # Step 2: Iterate through the string
     for i in range(n):
         remainingChars.discard(str[i])
+        # If no remaining characters, break
         if not remainingChars:
             break
+        # Find the smallest character in the remaining set
         smallestChar = min(remainingChars)
+        # Check if swapping the current character with the smallest character is beneficial
         if smallestChar < str[i]:
             currentChar = str[i]
+            # Step 3: Perform the swap operation
             for j in range(n):
                 if str[j] == currentChar:
                     str[j] = smallestChar
                 elif str[j] == smallestChar:
                     str[j] = currentChar
+            # Break after the first beneficial swap
             break
+    # Return the resulting string
     return "".join(str)
 
 

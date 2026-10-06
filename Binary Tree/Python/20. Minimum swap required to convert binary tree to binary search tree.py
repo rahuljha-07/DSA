@@ -1,11 +1,16 @@
+# Function to perform in-order traversal of the binary tree
 def inOrderTraversal(tree, inOrder, index):
     if index >= len(tree):
         return
+    # Left child
     inOrderTraversal(tree, inOrder, 2 * index + 1)
+    # Node itself
     inOrder.append(tree[index])
+    # Right child
     inOrderTraversal(tree, inOrder, 2 * index + 2)
 
 
+# Function to calculate minimum swaps to sort an array
 def minSwaps(nums):
     N = len(nums)
     v = [(nums[i], i) for i in range(N)]
@@ -23,6 +28,7 @@ def minSwaps(nums):
     return c
 
 
+# Function to find the minimum swaps to convert binary tree to BST
 def minSwapsToConvertToBST(tree):
     inOrder = []
     inOrderTraversal(tree, inOrder, 0)

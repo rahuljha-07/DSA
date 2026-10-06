@@ -3,9 +3,12 @@ bestSet1 = []
 bestSet2 = []
 
 
+# Recursive function to solve the Tug of War problem
 def solve(arr, index, set1, set2, sumSet1, sumSet2):
     global minDifference, bestSet1, bestSet2
+    # Base case: If all elements are placed
     if index == len(arr):
+        # Ensure valid partition size
         if abs(len(set1) - len(set2)) > 1:
             return
         delta = abs(sumSet1 - sumSet2)

@@ -1,18 +1,27 @@
+# Helper function to perform DFS and store nodes in topological order
 def topoSortUtil(node, adj, visited, topoStack):
+    # Mark the node as visited
     visited[node] = True
+    # Explore all neighbors
     for neighbor in adj[node]:
         if not visited[neighbor]:
             topoSortUtil(neighbor, adj, visited, topoStack)
+    # Push the node into the stack after exploring all its neighbors
     topoStack.append(node)
 
 
 def topologicalSort(adj):
+    # Number of vertices
     V = len(adj)
+    # To track visited nodes
     visited = [False] * V
+    # Stack to store topological order
     topoStack = []
+    # Perform DFS for all unvisited nodes
     for i in range(V):
         if not visited[i]:
             topoSortUtil(i, adj, visited, topoStack)
+    # Extract nodes from the stack to get the topological order
     topoOrder = []
     while topoStack:
         topoOrder.append(topoStack.pop())

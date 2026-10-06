@@ -11,6 +11,7 @@ class Trie:
     def __init__(self):
         self.root = TrieNode()
 
+    # Insert a contact into the Trie
     def insert(self, contact):
         node = self.root
         for c in contact:
@@ -18,15 +19,19 @@ class Trie:
             if node.children[index] is None:
                 node.children[index] = TrieNode()
             node = node.children[index]
+            # Add contact to the contact list of the current node
             node.contactList.append(contact)
 
+    # Function to retrieve all contacts that start with the given prefix
     def getContactsByPrefix(self, prefix):
         node = self.root
         for c in prefix:
             index = ord(c) - ord('a')
             if node.children[index] is None:
+                # Return empty if no contacts match the prefix
                 return []
             node = node.children[index]
+        # Sort the contacts for the given prefix in lexicographical order
         node.contactList.sort()
         return list(node.contactList)
 

@@ -1,17 +1,25 @@
-﻿def threeWayPartition(arr, pivot):
+﻿# code uses logic of dutch national flag
+def threeWayPartition(arr, pivot):
+    # Pointer for the next position of elements less than pivot
     low = 0
+    # Pointer for the current element being checked
     mid = 0
+    # Pointer for the next position of elements greater than pivot
     high = len(arr) - 1
 
+    # Iterate until mid pointer crosses high pointer
     while mid <= high:
         if arr[mid] < pivot:
+            # Swap arr[low] and arr[mid], increment both low and mid
             arr[low], arr[mid] = arr[mid], arr[low]
             low += 1
             mid += 1
         elif arr[mid] > pivot:
+            # Swap arr[mid] and arr[high], decrement high
             arr[mid], arr[high] = arr[high], arr[mid]
             high -= 1
         else:
+            # Just increment mid
             mid += 1
 
 

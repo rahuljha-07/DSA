@@ -72,6 +72,7 @@ def minDistanceHelper(word1, word2, dp, i, j):
 # Main function
 def minDistance(word1, word2):
 
+    # Get lengths of both strings
     m = len(word1)
     n = len(word2)
 

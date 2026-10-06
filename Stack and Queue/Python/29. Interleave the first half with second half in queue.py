@@ -1,6 +1,7 @@
 ﻿from collections import deque
 
 
+# Function to interleave the first half with the second half of a queue
 def interleaveQueue(q):
     if len(q) % 2 != 0:
         print("Queue size must be even for interleaving.")
@@ -10,18 +11,23 @@ def interleaveQueue(q):
     halfSize = n // 2
     firstHalf = deque()
 
+    # Step 1: Move the first half of elements to another queue
     for i in range(halfSize):
         firstHalf.append(q[0])
         q.popleft()
 
+    # Step 2: Interleave elements from firstHalf and secondHalf (remaining q elements)
     while len(firstHalf) != 0:
+        # First half element
         q.append(firstHalf[0])
         firstHalf.popleft()
 
+        # Second half element
         q.append(q[0])
         q.popleft()
 
 
+# Function to display the elements of the queue
 def displayQueue(q):
     print(*q)
 

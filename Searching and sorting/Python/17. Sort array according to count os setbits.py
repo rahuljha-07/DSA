@@ -1,12 +1,16 @@
-﻿def countSetBits(n):
+﻿# Function to count the number of set bits in an integer
+def countSetBits(n):
     count = 0
     while n:
         count += n & 1
+        # Right shift the number
         n >>= 1
     return count
 
 
+# Function to sort the array by set bit count
 def sortBySetBitCount(arr):
+    # Use each number's set-bit count as the descending sort key.
     arr.sort(key=countSetBits, reverse=True)
 
 

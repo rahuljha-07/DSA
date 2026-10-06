@@ -13,16 +13,24 @@ def maxZeroSumSubarray(columnSums):
 
 
 def solve(matrix, rowStart):
+    # Number of rows
     n = len(matrix)
+    # Number of columns
     m = len(matrix[0])
     maxArea = 0
+    # Initialize column sums to 0
     columnSums = [0] * m
+    # Extend the submatrix downwards from rowStart
     for rowEnd in range(rowStart, n):
+        # Accumulate column sums
         for col in range(m):
             columnSums[col] += matrix[rowEnd][col]
+        # Calculate the maximum zero-sum subarray length in the current column sums
         maxWidth = maxZeroSumSubarray(columnSums)
+        # Calculate the area of the current submatrix
         height = rowEnd - rowStart + 1
         currentArea = maxWidth * height
+        # Update the maximum area found
         maxArea = max(maxArea, currentArea)
     return maxArea
 
@@ -32,6 +40,7 @@ def largestSubmatrixWithSumZero(matrix):
     if n == 0 or not matrix[0]:
         return 0
     maxArea = 0
+    # Iterate over each starting row
     for rowStart in range(n):
         maxArea = max(maxArea, solve(matrix, rowStart))
     return maxArea

@@ -1,18 +1,28 @@
+# Function to perform DFS
 def dfs(node, k, graph, visited):
+    # If the accumulated path length exceeds k, return true
     if k <= 0:
         return True
+    # Mark the current node as visited
     visited[node] = True
+    # Explore all neighbors
     for neighbor in graph[node]:
         nextNode, weight = neighbor
+        # If the neighbor is not visited
         if not visited[nextNode]:
+            # Recursive call to explore deeper paths
             if dfs(nextNode, k - weight, graph, visited):
                 return True
+    # Backtrack: Unmark the current node as visited
     visited[node] = False
+    # No valid path found
     return False
 
 
 def isPathMoreThanK(n, k, src, graph):
+    # Initialize visited array
     visited = [False] * n
+    # Perform DFS from the source
     return dfs(src, k, graph, visited)
 
 

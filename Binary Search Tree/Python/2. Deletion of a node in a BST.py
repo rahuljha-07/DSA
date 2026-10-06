@@ -5,6 +5,7 @@ class Node:
         self.right = None
 
 
+# Helper function to find the maximum value in the left subtree
 def findMax(root):
     while root.right is not None:
         root = root.right
@@ -12,28 +13,38 @@ def findMax(root):
 
 
 def deleteNode(root, key):
+    # Base case: if the tree is empty, return None
     if root is None:
         return None
+    # Traverse the tree to find the node to delete
     if key > root.data:
+        # Search in the right subtree
         root.right = deleteNode(root.right, key)
     elif key < root.data:
+        # Search in the left subtree
         root.left = deleteNode(root.left, key)
     else:
         if root.left is None and root.right is None:
             return None
+        # Case 2: Node has only right child
         elif root.left is None:
             temp = root.right
             return temp
+        # Case 3: Node has only left child
         elif root.right is None:
             temp = root.left
             return temp
+        # Case 4: Node has two children
         else:
             maxNode = findMax(root.left)
+            # Replace root's data with max value in left subtree
             root.data = maxNode.data
             root.left = deleteNode(root.left, maxNode.data)
+    # Return the (possibly modified) root pointer
     return root
 
 
+# Function to perform an in-order traversal for testing
 def inOrderTraversal(root):
     if not root:
         return

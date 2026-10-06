@@ -1,6 +1,7 @@
 INT_MIN = float("-inf")
 
 
+# your Kadane's algorithm
 def maxSubarraySum(arr):
     maxi = INT_MIN
     sum = 0
@@ -12,19 +13,27 @@ def maxSubarraySum(arr):
     return maxi
 
 
+# same shape as your `solve` from above question
 def solve(matrix, rowStart):
+    # rows
     n = len(matrix)
+    # cols
     m = len(matrix[0])
     maxSum = INT_MIN
+    # columnwise running sums for the band [rowStart..rowEnd]
     columnSums = [0] * m
+    # Extend the submatrix downward from rowStart
     for rowEnd in range(rowStart, n):
+        # Accumulate column sums
         for col in range(m):
             columnSums[col] += matrix[rowEnd][col]
+        # For the current band, best rectangle = Kadane on columnSums
         bestHere = maxSubarraySum(columnSums)
         maxSum = max(maxSum, bestHere)
     return maxSum
 
 
+# outer driver (same loop pattern)
 def maximumSumRectangle(matrix):
     n = len(matrix)
     if n == 0 or not matrix[0]:

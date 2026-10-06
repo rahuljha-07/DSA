@@ -5,15 +5,22 @@ def findKthSmallestAndLargest(nums, k):
     if not 1 <= k <= len(nums):
         raise ValueError("k must be between 1 and the array length")
     minHeap = []
+    # Max-heap to store the k smallest elements (for the k-th smallest element)
     maxHeap = []
+    # Counter to track the number of elements added to the heaps
     counter = 0
+    # Iterate through all elements in the array
     for num in nums:
         heapq.heappush(minHeap, num)
+        # Store negated values so heapq's min-heap behaves as a max-heap.
         heapq.heappush(maxHeap, -num)
+        # Increment counter after adding an element
         counter += 1
         if counter > k:
             heapq.heappop(minHeap)
             heapq.heappop(maxHeap)
+    # The root of the min-heap now contains the k-th largest element
+    # The root of the max-heap now contains the k-th smallest element
     return -maxHeap[0], minHeap[0]
 
 

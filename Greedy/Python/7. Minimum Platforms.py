@@ -1,19 +1,29 @@
 def minimumPlatforms(arr, dep, n):
+    # Step 1: Sort arrival and departure arrays
     arr[:n] = sorted(arr[:n])
     dep[:n] = sorted(dep[:n])
     if n == 0:
         return 0
+    # Step 2: Initialize variables
+    # Minimum 1 platform for the first train
     platforms_needed = 1
+    # To store the final result
     result = 1
     i, j = 1, 0
+    # Step 3: Traverse arrival and departure arrays
     while i < n and j < n:
+        # If next train arrives before the current one departs
         if arr[i] <= dep[j]:
+            # Increase platform count
             platforms_needed += 1
             i += 1
         else:
+            # Train departs, reduce platform count
             platforms_needed -= 1
             j += 1
+        # Update the result with the maximum platforms needed so far
         result = max(result, platforms_needed)
+    # Return the minimum number of platforms required
     return result
 
 

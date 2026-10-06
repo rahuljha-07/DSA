@@ -11,6 +11,7 @@ class StackWithMiddle:
         self.mid = None
         self.count = 0
 
+    # Push an element onto the stack
     def push(self, data):
         newNode = Node(data)
 
@@ -24,11 +25,13 @@ class StackWithMiddle:
 
         self.count += 1
 
+        # Update mid pointer
         if self.count == 1:
             self.mid = self.head
         elif self.count % 2 == 0:
             self.mid = self.mid.prev
 
+    # Pop the top element from the stack
     def pop(self):
         if self.count == 0:
             print("Stack is empty.")
@@ -48,6 +51,7 @@ class StackWithMiddle:
 
         return data
 
+    # Find the middle element of the stack
     def findMiddle(self):
         if self.count == 0:
             print("Stack is empty.")
@@ -62,19 +66,24 @@ class StackWithMiddle:
         temp = self.mid
         midData = self.mid.data
 
+        # Case 1: Only one element in the stack
         if self.count == 1:
             self.head = None
             self.mid = None
+        # Case 2: Middle node has both prev and next
         else:
             if self.mid.prev:
                 self.mid.prev.next = self.mid.next
             if self.mid.next:
                 self.mid.next.prev = self.mid.prev
 
+        # Move `mid` correctly after deletion
         if self.count > 1:
             if self.count % 2 == 0:
+                # Move forward when count is even
                 self.mid = temp.next
             else:
+                # Move backward when count is odd
                 self.mid = temp.prev
 
         self.count -= 1

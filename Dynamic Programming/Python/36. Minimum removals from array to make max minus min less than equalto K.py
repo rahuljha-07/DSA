@@ -1,21 +1,29 @@
 import sys
 
 
+# Recursive helper function with memoization
 def minRemovalsHelper(left, right, arr, k, dp):
+    # Base case: If the range is valid
     if left > right or arr[right] - arr[left] <= k:
         return 0
+    # If already computed, return the stored value
     if dp[left][right] != -1:
         return dp[left][right]
+    # Remove either the leftmost or the rightmost element
     removeLeft = minRemovalsHelper(left + 1, right, arr, k, dp)
     removeRight = minRemovalsHelper(left, right - 1, arr, k, dp)
+    # Store and return the result
     dp[left][right] = 1 + min(removeLeft, removeRight)
     return dp[left][right]
 
 
 def minRemovalsToSatisfyCondition(arr, k):
     n = len(arr)
+    # Sort the array
     arr.sort()
+    # Create a memoization table initialized to -1
     dp = [[-1] * n for _ in range(n)]
+    # Call the recursive helper function
     return minRemovalsHelper(0, n - 1, arr, k, dp)
 
 

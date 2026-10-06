@@ -5,33 +5,44 @@ class Node:
         self.right = None
 
 
+# Helper function to print a path
 def printPath(path):
     for val in path:
         print(val, end=" ")
     print()
 
 
+# Recursive DFS function to find paths with sum = k
 def findKSumPaths(root, path, k, currentSum):
     if not root:
         return
+    # Add the current node to the path and update the sum
     path.append(root.data)
     currentSum += root.data
+    # Check if the sum of the current path equals k
     if currentSum == k:
+        # Print the path
         printPath(path)
+    # Explore left and right subtrees
     findKSumPaths(root.left, path, k, currentSum)
     findKSumPaths(root.right, path, k, currentSum)
     path.pop()
 
 
+# Function to start the process for all nodes in the tree
 def printAllKSumPaths(root, k):
     if not root:
         return
+    # Temporary list to store the current path
     path = []
+    # Start the DFS traversal from the current node
     findKSumPaths(root, path, k, 0)
+    # Recursively check for paths starting at the left and right subtrees
     printAllKSumPaths(root.left, k)
     printAllKSumPaths(root.right, k)
 
 
+# Wrapper function to initialize parameters and call the core logic
 def printPathsWithSum(root, k):
     print(f"Paths with sum {k} are:")
     printAllKSumPaths(root, k)

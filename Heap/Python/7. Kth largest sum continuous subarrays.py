@@ -1,19 +1,24 @@
 import heapq
 
 
+# Function to find the k-th largest sum of a contiguous subarray
 def kthLargestSum(arr, k):
     n = len(arr)
     if not 1 <= k <= n * (n + 1) // 2:
         raise ValueError("k must be between 1 and the number of subarrays")
     # Keep the source variable name, but use a min-heap to retain LARGEST sums.
     maxHeap = []
+    # Traverse all subarrays and calculate their sums
     for i in range(n):
         sum = 0
         for j in range(i, n):
+            # Calculate sum of subarray arr[i...j]
             sum += arr[j]
             heapq.heappush(maxHeap, sum)
+            # When more than k sums are stored, remove the smallest sum.
             if len(maxHeap) > k:
                 heapq.heappop(maxHeap)
+    # The smallest of the retained k largest sums is the k-th largest overall.
     return maxHeap[0]
 
 

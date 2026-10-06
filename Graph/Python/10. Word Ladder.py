@@ -1,35 +1,47 @@
 from collections import deque
 
 
+# Function to generate all possible one-letter transformations of a word
 def wordMatch(word, visited, q):
     for i in range(len(word)):
+        # Convert the word to a mutable character array
         tempWord = list(word)
         for c in "abcdefghijklmnopqrstuvwxyz":
             tempWord[i] = c
             candidate = "".join(tempWord)
             if candidate in visited and not visited[candidate]:
+                # Add the word to the queue for BFS
                 q.append(candidate)
                 visited[candidate] = True
 
 
+# Function to find the shortest transformation sequence
 def ladderLength(beginWord, endWord, wordList):
     wordSet = set(wordList)
     if endWord not in wordSet:
         return 0
+    # Create a visited map to track visited words
     visited = {}
     for word in wordList:
         visited[word] = False
     q = deque([beginWord])
     visited[beginWord] = True
+    # Length of the transformation sequence
     length = 1
+    # Perform BFS
     while q:
+        # Number of elements in the current level
         size = len(q)
         for i in range(size):
             currentWord = q.popleft()
+            # If the endWord is found, return the length of the sequence
             if currentWord == endWord:
                 return length
+            # Generate all valid transformations of the current word
             wordMatch(currentWord, visited, q)
+        # Increment the transformation length for the next level
         length += 1
+    # If BFS completes without finding the endWord, return 0
     return 0
 
 

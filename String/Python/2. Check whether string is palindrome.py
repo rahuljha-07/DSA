@@ -6,11 +6,13 @@ def isPalindrome(S):
     while i < j:
 
         if S[i] != S[j]:
+            # Not a palindrome
             return 0  # Not a palindrome
 
         i += 1
         j -= 1
 
+    # It's a palindrome
     return 1  # It's a palindrome
 
 

@@ -7,29 +7,39 @@ class Node:
         self.next = None
 
 
+# Merge K Sorted Linked Lists
 def mergeKLists(arr, k):
     minHeap = []
+    # Step 1: Push the head of each list into the min-heap
     for i in range(k):
         if arr[i] is not None:
             heapq.heappush(minHeap, (arr[i].data, id(arr[i]), arr[i]))
+    # Dummy node to serve as the head of the result list
     head = None
     curr = None
+    # Step 2: Pop the smallest node from the heap and push its next node into the heap
     while minHeap:
         top = heapq.heappop(minHeap)
+        # Node reference
         currNode = top[2]
+        # Value of the node
         currData = top[0]
+        # If the result list is empty, initialize it
         if head is None:
             head = currNode
             curr = head
         else:
+            # Append the smallest node to the result list
             curr.next = currNode
             curr = curr.next
         if currNode.next is not None:
             nextNode = currNode.next
             heapq.heappush(minHeap, (nextNode.data, id(nextNode), nextNode))
+    # Step 3: Return the head of the merged linked list
     return head
 
 
+# Helper function to print the linked list
 def printList(head):
     while head is not None:
         print(head.data, end=" ")
@@ -37,6 +47,7 @@ def printList(head):
     print()
 
 
+# merge in pair of 2 and then reutrn
 def mergesort(first, second):
     if first is None:
         return second
@@ -70,6 +81,7 @@ def mergesort(first, second):
     return third
 
 
+# Function to merge K sorted linked list.
 def mergeKListsPairwise(arr, k):
     if k <= 0:
         return None

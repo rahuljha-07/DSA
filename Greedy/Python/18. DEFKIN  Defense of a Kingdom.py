@@ -5,18 +5,22 @@ def largestUndefendedRectangle(w, h, towers):
     x_coords = [0]
     y_coords = [0]
     for tower in towers:
+        # Add border coordinates (0 and max width/height)
         x_coords.append(tower[0])
         y_coords.append(tower[1])
     x_coords.append(w + 1)
     y_coords.append(h + 1)
+    # Sort the coordinates
     x_coords.sort()
     y_coords.sort()
+    # Find the maximum gaps between consecutive x and y coordinates
     max_x_gap = 0
     max_y_gap = 0
     for i in range(1, len(x_coords)):
         max_x_gap = max(max_x_gap, x_coords[i] - x_coords[i - 1] - 1)
     for i in range(1, len(y_coords)):
         max_y_gap = max(max_y_gap, y_coords[i] - y_coords[i - 1] - 1)
+    # The largest undefended rectangle is the product of the largest gaps
     return max_x_gap * max_y_gap
 
 

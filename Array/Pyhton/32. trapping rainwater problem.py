@@ -19,6 +19,7 @@ def trappingWater(arr, n):
     # Calculate the total trapped water.
     totalWater = 0
     for i in range(n):
+        # Water trapped at index i = min(maxLeft[i], maxRight[i]) - arr[i]
         totalWater += min(maxLeft[i], maxRight[i]) - arr[i]
 
     return totalWater

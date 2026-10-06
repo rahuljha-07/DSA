@@ -1,10 +1,15 @@
 def rowWithMax1s(arr):
+    # Get number of rows
     n = len(arr)              # Number of rows
+    # Get number of columns
     m = len(arr[0])           # Number of columns
 
+    # Initialize to -1 to indicate no row found
     maxRowIndex = -1          # No row found initially
 
+    # Start from the first row
     i = 0                     # Start from first row
+    # Start from the last column
     j = m - 1                 # Start from last column
 
     # Traverse from the top-right corner
@@ -14,11 +19,14 @@ def rowWithMax1s(arr):
             # Current row has a 1 at this position,
             # so it may have more 1s than previous rows
             maxRowIndex = i
+            # Move left
             j -= 1            # Move left
 
         else:
+            # Move down
             i += 1            # Move down
 
+    # Return the row index with the maximum number of 1s found
     return maxRowIndex
 
 

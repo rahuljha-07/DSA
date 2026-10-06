@@ -31,6 +31,7 @@ def mergesort(first, second):
     return third
 
 
+# Function to merge K sorted linked list.
 def mergeKLists(arr, k):
     if k <= 0:
         return None

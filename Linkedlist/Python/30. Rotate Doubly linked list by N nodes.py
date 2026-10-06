@@ -5,6 +5,7 @@ class Node:
         self.prev = None
 
 
+# Function to find the length of the doubly linked list
 def length(head):
     len = 0
     temp = head
@@ -14,27 +15,42 @@ def length(head):
     return len
 
 
+# Function to rotate the doubly linked list by N nodes
 def rotate(head, N):
     if head is None or head.next is None or N == 0:
+        # No rotation needed for empty or single-node list, or N=0
         return head
+    # Step 1: Find the length of the list
     len = length(head)
+    # Step 2: If N is greater than the length of the list, take N % length to avoid extra
+    # rotations
     N = N % len
+    # No rotation needed if N is a multiple of length
     if N == 0:
         return head
+    # Step 3: Traverse till N node
     newTail = head
     for i in range(1, N):
         newTail = newTail.next
+    # Step 4: The (N + 1)th node becomes the new head
     newHead = newTail.next
+    # Step 5: Update the pointers to rotate the list
+    # New tail points to None
     newTail.next = None
+    # New head's previous pointer becomes None
     newHead.prev = None
+    # Find the last node of the list (old tail)
     oldTail = newHead
     while oldTail.next is not None:
         oldTail = oldTail.next
+    # The old tail's next pointer should now point to the old head
     oldTail.next = head
     head.prev = oldTail
+    # Step 6: Return the new head of the list
     return newHead
 
 
+# Function to print the doubly linked list
 def printList(head):
     temp = head
     while temp is not None:
@@ -43,6 +59,7 @@ def printList(head):
     print()
 
 
+# Helper function to insert nodes at the end of the doubly linked list
 def insert(head, data):
     newNode = Node(data)
     if head is None:

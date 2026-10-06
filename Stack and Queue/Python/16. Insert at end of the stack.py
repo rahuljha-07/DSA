@@ -1,20 +1,28 @@
-﻿def insertAtEndStack(s, val):
+﻿# Recursive function to insert a value at the end of a stack
+def insertAtEndStack(s, val):
+    # Base case: If the stack is empty, push the value
     if len(s) == 0:
         s.append(val)
         return
 
+    # Recursive case: Pop the top element
     topElement = s[-1]
     s.pop()
 
+    # Recursive call to insert the value into the remaining stack
     insertAtEndStack(s, val)
 
+    # Push the popped element back onto the stack
     s.append(topElement)
 
 
+# Function to perform the insertion of a value into the stack
 def performInsertion(s, val):
+    # Insert value at the end of the stack
     insertAtEndStack(s, val)
 
 
+# Function to print the elements of the stack (for demonstration)
 def printStack(s):
     temp = s.copy()
     while len(temp) != 0:

@@ -2,6 +2,7 @@ from collections import deque
 
 
 def maximumOfAllSubarrays(arr, k):
+    # To store the results (maximum of each window)
     ans = []
     window = deque()
     i = 0
@@ -14,13 +15,21 @@ def maximumOfAllSubarrays(arr, k):
         while window and window[-1] < arr[j]:
             window.pop()
         window.append(arr[j])
+        # If the size of the window is less than k
         if j - i + 1 < k:
+            # Expand the window by moving 'j' forward
             j += 1
+        # When the window size reaches k
         elif j - i + 1 == k:
+            # The element at the front of the list is the maximum for this window
             ans.append(window[0])
+            # If the element at the front of the list is out of the window, pop it
             if arr[i] == window[0]:
                 window.popleft()
+            # Slide the window by incrementing 'i' and 'j'
             i += 1
+            # This should be outside the `else if` block to ensure it's executed in every
+            # loop
             j += 1
     return ans
 

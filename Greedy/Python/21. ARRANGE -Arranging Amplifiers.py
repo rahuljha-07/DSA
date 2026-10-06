@@ -8,6 +8,7 @@ def main():
     tokens = iter(map(int, sys.stdin.read().split()))
     n = next(tokens)
     arr = []
+    # Counter for the number of 1s
     countOnes = 0
     for _ in range(n):
         value = next(tokens)
@@ -17,9 +18,13 @@ def main():
     arr.sort(reverse=True)
     for _ in range(countOnes):
         print(1, end=" ")
+    # Special case: If there are exactly two elements left and they are 3 and 2
     if n - countOnes == 2 and arr[0] == 3 and arr[1] == 2:
         print("2 3")
     else:
+        # Input array and count the number of 1s
+        # Output all 1s first
+        # Output the remaining elements
         for i in range(n - countOnes):
             print(arr[i], end=" ")
         print()

@@ -5,18 +5,24 @@ class Node:
         self.right = None
 
 
+# / Function to find predecessor and successor
 def findPreSuc(root, pre, suc, key):
     if not root:
         return pre, suc
+    # Traverse left subtree to find potential predecessor
     pre, suc = findPreSuc(root.left, pre, suc, key)
     if root.key < key:
+        # Update predecessor
         pre = root
     elif root.key > key and not suc:
+        # Update successor if it's the first larger node found
         suc = root
+    # Traverse right subtree to find potential successor
     pre, suc = findPreSuc(root.right, pre, suc, key)
     return pre, suc
 
 
+# Helper function to insert a node in BST
 def insert(root, key):
     if not root:
         return Node(key)

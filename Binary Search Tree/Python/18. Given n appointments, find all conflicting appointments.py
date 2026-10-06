@@ -21,12 +21,16 @@ class Event:
         return self.time < other.time
 
 
+# Function to check if two intervals overlap
 def doOverlap(i1, i2):
+    # Check if intervals i1 and i2 overlap
     return not (i1.high <= i2.low or i2.high <= i1.low)
 
 
+# Function to print conflicting intervals
 def printConflicting(intervals):
     n = len(intervals)
+    # Check each pair of intervals
     for i in range(n):
         for j in range(i + 1, n):
             if doOverlap(intervals[i], intervals[j]):
@@ -36,20 +40,29 @@ def printConflicting(intervals):
 
 def printConflictingSweep(intervals):
     events = []
+    # Step 1: Convert each interval into start and end events
     for i in range(len(intervals)):
         intervals[i].id = i
+        # start event
         events.append(Event(intervals[i].low, True, intervals[i]))
+        # end event
         events.append(Event(intervals[i].high, False, intervals[i]))
+    # Step 2: Sort all events by time
     events.sort()
+    # Step 3: Sweep line: store active intervals
+    # store interval IDs that are currently running
     active = []
     for event in events:
         if event.isStart:
+            # A new interval is starting - check for conflicts
             for id in active:
                 other = intervals[id]
                 print(f"[{event.interval.low}, {event.interval.high}]"
                       f" conflicts with [{other.low}, {other.high}]")
+            # Add this interval to the active set
             insort(active, event.interval.id)
         else:
+            # Remove an ending interval so it no longer conflicts with later starts.
             active.pop(bisect_left(active, event.interval.id))
 
 

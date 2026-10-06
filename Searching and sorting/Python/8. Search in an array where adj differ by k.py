@@ -2,13 +2,22 @@
     n = len(arr)
     i = 0
 
+    # Iterate through the array
     while i < n:
+        # Check if the current element is equal to the key
         if arr[i] == x:
+            # Return the index if found
             return i
 
+        # Calculate the difference between the current element and the key
         diff = abs(arr[i] - x)
+        # Move to the next index based on the step property
+        # We can skip ahead by the difference divided by k
+        # and move to the right index without skipping possible matches
+        # Ensure we move at least on e step forward
         i += max(1, diff // k)
 
+    # If the key is not found, return -1
     return -1
 
 

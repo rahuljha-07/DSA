@@ -1,4 +1,5 @@
-﻿def findPivotInRotatedArray(arr):
+﻿# Function to find the pivot (smallest element) in the rotated sorted array
+def findPivotInRotatedArray(arr):
     n = len(arr)
     start = 0
     end = n - 1
@@ -20,6 +21,7 @@
     return -1
 
 
+# Standard binary search function
 def binarySearch(arr, start, end, target):
     while start <= end:
         mid = start + (end - start) // 2
@@ -33,19 +35,27 @@ def binarySearch(arr, start, end, target):
     return -1
 
 
+# Function to search an element in a rotated sorted array
 def searchInRotatedArray(arr, target):
     n = len(arr)
+    # Find the pivot in the rotated sorted array
     pivot = findPivotInRotatedArray(arr)
 
+    # If pivot is -1, it means the array is not rotated, so we can perform a binary search
+    # on the entire array
     if pivot == -1:
         return binarySearch(arr, 0, n - 1, target)
 
+    # If the target is equal to the pivot element, return pivot
     if arr[pivot] == target:
         return pivot
 
+    # Determine which side to search based on the pivot and target
     if pivot > 0 and target >= arr[0] and target <= arr[pivot - 1]:
+        # Target is in the left half
         return binarySearch(arr, 0, pivot - 1, target)
     else:
+        # Target is in the right half
         return binarySearch(arr, pivot, n - 1, target)
 
 

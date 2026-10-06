@@ -7,6 +7,7 @@ def LRSUtil(str, i, j, t):
 
     # Base case
     if i == 0 or j == 0:
+        # No further characters to compare
         return 0
 
     # If already calculated
@@ -16,6 +17,7 @@ def LRSUtil(str, i, j, t):
     # If characters match and indices are different
     if str[i - 1] == str[j - 1] and i != j:
 
+        # Otherwise, take the maximum of excluding either character
         t[i][j] = 1 + LRSUtil(
             str,
             i - 1,
@@ -30,16 +32,20 @@ def LRSUtil(str, i, j, t):
             LRSUtil(str, i - 1, j, t)
         )
 
+    # Return the computed result
     return t[i][j]
 
 
+# Function to find the length of the longest repeating subsequence
 def LongestRepeatingSubsequence_memo(str):
 
+    # Length of the input string
     n = len(str)
 
     # Initialize memoization table with -1
     t = [[-1 for _ in range(n + 1)] for _ in range(n + 1)]
 
+    # Call the utility function starting from the full length of the string
     return LRSUtil(str, n, n, t)
 
 

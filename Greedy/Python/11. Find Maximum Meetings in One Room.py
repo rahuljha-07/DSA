@@ -1,17 +1,27 @@
+# Function to find and print the maximum meetings
 def maxMeetings(start, end, n):
+    # list to store meeting details: start time, end time, and index
     meetings = []
+    # Populate the meetings list
     for i in range(n):
         meetings.append([start[i], end[i], i + 1])
     meetings.sort(key=lambda a: a[1])
     if n == 0:
         print()
         return
+    # Select the first meeting
     selectedMeetings = [meetings[0][2]]
+    # Set the time limit to the end time of the first meeting
     timeLimit = meetings[0][1]
+    # Traverse through the meetings and select the ones that can be attended
     for i in range(1, n):
+        # If the start time of the current meeting is greater than the time limit
         if meetings[i][0] > timeLimit:
+            # Select the meeting
             selectedMeetings.append(meetings[i][2])
+            # Update the time limit
             timeLimit = meetings[i][1]
+    # Print the selected meeting numbers
     for meeting in selectedMeetings:
         print(meeting, end=" ")
     print()

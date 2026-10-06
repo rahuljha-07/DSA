@@ -1,15 +1,25 @@
+# Function to calculate the minimum and maximum cost
 def candyStore(candies, n, k):
+    # Sort the candies prices in ascending order
     candies.sort()
+    # Calculate minimum cost
     minCost = 0
     left, right = 0, n - 1
     while left <= right:
+        # Buy candy from the start
         minCost += candies[left]
+        # Move to the next candy to buy
+        # Pointer to get candies for free from the start
         left += 1
+        # Take k candies for free
         right -= k
+    # Calculate maximum cost
     maxCost = 0
     left, right = 0, n - 1
     while left <= right:
+        # Buy candy from the end
         maxCost += candies[right]
+        # Pointer to buy candies from the end
         right -= 1
         left += k
     return minCost, maxCost

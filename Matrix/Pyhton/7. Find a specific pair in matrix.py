@@ -44,6 +44,7 @@ def maxDiff(matrix, n):
     return ans
 
 
+# Function to read matrix input and calculate the maximum difference
 def solve():
     n = int(input())
 

@@ -1,7 +1,9 @@
+# Function to check if the graph has an Eulerian path
 def hasEulerianPath(graph, startNode):
     oddDegreeCount = 0
     n = len(graph)
     active = []
+    # Count nodes with odd degree
     for i in range(n):
         degree = 0
         for j in range(n):
@@ -11,6 +13,7 @@ def hasEulerianPath(graph, startNode):
         if degree % 2 != 0:
             oddDegreeCount += 1
             startNode[0] = i
+    # An Eulerian trail needs zero or two odd-degree vertices, as well as connectivity.
     if oddDegreeCount not in (0, 2):
         return False
     if not active:
@@ -29,22 +32,27 @@ def hasEulerianPath(graph, startNode):
     return all(node in visited for node in active)
 
 
+# Helper function to find Eulerian path
 def findEulerianPath(graph, startNode):
     currentPath = [startNode] if graph else []
     eulerPath = []
     while currentPath:
         currentNode = currentPath[-1]
         edgeFound = False
+        # Search for a connected edge
         for nextNode in range(len(graph)):
             if graph[currentNode][nextNode] > 0:
+                # Remove the edge from the graph
                 graph[currentNode][nextNode] -= 1
                 graph[nextNode][currentNode] -= 1
                 currentPath.append(nextNode)
                 edgeFound = True
                 break
         if not edgeFound:
+            # Backtrack and add to Euler path
             eulerPath.append(currentNode)
             currentPath.pop()
+    # Print the Eulerian path
     for i in range(len(eulerPath) - 1, -1, -1):
         print(eulerPath[i] + 1, end="")
         if i != 0:

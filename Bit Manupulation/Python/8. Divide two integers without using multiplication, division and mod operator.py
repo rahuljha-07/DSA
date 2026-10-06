@@ -3,24 +3,37 @@ INT_MIN = -(1 << 31)
 
 
 def divide(a, b):
+    # Edge case: Division by 0
+    # Division by 0 is undefined
     if b == 0:
         return INT_MAX
     if a == INT_MIN and b == -1:
         return INT_MAX
+    # Determine the sign of the result
+    # XOR to check if signs are different
     negative = (a < 0) ^ (b < 0)
+    # Use absolute values to simplify calculations
     dividend = abs(a)
     divisor = abs(b)
     quotient = 0
+    # Perform bit manipulation to find the quotient
     while dividend >= divisor:
         temp = divisor
         multiple = 1
+        # Double the divisor until it exceeds the dividend
         while (temp << 1) <= dividend:
+            # Double the divisor
             temp <<= 1
+            # Double the multiplier
             multiple <<= 1
+        # Subtract the largest shifted divisor
         dividend -= temp
+        # Add the corresponding multiple to the quotient
         quotient += multiple
+    # Apply the sign to the result
     if negative:
         quotient = -quotient
+    # Clamp the result to the 32-bit integer range
     if quotient > INT_MAX:
         return INT_MAX
     if quotient < INT_MIN:

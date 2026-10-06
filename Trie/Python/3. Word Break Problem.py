@@ -5,45 +5,62 @@ class TrieNode:
 
 
 class Trie:
+    # Constructor to initialize the Trie
     def __init__(self):
+        # Create the root node
         self.root = TrieNode()
 
+    # Insert a word into the Trie
     def insert(self, word):
         node = self.root
         for c in word:
+            # Convert char to index (0 for 'a', 1 for 'b', ..., 25 for 'z')
             index = ord(c) - ord('a')
             if node.children[index] is None:
                 node.children[index] = TrieNode()
             node = node.children[index]
+        # Mark the end of the word
         node.isEndOfWord = True
 
+    # Search for a word in the Trie
     def search(self, word):
         node = self.root
         for c in word:
             index = ord(c) - ord('a')
             if node.children[index] is None:
+                # If a character does not exist, return false
                 return False
             node = node.children[index]
+        # Return true if it's the end of the word
         return node.isEndOfWord
 
+    # Check if a prefix exists in the Trie
     def startsWith(self, prefix):
         node = self.root
         for c in prefix:
             index = ord(c) - ord('a')
             if node.children[index] is None:
+                # If a prefix does not exist, return false
                 return False
             node = node.children[index]
         return True
 
 
+# Word Break without DP using recursion
 def wordBreakRecursive(s, trie, start):
     if start == len(s):
+        # If we've processed the entire string, return true
         return True
+    # Try all possible prefixes starting from the current position
     for end in range(start + 1, len(s) + 1):
         prefix = s[start:end]
         if trie.search(prefix):
+            # If the prefix exists in the Trie, recursively check the remaining part of the
+            # string
             if wordBreakRecursive(s, trie, end):
+                # If we can segment the rest of the string, return true
                 return True
+    # If no valid segmentation is found
     return False
 
 

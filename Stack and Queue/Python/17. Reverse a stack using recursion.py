@@ -1,4 +1,6 @@
-﻿def printStack(s):
+﻿# Function to print the elements of the stack without modifying it
+def printStack(s):
+    # Create a copy to preserve the original stack
     temp = s.copy()
     while len(temp) != 0:
         print(temp[-1], end=" ")
@@ -6,6 +8,7 @@
     print()
 
 
+# Recursive function to insert an element at the bottom of the stack
 def insertAtBottom(s, element):
     if len(s) == 0:
         s.append(element)
@@ -17,6 +20,7 @@ def insertAtBottom(s, element):
     s.append(topElement)
 
 
+# Recursive function to reverse the stack
 def performReverse(s):
     if len(s) == 0:
         return
@@ -27,6 +31,7 @@ def performReverse(s):
     insertAtBottom(s, topElement)
 
 
+# Function to reverse the stack using recursion
 def reverseStack(s):
     performReverse(s)
 

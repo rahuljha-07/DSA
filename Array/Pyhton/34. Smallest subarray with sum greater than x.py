@@ -6,10 +6,12 @@ def sb(arr, n, x):
     sz = float("inf")
 
     while j < n:
+        # Expand the window until its sum is strictly greater than x.
         while sum <= x and j < n:
             sum += arr[j]
             j += 1
 
+        # Shrink from the left while the sum still qualifies, recording shorter windows.
         while sum > x and i < n:
             sz = min(sz, j - i)
             sum -= arr[i]

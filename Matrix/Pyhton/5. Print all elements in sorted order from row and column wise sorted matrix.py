@@ -163,6 +163,7 @@ class Element:
 
 
 def printSortedMatrix_structure(matrix):
+    # Get the number of rows and columns
     n = len(matrix)
 
     if n == 0:

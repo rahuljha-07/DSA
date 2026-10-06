@@ -9,12 +9,17 @@ subtreeMap = {}
 duplicateRoots = []
 
 
+# Helper function to serialize subtrees and check for duplicates
 def findDuplicateSubtreesUtil(root):
+    # Use "#" to represent None nodes to avoid ambiguity
     if not root:
         return "#"
+    # Serialize left and right subtrees separately
     leftString = findDuplicateSubtreesUtil(root.left)
     rightString = findDuplicateSubtreesUtil(root.right)
+    # Form the final subtree string
     subtree = str(root.data) + "," + leftString + "," + rightString
+    # If this subtree has already appeared once, add its root to duplicateRoots
     if subtreeMap.get(subtree, 0) == 1:
         duplicateRoots.append(root)
     subtreeMap[subtree] = subtreeMap.get(subtree, 0) + 1
@@ -22,12 +27,17 @@ def findDuplicateSubtreesUtil(root):
 
 
 def findDuplicateSubtrees(root):
+    # Clear the map before starting
     subtreeMap.clear()
+    # Clear the duplicates list before starting
     duplicateRoots.clear()
+    # Populate the map and collect duplicate roots
     findDuplicateSubtreesUtil(root)
+    # Return all root nodes of duplicate subtrees
     return list(duplicateRoots)
 
 
+# Helper function to print a subtree rooted at the given node
 def printSubtree(root):
     if not root:
         return

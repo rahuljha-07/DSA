@@ -3,25 +3,37 @@ class Solution:
         self.dp = []
 
     def solve(self, e, f):
+        # Base Cases
+        # If we have only one egg, test all floors
         if e == 1:
             return f
+        # If there are no floors, no tests are needed
         if f == 0:
             return 0
+        # Check if result is already computed
         if self.dp[e][f] != -1:
             return self.dp[e][f]
         ans = float("inf")
+        # Try dropping an egg from each floor and calculate the worst-case scenario
         for k in range(1, f + 1):
+            # Egg breaks: Check floors below
             broken = self.solve(e - 1, k - 1)
+            # Egg does not break: Check floors above
             not_broken = self.solve(e, f - k)
+            # Take the worst-case scenario of these two
             maxval = max(broken, not_broken)
+            # Update the minimum attempts
             ans = min(ans, maxval + 1)
+        # Store the result in the memoization table
         self.dp[e][f] = ans
         return ans
 
     def eggDrop(self, e, f):
         if e < 1 or f < 0:
             raise ValueError("Egg count must be positive and floor count nonnegative")
+        # Initialize the memoization table with -1 using list
         self.dp = [[-1] * (f + 1) for _ in range(e + 1)]
+        # Solve the problem using the helper function
         return self.solve(e, f)
 
 

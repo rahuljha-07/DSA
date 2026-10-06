@@ -7,6 +7,7 @@ class Node:
         self.next = None
 
 
+# Function to convert the linked list to an integer
 def linkedListToNumber(head):
     num = 0
     while head is not None:
@@ -15,13 +16,17 @@ def linkedListToNumber(head):
     return num
 
 
+# Function to multiply two linked lists
 def multiplyTwoLists(L1, L2):
+    # Convert both linked lists to numbers
     num1 = linkedListToNumber(L1)
     num2 = linkedListToNumber(L2)
+    # Multiply the numbers and take modulo
     result = (num1 * num2) % MOD
     return result
 
 
+# Reverse the linked list
 def reverse(head):
     prev = None
     curr = head
@@ -34,6 +39,7 @@ def reverse(head):
     return prev
 
 
+# Function to add two numbers represented by linked lists
 def addLists(l1, l2):
     dummy = Node(0)
     temp = dummy
@@ -54,16 +60,20 @@ def addLists(l1, l2):
 def multiplyTwoListsAsList(L1, L2):
     if not L1 or not L2:
         return None
+    # Reverse both lists to make multiplication easier
     L1 = reverse(L1)
     L2 = reverse(L2)
     result = None
     tempResult = None
     tempL1 = L1
     positionShift = 0
+    # Multiply each digit of L1 with entire L2
     while tempL1:
         tempL2 = L2
+        # Dummy node for intermediate sum
         temp = Node(0)
         current = temp
+        # Add position shift (multiply by 10)
         for i in range(positionShift):
             current.next = Node(0)
             current = current.next
@@ -76,12 +86,15 @@ def multiplyTwoListsAsList(L1, L2):
             tempL2 = tempL2.next
         if carry:
             current.next = Node(carry)
+        # Add intermediate result to final result
         result = addLists(result, temp.next)
         positionShift += 1
         tempL1 = tempL1.next
+    # Reverse the result list to correct the order
     return reverse(result)
 
 
+# Function to print the linked list
 def printList(head):
     while head is not None:
         print(head.data, end="")
@@ -89,6 +102,7 @@ def printList(head):
     print()
 
 
+# Helper function to create a linked list from a number
 def createList(num):
     head = None
     tail = None

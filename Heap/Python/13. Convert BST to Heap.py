@@ -8,11 +8,15 @@ class Node:
         self.right = None
 
 
+# Helper function to perform inorder traversal and store the elements in a list
 def inorderTraversal(root, elements):
     if root is None:
         return
+    # Traverse left subtree
     inorderTraversal(root.left, elements)
+    # Visit node
     elements.append(root.data)
+    # Traverse right subtree
     inorderTraversal(root.right, elements)
 
 
@@ -20,9 +24,11 @@ def convertBSTToMinHeap(root, elements):
     if not root:
         return
     q = deque([root])
+    # Index to track elements from the sorted array
     idx = 0
     while q:
         current = q.popleft()
+        # Assign the next smallest element
         current.data = elements[idx]
         idx += 1
         if current.left:
@@ -32,12 +38,14 @@ def convertBSTToMinHeap(root, elements):
 
 
 def convertToMinHeap(root):
+    # Step 1: Perform inorder traversal and store elements in a sorted list
     elements = []
     inorderTraversal(root, elements)
     convertBSTToMinHeap(root, elements)
     return root
 
 
+# Function to print the tree in level order (for testing)
 def levelOrderTraversal(root):
     if not root:
         return
