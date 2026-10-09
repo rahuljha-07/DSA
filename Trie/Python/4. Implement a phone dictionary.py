@@ -1,5 +1,3 @@
-import sys
-
 
 class TrieNode:
     def __init__(self):
@@ -37,17 +35,25 @@ class Trie:
 
 
 def main():
-    tokens = iter(sys.stdin.read().split())
-    n = int(next(tokens))
-    contact = [next(tokens) for _ in range(n)]
-    query = next(tokens)
+    n = int(input())
+    contacts = input().split()
+    query = input()
+
     trie = Trie()
-    for contact_str in contact:
-        trie.insert(contact_str)
+
+    # Insert all contacts into the Trie
+    for contact in contacts:
+        trie.insert(contact)
+
+    # Search contacts for every prefix of the query
     for i in range(1, len(query) + 1):
         prefix = query[:i]
         result = trie.getContactsByPrefix(prefix)
-        print(*result) if result else print("0")
+
+        if result:
+            print(*result)
+        else:
+            print("0")
 
 
 if __name__ == "__main__":

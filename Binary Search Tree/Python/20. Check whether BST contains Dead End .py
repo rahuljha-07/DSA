@@ -7,24 +7,30 @@ class Node:
 
 # Helper function to recursively check for dead ends in the BST
 def checkDeadEnd(root, minVal, maxVal, hasDeadEnd):
-    # Base case: If the node is None, return
+    # Base case
     if not root or hasDeadEnd[0]:
         return
+
+    # Step 1: Recursively check left and right subtrees
+    checkDeadEnd(root.left, minVal, root.data - 1, hasDeadEnd)
+    checkDeadEnd(root.right, root.data + 1, maxVal, hasDeadEnd)
+
+    # Step 2: Check if current node is a leaf
     if not root.left and not root.right:
-        # If the node's value is at the boundary of the valid range, it's a dead end
+        # No valid integer can be inserted here
         if minVal == maxVal:
             hasDeadEnd[0] = True
             return
-    # Recursively check the left and right subtrees with updated ranges
-    checkDeadEnd(root.left, minVal, root.data - 1, hasDeadEnd)
-    checkDeadEnd(root.right, root.data + 1, maxVal, hasDeadEnd)
 
 
 def isDeadEnd(root):
     # Flag to track if a dead end is found
     hasDeadEnd = [False]
     # Initial call with the full range
-    checkDeadEnd(root, 1, 2147483647, hasDeadEnd)
+    mini = 1
+    maxi = float('inf')
+
+    checkDeadEnd(root, mini, maxi, hasDeadEnd)
     # Return the result (true if a dead end is found, false otherwise)
     return hasDeadEnd[0]
 

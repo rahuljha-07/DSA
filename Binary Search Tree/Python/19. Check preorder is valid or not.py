@@ -29,25 +29,6 @@ class Solution:
         return int(self.index == N)
 
 
-# gpt
-def canRepresentBSTUsingBranches(arr, n):
-    s = []
-    parent = float("-inf")
-    for i in range(n):
-        if not s or arr[i] < s[-1]:
-            if parent > arr[i]:
-                return 0
-            s.append(arr[i])
-        else:
-            # Step 2: Pop smaller ancestors -> we're entering the right subtree
-            while s and s[-1] < arr[i]:
-                parent = s.pop()
-            # Step 3: Push current node onto stack (left or right child of last node)
-            s.append(arr[i])
-    # All values respected BST preorder rules
-    return 1
-
-
 # kashish mahendatta video
 def canRepresentBST(arr, n):
     # Stack to track nodes while constructing BST

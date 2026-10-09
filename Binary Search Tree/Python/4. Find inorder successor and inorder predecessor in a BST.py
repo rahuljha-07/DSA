@@ -5,35 +5,50 @@ class Node:
         self.right = None
 
 
-# / Function to find predecessor and successor
-def findPreSuc(root, pre, suc, key):
+# Global variables to store predecessor and successor
+pre = None
+suc = None
+
+
+def findPreSuc(root, key):
+    global pre, suc
+
+    # Base case: stop if node is None
     if not root:
-        return pre, suc
-    # Traverse left subtree to find potential predecessor
-    pre, suc = findPreSuc(root.left, pre, suc, key)
+        return
+
+    # Step 1: Traverse left subtree
+    findPreSuc(root.left, key)
+
+    # Step 2: Process current node
     if root.key < key:
-        # Update predecessor
+        # Last smaller value found becomes predecessor
         pre = root
-    elif root.key > key and not suc:
-        # Update successor if it's the first larger node found
+    elif root.key > key and suc is None:
+        # First greater value found becomes successor
         suc = root
-    # Traverse right subtree to find potential successor
-    pre, suc = findPreSuc(root.right, pre, suc, key)
-    return pre, suc
+
+    # Step 3: Traverse right subtree
+    findPreSuc(root.right, key)
 
 
-# Helper function to insert a node in BST
+# Insert a node into BST
 def insert(root, key):
     if not root:
         return Node(key)
+
     if key < root.key:
         root.left = insert(root.left, key)
     elif key > root.key:
         root.right = insert(root.right, key)
+
     return root
 
 
 def main():
+    global pre, suc
+
+    # Create BST
     root = None
     root = insert(root, 50)
     insert(root, 30)
@@ -42,10 +57,16 @@ def main():
     insert(root, 70)
     insert(root, 60)
     insert(root, 80)
+
     key = 65
+
+    # Reset predecessor and successor before searching
     pre = None
     suc = None
-    pre, suc = findPreSuc(root, pre, suc, key)
+
+    # Find predecessor and successor
+    findPreSuc(root, key)
+
     print(f"Predecessor is {pre.key}" if pre else "No Predecessor")
     print(f"Successor is {suc.key}" if suc else "No Successor")
 
@@ -54,10 +75,18 @@ if __name__ == "__main__":
     main()
 
 
-'''
-Let n be the node count and h tree height.
-Time: O(n): this implementation traverses the ENTIRE tree in order; it
-does not prune BST branches to obtain an O(h) search.
-Space: O(h) auxiliary for recursive calls. Returning pre/suc replaces
-C++ reference parameters without allocating a list of all nodes.
-'''
+"""
+Time Complexity: O(n)
+- We visit every node using inorder traversal.
+
+Space Complexity: O(h)
+- Recursive call stack depends on tree height.
+- Balanced BST: O(log n)
+- Skewed BST: O(n)
+
+Inorder traversal: Left -> Root -> Right
+BST inorder gives sorted values.
+
+Predecessor = largest value smaller than key.
+Successor = smallest value greater than key.
+"""
